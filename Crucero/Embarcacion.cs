@@ -10,9 +10,9 @@ namespace Crucero
     {
         private string matricula;
         private string nombre;
-        private List<Camarote> camarotes;
-        private List<eSalones> salones;
-        private List<eCasinos> casinos;
+        private List<Camarote> camarotes;//35% son premium
+        private int cantidadSalones;
+        private int cantidadCasinos;
         private float capacidadBodega;
 
     }

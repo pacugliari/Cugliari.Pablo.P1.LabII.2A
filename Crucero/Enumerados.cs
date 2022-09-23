@@ -1,5 +1,6 @@
-﻿public enum eSudamerica
+﻿public enum eCiudades
 {
+    //SUDAMERICA
     Montevideo_Uruguay,
     Ushuaia_Argentina,
     Recife_Brasil,
@@ -9,11 +10,8 @@
     IslaGalapagos_Ecuador,
     PuertoMadryn_Argentina,
     RioDeJaneiro_Brasil,
-    Cartagena_Colombia
-}
-
-public enum eRestoDelMundo
-{
+    Cartagena_Colombia,
+    //RESTO DEL MUNDO
     LaHabana_Cuba,
     Venecia_Italia,
     Acapulco_Mexico,
@@ -23,6 +21,7 @@ public enum eRestoDelMundo
     Taipei_Taiwan,
     Atenas_Grecia
 }
+
 
 public enum ePaises
 {
@@ -39,7 +38,8 @@ public enum ePaises
     EEUU,
     Tailandia,
     Taiwan,
-    Gracia
+    Gracia,
+    Vacio
 }
 
 public enum eCasinos

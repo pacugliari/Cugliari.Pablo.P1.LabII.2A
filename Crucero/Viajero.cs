@@ -10,6 +10,8 @@ namespace Crucero
     {
         private int edad;
         private Pasaporte pasaporte;
+        private bool esPremium;
+        private Equipaje equipaje;
 
         public Viajero(string nombre, string apellido, char sexo, ePaises nacionalidad, DateTime fechaNacimiento,
             string numeroDocumento, string domicilio, string lugarNacimiento, string numeroDocumentoViaje, DateTime fechaEmision,

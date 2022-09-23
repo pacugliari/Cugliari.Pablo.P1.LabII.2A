@@ -8,5 +8,7 @@ namespace Crucero
 {
     public class Camarote
     {
+        private List<Viajero> pasajeros;
+        private bool estaDisponible;
     }
 }

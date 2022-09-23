@@ -13,8 +13,15 @@ namespace Crucero
         private string domicilio;
         private string lugarNacimiento;
 
+        public Persona()
+        {
+            this.nombre = this.apellido = this.numeroDocumento = this.domicilio = this.lugarNacimiento = "";
+            this.sexo = ' ';
+            this.nacionalidad = ePaises.Vacio;
+            this.fechaNacimiento = new DateTime();
+        }
 
-        public Persona(string nombre, string apellido)
+        public Persona(string nombre, string apellido):this()
         {
             this.nombre = nombre;
             this.apellido = apellido;

@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "CruceroGUI/1.0.0": {
+        "dependencies": {
+          "Crucero": "1.0.0"
+        },
+        "runtime": {
+          "CruceroGUI.dll": {}
+        }
+      },
+      "Crucero/1.0.0": {
+        "runtime": {
+          "Crucero.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CruceroGUI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Crucero/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
