@@ -2,7 +2,7 @@
 
 namespace Cugliari.Pablo.P1.LabII._2A
 {
-    class Program
+    class Test
     {
         static void Main(string[] args)
         {

@@ -18,5 +18,12 @@ namespace CruceroGUI
             InitializeComponent();
             this.txtInformacionVendedor.Text = (string)usuario;
         }
+
+        private void btnViajes_Click(object sender, EventArgs e)
+        {
+            ViajesForm viajes = new ViajesForm();
+
+            viajes.ShowDialog();
+        }
     }
 }

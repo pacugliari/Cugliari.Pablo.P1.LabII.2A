@@ -19,7 +19,8 @@
     NuevaYork_EEUU,
     Bangkok_Tailandia,
     Taipei_Taiwan,
-    Atenas_Grecia
+    Atenas_Grecia,
+    BuenosAires_Argentina
 }
 
 

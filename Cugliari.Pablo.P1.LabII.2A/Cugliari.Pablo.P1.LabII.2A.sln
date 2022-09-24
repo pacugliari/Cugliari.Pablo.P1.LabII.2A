@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32802.440
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cugliari.Pablo.P1.LabII.2A", "Cugliari.Pablo.P1.LabII.2A.csproj", "{C5FC1B4B-1124-4F7D-9FDA-B8B71BBF8F12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CruceroTest", "CruceroTest.csproj", "{C5FC1B4B-1124-4F7D-9FDA-B8B71BBF8F12}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crucero", "..\Crucero\Crucero.csproj", "{E42FD5FA-FFAB-49D6-B56B-35AEB7F47619}"
 EndProject
