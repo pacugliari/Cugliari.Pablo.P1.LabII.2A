@@ -17,11 +17,22 @@ namespace CruceroGUI
         private Flota flota;
         private Viaje viaje;
         private bool fechaElegida;
+        private Embarcacion cruceroElegido;
+        
+        private string ciudadPartida;
+        private string ciudadDeDestino;
+        private DateTime fechaInicioViaje;
+        private string nombreDeCrucero;
+        private int cantCamarotesPremium;
+        private int cantCamarotesTurista;
+        private float costoDeTurista;
+        private float costoDePremium;
+        private int duracionDeViaje;
+
         public ViajesForm()
         {
             InitializeComponent();
             this.flota = new Flota();
-            this.viaje = new Viaje();
             this.fechaElegida = false;
 
             //MUESTRA INFORMACION AYUDA PASANDO EL MOUSE SOBRE ARRIBA DEL CONTROL
@@ -29,18 +40,14 @@ namespace CruceroGUI
             yourToolTip.ToolTipIcon = ToolTipIcon.Info;
             yourToolTip.IsBalloon = true;
             yourToolTip.ShowAlways = true;
-            /*
-            yourToolTip.SetToolTip(this.lblCCP, "Cantidad de camarotes disponibles para clase premium");
-            yourToolTip.SetToolTip(this.lblCCT, "Cantidad de camarotes disponibles para clase turista");
-            yourToolTip.SetToolTip(this.lblP, "Costo del viaje clase premium en dolares");
-            yourToolTip.SetToolTip(this.lblT, "Costo del viaje clase turista en dolares");*/
+
             //-----------------
 
             //CARGO LAS CIUDADES DE PARTIDA Y DESTINO
             this.comboBoxCiudadPartida.Items.Add(eCiudades.BuenosAires_Argentina);
             this.comboBoxCiudadPartida.SelectedIndex = 0;
             this.comboBoxCiudadPartida.Enabled = false;
-            this.viaje.CiudadPartida = this.comboBoxCiudadPartida.Text.ToString();
+            this.ciudadPartida = this.comboBoxCiudadPartida.Text.ToString();
 
             foreach (eCiudades item in Enum.GetValues(typeof(eCiudades)))
             {
@@ -59,18 +66,19 @@ namespace CruceroGUI
             this.dateTimePickerFechaViaje.Value = DateTime.Now;
             this.dateTimePickerFechaViaje.MinDate = this.dateTimePickerFechaViaje.Value;
 
+
+            //PARAMETROS LISTA VIAJES
+            this.dgvListaViajes.AllowUserToAddRows = false;
         }
 
         private void comboBoxCrucero_SelectedIndexChanged(object sender, EventArgs e)
         {
             string nombreCruceroElegido = this.comboBoxCrucero.Text.ToString();
-            Embarcacion cruceroElegido = this.flota.obtenerEmbarcacionDeNombre(nombreCruceroElegido);
-            int camarotesPremium = cruceroElegido.CamarotesPremium();
-            int camarotesTurista = cruceroElegido.CamarotesTurista();
-            this.viaje.Crucero = cruceroElegido;
-            this.viaje.CantidadCamarotesPremium = camarotesPremium;
-            this.viaje.CantidadCamarotesTurista = camarotesTurista;
-            this.textBoxCCP.Text = camarotesPremium.ToString();
+            this.cruceroElegido = this.flota.obtenerEmbarcacionDeNombre(nombreCruceroElegido);
+            int camarotesPremium  = this.cantCamarotesPremium = cruceroElegido.CamarotesPremium();
+            int camarotesTurista = this.cantCamarotesTurista = cruceroElegido.CamarotesTurista();
+            this.nombreDeCrucero = nombreCruceroElegido;
+            this.textBoxCCP.Text  = camarotesPremium.ToString();
             this.textBoxCCT.Text = camarotesTurista.ToString();
             
         }
@@ -85,10 +93,10 @@ namespace CruceroGUI
             this.textBoxDuracionViaje.Text = duracion.ToString();
             this.textBoxCostoViajeTurista.Text = "$"+ costoTurista.ToString();
             this.textBoxCostoViajePremium.Text = "$" + costoPremium.ToString();
-            this.viaje.CiudadDestino = nombreDestinoElegido;
-            this.viaje.DuracionViaje = duracion;
-            this.viaje.CostoTurista = costoTurista;
-            this.viaje.CostoPremium = costoPremium;
+            this.ciudadDeDestino = nombreDestinoElegido;
+            this.duracionDeViaje = duracion;
+            this.costoDePremium = costoPremium;
+            this.costoDeTurista = costoTurista;
 
         }
 
@@ -96,7 +104,12 @@ namespace CruceroGUI
         {
             if (this.comboBoxCrucero.Text != "" && this.comboBoxCiudadDestino.Text != "" && this.fechaElegida)
             {
-                this.listBoxListaViajes.Items.Add((string)this.viaje);
+                this.viaje = new Viaje(this.ciudadPartida, this.ciudadDeDestino, this.fechaInicioViaje, this.cruceroElegido, this.cantCamarotesPremium, this.cantCamarotesTurista,
+                    this.costoDePremium, this.costoDeTurista, this.duracionDeViaje);
+                this.dgvListaViajes.Rows.Add(this.ciudadPartida, this.ciudadDeDestino,this.nombreDeCrucero,this.fechaInicioViaje,this.cantCamarotesPremium,this.cantCamarotesTurista,
+                    "$" + this.costoDePremium.ToString(), "$"+this.costoDeTurista.ToString(),this.duracionDeViaje);
+
+
             }
             else
                 MessageBox.Show("Debe completar los campos:\n-Crucero\n-Ciudad de Destino\n-Fecha de viaje","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -107,9 +120,28 @@ namespace CruceroGUI
             
             if (this.dateTimePickerFechaViaje.Checked)
             {
-                this.viaje.FechaInicioViaje = this.dateTimePickerFechaViaje.Value;
+                this.fechaInicioViaje = this.dateTimePickerFechaViaje.Value;
                 this.fechaElegida = true;
             }
+        }
+
+        private void dgvListaViajes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (this.dgvListaViajes.Rows.Count > 0)
+            {
+                this.dgvListaViajes.CurrentRow.Selected = true;
+                this.btnBorrarViaje.Enabled = true;
+            }else
+                this.btnBorrarViaje.Enabled = false;
+
+        }
+
+        private void btnBorrarViaje_Click(object sender, EventArgs e)
+        {
+            if(this.dgvListaViajes.Rows.Count > 0 )
+                this.dgvListaViajes.Rows.Remove(this.dgvListaViajes.CurrentRow);
+            
+            this.btnBorrarViaje.Enabled = false;
         }
     }
 }

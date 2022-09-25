@@ -17,6 +17,20 @@ namespace Crucero
         private float costoTurista;
         private float costoPremium;
         private int duracionViaje;
+
+        public Viaje(string ciudadPartida, string ciudadDestino, DateTime fechaInicioViaje, Embarcacion crucero,
+            int cantidadCamarotesPremium, int cantidadCamarotesTurista, float costoTurista, float costoPremium, int duracionViaje)
+        {
+            Enum.TryParse(ciudadPartida, out this.ciudadPartida);
+            Enum.TryParse(ciudadDestino, out this.ciudadDestino);
+            this.fechaInicioViaje = fechaInicioViaje;
+            this.crucero = crucero;
+            this.cantidadCamarotesPremium = cantidadCamarotesPremium;
+            this.cantidadCamarotesTurista = cantidadCamarotesTurista;
+            this.costoTurista = costoTurista;
+            this.costoPremium = costoPremium;
+            this.duracionViaje = duracionViaje;
+        }
         
         public static explicit operator string(Viaje viaje)
         {
@@ -72,75 +86,5 @@ namespace Crucero
             return duracion;
         }
 
-
-        public DateTime FechaInicioViaje
-        {
-            set
-            {
-                this.fechaInicioViaje = value;
-            }
-        }
-
-        public int DuracionViaje
-        {
-            set
-            {
-                this.duracionViaje = value;
-            }
-        }
-
-        public float CostoTurista
-        {
-            set
-            {
-                this.costoTurista = value;
-            }
-        }
-        public float CostoPremium
-        {
-            set
-            {
-                this.costoPremium = value;
-            }
-        }
-
-        public int CantidadCamarotesPremium
-        {
-            set
-            {
-                this.cantidadCamarotesPremium = value;
-            }
-        }
-        public int CantidadCamarotesTurista
-        {
-            set
-            {
-                this.cantidadCamarotesTurista = value;
-            }
-        }
-
-        public string CiudadPartida
-        {
-            set
-            {
-                Enum.TryParse(value, out this.ciudadPartida);
-            }
-        }
-
-        public Embarcacion Crucero
-        {
-            set
-            {
-                this.crucero = value;
-            }
-        }
-
-        public string CiudadDestino
-        {
-            set
-            {
-                Enum.TryParse(value, out this.ciudadDestino);
-            }
-        }
     }
 }
