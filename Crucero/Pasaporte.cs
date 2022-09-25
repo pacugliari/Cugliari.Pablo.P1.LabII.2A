@@ -11,13 +11,13 @@ namespace Crucero
         private string numeroDocumentoViaje;//ZZZ000104
         private DateTime fechaEmision;
         private DateTime fechaVencimiento;
-        private char tipoPasaporte;//P
-        private string codigoPaisExterior;//ARG
-        private string autoridadExpedidora;//RENAPER
+        private ePasaportes tipoPasaporte;
+        private string codigoPaisExterior;
+        private string autoridadExpedidora;
 
         public Pasaporte(string nombre, string apellido, char sexo, ePaises nacionalidad, DateTime fechaNacimiento, 
             string numeroDocumento,string domicilio, string lugarNacimiento,string numeroDocumentoViaje,DateTime fechaEmision,
-            DateTime fechaVencimiento, char tipoPasaporte, string codigoPaisExterior, string autoridadExpedidora) : base(nombre,apellido,
+            DateTime fechaVencimiento, ePasaportes tipoPasaporte, string codigoPaisExterior, string autoridadExpedidora) : base(nombre,apellido,
                 sexo,nacionalidad,fechaNacimiento,numeroDocumento,domicilio,lugarNacimiento)
         {
             this.numeroDocumentoViaje = numeroDocumentoViaje;

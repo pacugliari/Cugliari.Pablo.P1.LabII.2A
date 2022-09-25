@@ -15,7 +15,7 @@ namespace CruceroGUI
     {
 
         private Flota flota;
-        private Viaje viaje;
+        private List<Viaje> listaViajes;
         private bool fechaElegida;
         private Embarcacion cruceroElegido;
         
@@ -29,11 +29,12 @@ namespace CruceroGUI
         private float costoDePremium;
         private int duracionDeViaje;
 
-        public ViajesForm()
+        public ViajesForm(List<Viaje> listaViajes,Flota flota)
         {
             InitializeComponent();
-            this.flota = new Flota();
+            this.flota = flota;
             this.fechaElegida = false;
+            this.listaViajes = listaViajes;
 
             //MUESTRA INFORMACION AYUDA PASANDO EL MOUSE SOBRE ARRIBA DEL CONTROL
             ToolTip yourToolTip = new ToolTip();
@@ -69,6 +70,7 @@ namespace CruceroGUI
 
             //PARAMETROS LISTA VIAJES
             this.dgvListaViajes.AllowUserToAddRows = false;
+            this.dgvListaViajes.AllowUserToDeleteRows = false;
         }
 
         private void comboBoxCrucero_SelectedIndexChanged(object sender, EventArgs e)
@@ -100,16 +102,25 @@ namespace CruceroGUI
 
         }
 
+        private void actualizar()
+        {
+            this.dgvListaViajes.Rows.Clear();
+            foreach (Viaje item in this.listaViajes)
+            {
+                this.dgvListaViajes.Rows.Add(item.CiudadPartida, item.CiudadDestino, item.Crucero, item.FechaInicioViaje,
+                                    item.CantidadCamarotesPremium, item.CantidadCamarotesTurista,
+                                    item.CostoPremium, item.CostoTurista, item.DuracionViaje);
+            }
+        }
+
         private void btnCrearViaje_Click(object sender, EventArgs e)
         {
             if (this.comboBoxCrucero.Text != "" && this.comboBoxCiudadDestino.Text != "" && this.fechaElegida)
             {
-                this.viaje = new Viaje(this.ciudadPartida, this.ciudadDeDestino, this.fechaInicioViaje, this.cruceroElegido, this.cantCamarotesPremium, this.cantCamarotesTurista,
+                Viaje  viajeNuevo = new Viaje(this.ciudadPartida, this.ciudadDeDestino, this.fechaInicioViaje, this.cruceroElegido, this.cantCamarotesPremium, this.cantCamarotesTurista,
                     this.costoDePremium, this.costoDeTurista, this.duracionDeViaje);
-                this.dgvListaViajes.Rows.Add(this.ciudadPartida, this.ciudadDeDestino,this.nombreDeCrucero,this.fechaInicioViaje,this.cantCamarotesPremium,this.cantCamarotesTurista,
-                    "$" + this.costoDePremium.ToString(), "$"+this.costoDeTurista.ToString(),this.duracionDeViaje);
-
-
+                this.listaViajes.Add(viajeNuevo);
+                this.actualizar();
             }
             else
                 MessageBox.Show("Debe completar los campos:\n-Crucero\n-Ciudad de Destino\n-Fecha de viaje","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -138,8 +149,11 @@ namespace CruceroGUI
 
         private void btnBorrarViaje_Click(object sender, EventArgs e)
         {
-            if(this.dgvListaViajes.Rows.Count > 0 )
-                this.dgvListaViajes.Rows.Remove(this.dgvListaViajes.CurrentRow);
+            if(this.dgvListaViajes.Rows.Count > 0)
+            {
+                this.listaViajes.RemoveAt(this.dgvListaViajes.CurrentRow.Index);
+                this.actualizar();
+            }
             
             this.btnBorrarViaje.Enabled = false;
         }

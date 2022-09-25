@@ -18,6 +18,40 @@ namespace Crucero
         private float costoPremium;
         private int duracionViaje;
 
+        public string CiudadPartida{get { return this.ciudadPartida.ToString();}}
+        public string CiudadDestino { get { return this.ciudadDestino.ToString();}}
+        public DateTime FechaInicioViaje { get { return this.fechaInicioViaje; } }
+        public string Crucero { get { return (string)this.crucero; } }
+        public string CantidadCamarotesPremium { get { return this.cantidadCamarotesPremium.ToString(); } }
+        public string CantidadCamarotesTurista { get { return this.cantidadCamarotesTurista.ToString(); } }
+        public string CostoTurista { get { return "$"+this.costoTurista.ToString(); } }
+        public string CostoPremium { get { return "$" + this.costoPremium.ToString(); } }
+        public int DuracionViaje { get { return this.duracionViaje; } }
+
+        public static bool operator ==(Embarcacion crucero,Viaje viaje)
+        {
+            return (string)crucero == (string)viaje.crucero;
+        }
+
+        public static bool operator !=(Embarcacion crucero, Viaje viaje)
+        {
+            return !(crucero == viaje);
+        }
+
+        public static List<Viaje> filtrarViajes(List<Viaje> listaViajes ,List<Embarcacion> listaCruceros)
+        {
+            List<Viaje> filtrada = new List<Viaje>();
+            foreach (Embarcacion cruceroIndice in listaCruceros)
+            {
+                foreach (Viaje viajeIndice in listaViajes)
+                {
+                    if (cruceroIndice == viajeIndice)
+                        filtrada.Add(viajeIndice);
+                }
+            }
+
+            return filtrada;
+        }
         public Viaje(string ciudadPartida, string ciudadDestino, DateTime fechaInicioViaje, Embarcacion crucero,
             int cantidadCamarotesPremium, int cantidadCamarotesTurista, float costoTurista, float costoPremium, int duracionViaje)
         {
@@ -31,17 +65,6 @@ namespace Crucero
             this.costoPremium = costoPremium;
             this.duracionViaje = duracionViaje;
         }
-        
-        public static explicit operator string(Viaje viaje)
-        {
-            StringBuilder texto = new StringBuilder();
-            texto.AppendLine($"{viaje.ciudadPartida} | {viaje.ciudadDestino} | {(string)viaje.crucero} | {viaje.fechaInicioViaje}           | " +
-                $"{viaje.cantidadCamarotesPremium}      | {viaje.cantidadCamarotesTurista}      | ${viaje.costoPremium} | ${viaje.costoTurista} | " +
-                $"{viaje.duracionViaje}");
-
-            return texto.ToString();
-        }
-
 
         private static bool esRegional(string nombreDestino)
         {

@@ -32,6 +32,7 @@ namespace CruceroGUI
             this.txtInformacionVendedor = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnVentaViajes = new System.Windows.Forms.Button();
             this.btnViajes = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -59,6 +60,7 @@ namespace CruceroGUI
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnVentaViajes);
             this.groupBox2.Controls.Add(this.btnViajes);
             this.groupBox2.Location = new System.Drawing.Point(12, 143);
             this.groupBox2.Name = "groupBox2";
@@ -67,11 +69,21 @@ namespace CruceroGUI
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Menu:";
             // 
+            // btnVentaViajes
+            // 
+            this.btnVentaViajes.Location = new System.Drawing.Point(18, 91);
+            this.btnVentaViajes.Name = "btnVentaViajes";
+            this.btnVentaViajes.Size = new System.Drawing.Size(145, 29);
+            this.btnVentaViajes.TabIndex = 1;
+            this.btnVentaViajes.Text = "Venta de viajes";
+            this.btnVentaViajes.UseVisualStyleBackColor = true;
+            this.btnVentaViajes.Click += new System.EventHandler(this.btnVentaViajes_Click);
+            // 
             // btnViajes
             // 
             this.btnViajes.Location = new System.Drawing.Point(18, 43);
             this.btnViajes.Name = "btnViajes";
-            this.btnViajes.Size = new System.Drawing.Size(94, 29);
+            this.btnViajes.Size = new System.Drawing.Size(145, 29);
             this.btnViajes.TabIndex = 0;
             this.btnViajes.Text = "Viajes";
             this.btnViajes.UseVisualStyleBackColor = true;
@@ -99,5 +111,6 @@ namespace CruceroGUI
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnViajes;
+        private System.Windows.Forms.Button btnVentaViajes;
     }
 }

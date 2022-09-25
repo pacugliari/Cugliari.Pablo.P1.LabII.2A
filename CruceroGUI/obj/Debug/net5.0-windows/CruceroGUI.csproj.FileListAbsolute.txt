@@ -21,3 +21,4 @@ C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\CruceroGUI\obj\Debug\net5.0-wind
 C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\CruceroGUI\obj\Debug\net5.0-windows\CruceroGUI.genruntimeconfig.cache
 C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\CruceroGUI\obj\Debug\net5.0-windows\CruceroGUI.Menu.resources
 C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\CruceroGUI\obj\Debug\net5.0-windows\CruceroGUI.ViajesForm.resources
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\CruceroGUI\obj\Debug\net5.0-windows\CruceroGUI.VentaViajesForm.resources

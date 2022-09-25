@@ -43,13 +43,24 @@ public enum ePaises
     Vacio
 }
 
-public enum eCasinos
+public enum ePasaportes
 {
-
+    Especial,
+    Diplomatico,
+    Ordinario
 }
 
 public enum eSalones
 {
-
+    Comedor,
+    Casino,
+    Gimnasio,
+    Piscina,
+    Spa,
+    Bar,
+    Teatro,
+    Cine,
+    Galeria,
+    Discoteca,
 }
 
