@@ -45,13 +45,20 @@ namespace Crucero
             {
                 foreach (Viaje viajeIndice in listaViajes)
                 {
-                    if (cruceroIndice == viajeIndice)
+                    if (cruceroIndice == viajeIndice && cruceroIndice.EstaDisponible)
                         filtrada.Add(viajeIndice);
                 }
             }
 
             return filtrada;
         }
+
+        public Viaje()
+        {
+            this.ciudadPartida = eCiudades.BuenosAires_Argentina;
+            
+        }
+
         public Viaje(string ciudadPartida, string ciudadDestino, DateTime fechaInicioViaje, Embarcacion crucero,
             int cantidadCamarotesPremium, int cantidadCamarotesTurista, float costoTurista, float costoPremium, int duracionViaje)
         {
@@ -108,6 +115,17 @@ namespace Crucero
 
             return duracion;
         }
+
+        public float calcularCostos(List<Viajero> listaViajeros)
+        {
+            int cantidadDeTuristas=0;
+            int cantidadDePremium=0;
+
+            Embarcacion.contarTiposPasajeros(listaViajeros,out cantidadDeTuristas,out cantidadDePremium);
+
+            return (cantidadDeTuristas * this.costoTurista) + (cantidadDePremium * this.costoPremium);
+        }
+
 
     }
 }

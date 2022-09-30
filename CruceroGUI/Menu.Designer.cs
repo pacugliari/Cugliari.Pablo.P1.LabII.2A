@@ -32,6 +32,8 @@ namespace CruceroGUI
             this.txtInformacionVendedor = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnInformesHistoricos = new System.Windows.Forms.Button();
+            this.btnInformes = new System.Windows.Forms.Button();
             this.btnVentaViajes = new System.Windows.Forms.Button();
             this.btnViajes = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -60,18 +62,40 @@ namespace CruceroGUI
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnInformesHistoricos);
+            this.groupBox2.Controls.Add(this.btnInformes);
             this.groupBox2.Controls.Add(this.btnVentaViajes);
             this.groupBox2.Controls.Add(this.btnViajes);
             this.groupBox2.Location = new System.Drawing.Point(12, 143);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(776, 295);
+            this.groupBox2.Size = new System.Drawing.Size(250, 261);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Menu:";
             // 
+            // btnInformesHistoricos
+            // 
+            this.btnInformesHistoricos.Location = new System.Drawing.Point(52, 197);
+            this.btnInformesHistoricos.Name = "btnInformesHistoricos";
+            this.btnInformesHistoricos.Size = new System.Drawing.Size(145, 29);
+            this.btnInformesHistoricos.TabIndex = 3;
+            this.btnInformesHistoricos.Text = "Informes historicos";
+            this.btnInformesHistoricos.UseVisualStyleBackColor = true;
+            this.btnInformesHistoricos.Click += new System.EventHandler(this.btnInformesHistoricos_Click);
+            // 
+            // btnInformes
+            // 
+            this.btnInformes.Location = new System.Drawing.Point(52, 142);
+            this.btnInformes.Name = "btnInformes";
+            this.btnInformes.Size = new System.Drawing.Size(145, 29);
+            this.btnInformes.TabIndex = 2;
+            this.btnInformes.Text = "Informes";
+            this.btnInformes.UseVisualStyleBackColor = true;
+            this.btnInformes.Click += new System.EventHandler(this.btnInformes_Click);
+            // 
             // btnVentaViajes
             // 
-            this.btnVentaViajes.Location = new System.Drawing.Point(18, 91);
+            this.btnVentaViajes.Location = new System.Drawing.Point(52, 89);
             this.btnVentaViajes.Name = "btnVentaViajes";
             this.btnVentaViajes.Size = new System.Drawing.Size(145, 29);
             this.btnVentaViajes.TabIndex = 1;
@@ -81,11 +105,11 @@ namespace CruceroGUI
             // 
             // btnViajes
             // 
-            this.btnViajes.Location = new System.Drawing.Point(18, 43);
+            this.btnViajes.Location = new System.Drawing.Point(52, 41);
             this.btnViajes.Name = "btnViajes";
             this.btnViajes.Size = new System.Drawing.Size(145, 29);
             this.btnViajes.TabIndex = 0;
-            this.btnViajes.Text = "Viajes";
+            this.btnViajes.Text = "Alta viajes";
             this.btnViajes.UseVisualStyleBackColor = true;
             this.btnViajes.Click += new System.EventHandler(this.btnViajes_Click);
             // 
@@ -93,7 +117,7 @@ namespace CruceroGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(286, 434);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Menu";
@@ -112,5 +136,7 @@ namespace CruceroGUI
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnViajes;
         private System.Windows.Forms.Button btnVentaViajes;
+        private System.Windows.Forms.Button btnInformesHistoricos;
+        private System.Windows.Forms.Button btnInformes;
     }
 }

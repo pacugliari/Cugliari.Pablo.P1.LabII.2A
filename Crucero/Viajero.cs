@@ -13,20 +13,28 @@ namespace Crucero
         private bool esPremium;
         private Equipaje equipaje;
 
-        public Viajero(string nombre, string apellido, char sexo, ePaises nacionalidad, DateTime fechaNacimiento,
+        public Equipaje Equipaje { get { return this.equipaje; } }
+        public bool EsPremium { get { return this.esPremium; } }
+
+        public Viajero(string nombre, string apellido, char sexo, string nacionalidad, DateTime fechaNacimiento,
             string numeroDocumento, string domicilio, string lugarNacimiento, string numeroDocumentoViaje, DateTime fechaEmision,
-            DateTime fechaVencimiento, ePasaportes tipoPasaporte, string codigoPaisExterior, string autoridadExpedidora) : base(nombre, apellido,
-                sexo, nacionalidad, fechaNacimiento, numeroDocumento, domicilio, lugarNacimiento)
+            DateTime fechaVencimiento, string tipoPasaporte, string codigoPaisExterior, string autoridadExpedidora, Equipaje equipaje,bool esPremium) : 
+            base(nombre, apellido,sexo, nacionalidad, fechaNacimiento, numeroDocumento, domicilio, lugarNacimiento)
         {
             this.edad = calcularEdad(fechaNacimiento);
+            this.equipaje = equipaje;
+            this.esPremium = esPremium;
             this.pasaporte = new Pasaporte(nombre, apellido, sexo, nacionalidad, fechaNacimiento, numeroDocumento, domicilio, lugarNacimiento,
                 numeroDocumentoViaje, fechaEmision, fechaVencimiento, tipoPasaporte, codigoPaisExterior, autoridadExpedidora);
 
         }
 
-        private int calcularEdad(DateTime fechaNacimiento)
+        private int calcularEdad(DateTime FechaNacimiento)
         {
-            return 8888;
+            if (FechaNacimiento.Year == DateTime.Today.Year)
+                return 0;
+
+            return 1 + calcularEdad(FechaNacimiento.AddYears(1));
         }
     }
 }

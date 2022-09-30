@@ -117,8 +117,9 @@ namespace CruceroGUI
         {
             if (this.comboBoxCrucero.Text != "" && this.comboBoxCiudadDestino.Text != "" && this.fechaElegida)
             {
+                this.comboBoxCrucero.Items.RemoveAt(this.comboBoxCrucero.SelectedIndex);
                 Viaje  viajeNuevo = new Viaje(this.ciudadPartida, this.ciudadDeDestino, this.fechaInicioViaje, this.cruceroElegido, this.cantCamarotesPremium, this.cantCamarotesTurista,
-                    this.costoDePremium, this.costoDeTurista, this.duracionDeViaje);
+                     this.costoDeTurista, this.costoDePremium, this.duracionDeViaje);
                 this.listaViajes.Add(viajeNuevo);
                 this.actualizar();
             }

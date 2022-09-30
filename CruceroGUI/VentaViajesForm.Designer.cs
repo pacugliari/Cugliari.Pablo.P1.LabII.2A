@@ -92,6 +92,11 @@ namespace CruceroGUI
             this.cbBolsoMano = new System.Windows.Forms.CheckBox();
             this.btnVenderViaje = new System.Windows.Forms.Button();
             this.btnBuscarViajes = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txtCostoFinalBruto = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtNeto = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNumeroDocumento)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -101,6 +106,7 @@ namespace CruceroGUI
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaViajes)).BeginInit();
             this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -598,6 +604,7 @@ namespace CruceroGUI
             this.dgvListaViajes.RowTemplate.Height = 29;
             this.dgvListaViajes.Size = new System.Drawing.Size(702, 132);
             this.dgvListaViajes.TabIndex = 1;
+            this.dgvListaViajes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListaViajes_CellClick);
             // 
             // ciudadPartida
             // 
@@ -719,6 +726,7 @@ namespace CruceroGUI
             this.btnVenderViaje.TabIndex = 17;
             this.btnVenderViaje.Text = "Vender viaje";
             this.btnVenderViaje.UseVisualStyleBackColor = true;
+            this.btnVenderViaje.Click += new System.EventHandler(this.btnVenderViaje_Click);
             // 
             // btnBuscarViajes
             // 
@@ -730,11 +738,59 @@ namespace CruceroGUI
             this.btnBuscarViajes.UseVisualStyleBackColor = true;
             this.btnBuscarViajes.Click += new System.EventHandler(this.btnBuscarViajes_Click);
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.txtNeto);
+            this.groupBox7.Controls.Add(this.label17);
+            this.groupBox7.Controls.Add(this.txtCostoFinalBruto);
+            this.groupBox7.Controls.Add(this.label15);
+            this.groupBox7.Location = new System.Drawing.Point(964, 189);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(152, 150);
+            this.groupBox7.TabIndex = 19;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Costos";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(10, 82);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(119, 20);
+            this.label17.TabIndex = 21;
+            this.label17.Text = "Neto (+21%IVA):";
+            // 
+            // txtCostoFinalBruto
+            // 
+            this.txtCostoFinalBruto.Enabled = false;
+            this.txtCostoFinalBruto.Location = new System.Drawing.Point(10, 49);
+            this.txtCostoFinalBruto.Name = "txtCostoFinalBruto";
+            this.txtCostoFinalBruto.Size = new System.Drawing.Size(125, 27);
+            this.txtCostoFinalBruto.TabIndex = 15;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(10, 26);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(123, 20);
+            this.label15.TabIndex = 20;
+            this.label15.Text = "Costo final bruto:";
+            // 
+            // txtNeto
+            // 
+            this.txtNeto.Enabled = false;
+            this.txtNeto.Location = new System.Drawing.Point(10, 105);
+            this.txtNeto.Name = "txtNeto";
+            this.txtNeto.Size = new System.Drawing.Size(125, 27);
+            this.txtNeto.TabIndex = 22;
+            // 
             // VentaViajesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1140, 540);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.btnBuscarViajes);
             this.Controls.Add(this.btnVenderViaje);
             this.Controls.Add(this.btnBorrarPasajero);
@@ -760,6 +816,8 @@ namespace CruceroGUI
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaViajes)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -829,5 +887,10 @@ namespace CruceroGUI
         private System.Windows.Forms.CheckBox cbBolsoMano;
         private System.Windows.Forms.Button btnVenderViaje;
         private System.Windows.Forms.Button btnBuscarViajes;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox txtCostoFinalBruto;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtNeto;
     }
 }

@@ -15,17 +15,20 @@ namespace CruceroGUI
     {
         private List<Viaje> listaViajes;
         private Flota flota;
-        public VentaViajesForm(List<Viaje> listaViajes,Flota flota)
+        private List<Viajero> listaViajeros;
+        public VentaViajesForm(List<Viaje> listaViajes,Flota flota,List<Viajero> listaViajeros)
         {
             InitializeComponent();
 
             this.listaViajes = listaViajes;
             this.flota = flota;
+            this.listaViajeros = new List<Viajero>();
 
             this.nudNumeroDocumento.Controls[0].Visible = false;
             this.nudNumeroDocumento.Text = "";
             this.cbSexo.Items.Add("Masculino");
             this.cbSexo.Items.Add("Femenino");
+            this.cbSexo.SelectedIndex = 0;
 
             this.dtpFechaNacimiento.MaxDate = this.dtpFechaNacimiento.Value = DateTime.Now;
             this.dtpFechaEmision.MaxDate = this.dtpFechaEmision.Value = DateTime.Now;
@@ -37,23 +40,61 @@ namespace CruceroGUI
                 if(item != ePaises.Vacio)
                     this.cbNacionalidad.Items.Add(item);
             }
+            this.cbCantidadValijas.Items.Add(0);
             this.cbCantidadValijas.Items.Add(1);
+            this.cbCantidadValijas.SelectedIndex = 0;
+            this.cbNacionalidad.SelectedIndex = 1;
 
             foreach (ePasaportes item in Enum.GetValues(typeof(ePasaportes)))
             {
                  this.cbTipoPasaporte.Items.Add(item);
             }
 
+            this.cbTipoPasaporte.SelectedIndex = 2;
+
             this.dgvGrupoFamiliar.AllowUserToAddRows = false;
             this.dgvGrupoFamiliar.AllowUserToDeleteRows = false;
             this.dgvListaViajes.AllowUserToAddRows = false;
             this.dgvListaViajes.AllowUserToDeleteRows = false;
+            this.btnVenderViaje.Enabled = false;
+            this.btnBorrarPasajero.Enabled = false;
         }
 
         private void btnAgregarPasajero_Click(object sender, EventArgs e)
         {
+            this.dgvListaViajes.Rows.Clear();
+            this.txtCostoFinalBruto.Text = "";
+            this.txtNeto.Text = "";
+
             if (estanTodosLosCamposCompletos())
             {
+                string nombre = this.txtNombre.Text;
+                string apellido = this.txtApellido.Text;
+                char sexo = 'M';
+                string nacionalidad = this.cbNacionalidad.Text;
+                DateTime fechaNacimiento = this.dtpFechaNacimiento.Value;
+                string numeroDocumento = this.nudNumeroDocumento.Value.ToString();
+                string domicilio = this.txtDomicilio.Text;
+                string ciudad = this.txtCiudad.Text;
+                string numeroDocumentoViaje = this.txtPasaporte.Text;
+                DateTime fechaEmision = this.dtpFechaEmision.Value;
+                DateTime fechaVencimiento = this.dtpFechaVencimiento.Value;
+                string tipoPasaporte = this.cbTipoPasaporte.Text;
+                string codigoPaisExterior = this.txtCodigoExterior.Text;
+                string autoridadExpendidora = this.txtExpendidora.Text;
+                bool tieneBolso = this.cbBolsoMano.Checked;
+                int cantidadValijas;
+                int.TryParse(this.cbCantidadValijas.Text, out cantidadValijas);
+                Equipaje equipaje = new Equipaje(tieneBolso,cantidadValijas);
+                bool esPremium = this.cbPremium.Checked;
+                
+                if(this.cbSexo.Text == "Femenino")
+                {
+                    sexo = 'F';
+                }
+                
+                this.listaViajeros.Add(new Viajero(nombre, apellido, sexo, nacionalidad, fechaNacimiento, numeroDocumento, domicilio, ciudad,
+                    numeroDocumentoViaje, fechaEmision, fechaVencimiento, tipoPasaporte, codigoPaisExterior, autoridadExpendidora,equipaje,esPremium));
 
                 this.dgvGrupoFamiliar.Rows.Add(this.txtNombre.Text, this.txtApellido.Text);
             }
@@ -105,9 +146,17 @@ namespace CruceroGUI
 
         private void btnBorrarPasajero_Click(object sender, EventArgs e)
         {
-            if (this.dgvGrupoFamiliar.Rows.Count > 0)
-                this.dgvGrupoFamiliar.Rows.Remove(this.dgvGrupoFamiliar.CurrentRow);
+            this.dgvListaViajes.Rows.Clear();
+            this.txtCostoFinalBruto.Text = "";
+            this.txtNeto.Text = "";
 
+            if (this.dgvGrupoFamiliar.Rows.Count > 0)
+            {
+                this.listaViajeros.RemoveAt(this.dgvGrupoFamiliar.CurrentRow.Index);
+                this.dgvGrupoFamiliar.Rows.Remove(this.dgvGrupoFamiliar.CurrentRow);
+            }
+
+            this.btnVenderViaje.Enabled = false;
             this.btnBorrarPasajero.Enabled = false;
         }
 
@@ -143,15 +192,88 @@ namespace CruceroGUI
         private void btnBuscarViajes_Click(object sender, EventArgs e)
         {
             this.dgvListaViajes.Rows.Clear();
-            List<Embarcacion> listaFiltradaDeCruceros = Flota.filtrarFlota(this.flota,this.obtenerNecesidades());
-            List<Viaje> listaFiltradaDeViajes = Viaje.filtrarViajes(this.listaViajes,listaFiltradaDeCruceros);
-            foreach (Viaje item in listaFiltradaDeViajes)
+            if (this.dgvGrupoFamiliar.Rows.Count > 0)
             {
-                this.dgvListaViajes.Rows.Add(item.CiudadPartida, item.CiudadDestino, item.Crucero, item.FechaInicioViaje,
-                    item.CantidadCamarotesPremium, item.CantidadCamarotesTurista,
-                    item.CostoPremium, item.CostoTurista, item.DuracionViaje);
+                List<Embarcacion> listaFiltradaDeCruceros = Flota.filtrarFlota(this.flota, this.obtenerNecesidades(), this.listaViajeros);
+                List<Viaje> listaFiltradaDeViajes = Viaje.filtrarViajes(this.listaViajes, listaFiltradaDeCruceros);
+                foreach (Viaje item in listaFiltradaDeViajes)
+                {
+                    this.dgvListaViajes.Rows.Add(item.CiudadPartida, item.CiudadDestino, item.Crucero, item.FechaInicioViaje,
+                        item.CantidadCamarotesPremium, item.CantidadCamarotesTurista,
+                        item.CostoPremium, item.CostoTurista, item.DuracionViaje);
+
+                }
+            }
+        }
+
+        private void dgvListaViajes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (this.dgvListaViajes.Rows.Count > 0)
+            {
+                this.dgvListaViajes.CurrentRow.Selected = true;
+                this.btnVenderViaje.Enabled = true;
+                this.actualizar();
+            }
+            else
+                this.btnVenderViaje.Enabled = false;
+        }
+
+        private void btnVenderViaje_Click(object sender, EventArgs e)
+        {
+            Embarcacion crucero;
+            Viaje viaje;
+
+            if (this.dgvListaViajes.Rows.Count > 0)
+            {
+                this.obtenerDatosDeDataGridView(out crucero,out viaje);
+                if(crucero is not null)
+                    crucero.agregarPasajeros(this.listaViajeros);
+            }
+
+            this.btnVenderViaje.Enabled = false;
+        }
+
+        private void obtenerDatosDeDataGridView(out Embarcacion embarcacion,out Viaje viaje)
+        {
+            embarcacion = null;
+            viaje = null;
+            string ciudadDestino = this.dgvListaViajes.CurrentRow.Cells[1].Value.ToString();
+            string fechaInicioViaje = this.dgvListaViajes.CurrentRow.Cells[3].Value.ToString();
+            string duracionViaje = this.dgvListaViajes.CurrentRow.Cells[8].Value.ToString();
+            string nombreCrucero = this.dgvListaViajes.CurrentRow.Cells[2].Value.ToString();
+
+            foreach (Viaje item in this.listaViajes)
+            {
+
+                if (item.CiudadDestino == ciudadDestino &&
+                    item.DuracionViaje.ToString() == duracionViaje &&
+                    item.Crucero == nombreCrucero &&
+                    item.FechaInicioViaje.ToString() == fechaInicioViaje
+                    )
+                {//ES EL MISMO VIAJE
+                    viaje = item;
+                    embarcacion = this.flota.obtenerEmbarcacionDeNombre(nombreCrucero);
+                    break;
+                }
+            }
+
+        }
+
+        private void actualizar()
+        {
+            Viaje viaje;
+            Embarcacion crucero;
+            float costo=0;
+            
+            this.obtenerDatosDeDataGridView(out crucero,out viaje );
+            if(viaje is not null)
+            {
+                costo = viaje.calcularCostos(this.listaViajeros);
+                this.txtCostoFinalBruto.Text = "$"+ costo.ToString(".##");
+                this.txtNeto.Text = "$" + (costo*1.21).ToString(".##");
 
             }
         }
+
     }
 }

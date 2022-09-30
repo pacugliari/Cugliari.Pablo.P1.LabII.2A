@@ -28,11 +28,11 @@ namespace Crucero
         }
 
 
-        public Persona(string nombre,string apellido,char sexo,ePaises nacionalidad,DateTime fechaNacimiento,string numeroDocumento,
+        public Persona(string nombre,string apellido,char sexo,string nacionalidad,DateTime fechaNacimiento,string numeroDocumento,
             string domicilio,string lugarNacimiento):this(nombre,apellido)
         {
             this.sexo = sexo;
-            this.nacionalidad = nacionalidad;
+            Enum.TryParse(nacionalidad,out this.nacionalidad);
             this.fechaNacimiento = fechaNacimiento;
             this.numeroDocumento = numeroDocumento;
             this.domicilio = domicilio;

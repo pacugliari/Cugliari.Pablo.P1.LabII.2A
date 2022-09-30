@@ -15,8 +15,9 @@ namespace Crucero
                eSalones.Spa,eSalones.Bar,eSalones.Teatro,eSalones.Cine,eSalones.Galeria,eSalones.Discoteca}, 400);
             Embarcacion crucero2 = new Embarcacion("QUE222MA", "Queen Mary 2", 5, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina,eSalones.Bar,eSalones.Teatro,eSalones.Cine,eSalones.Discoteca}, 500);
-            Embarcacion crucero3 = new Embarcacion("IND333SE", "Independence of The Seas", 6, new List<eSalones> {eSalones.Comedor,eSalones.Gimnasio,
+            Embarcacion crucero3 = new Embarcacion("IND333SE", "Independence of The Seas", 1, new List<eSalones> {eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina,eSalones.Spa,eSalones.Bar,eSalones.Cine,eSalones.Galeria}, 600);
+            crucero3.EstaDisponible = true;
             Embarcacion crucero4 = new Embarcacion("LIB444SE", "Liberty of the Seas", 7, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina}, 700);
             Embarcacion crucero5 = new Embarcacion("FRE555SE", "Freedom of The Seas", 8, new List<eSalones> { eSalones.Comedor,eSalones.Casino,eSalones.Gimnasio,
@@ -33,9 +34,10 @@ namespace Crucero
             return this.listaCruceros;
         }
 
-        public static List<Embarcacion> filtrarFlota(Flota flota,List<eSalones> necesidadesPasajero)
+        public static List<Embarcacion> filtrarFlota(Flota flota,List<eSalones> necesidadesPasajero,List<Viajero> listaViajeros)
         {
             List<Embarcacion> filtrada = new List<Embarcacion>();
+            List<Embarcacion> filtrada2 = new List<Embarcacion>();
             bool tieneTodos = true;
             foreach (Embarcacion cruceroIndice in flota.listaCruceros)
             {
@@ -50,7 +52,21 @@ namespace Crucero
                 if (tieneTodos)
                     filtrada.Add(cruceroIndice);
             }
-            return filtrada;
+
+            int cantidadCamarotesTurista=0;
+            int cantidadCamarotesPremium=0;
+            float pesoGrupoFamiliar = Equipaje.calcularPesoTotal(listaViajeros);
+
+            Embarcacion.calcularCamarotes(listaViajeros,out cantidadCamarotesTurista,out cantidadCamarotesPremium);
+            foreach (Embarcacion cruceroIndice in filtrada)
+            {
+                if (cruceroIndice.tieneEspacioPara(cantidadCamarotesTurista, cantidadCamarotesPremium, pesoGrupoFamiliar))
+                {
+                    filtrada2.Add(cruceroIndice);
+                }    
+            }
+
+            return filtrada2;
         }
 
         public Embarcacion obtenerEmbarcacionDeNombre (string nombreCrucero)
