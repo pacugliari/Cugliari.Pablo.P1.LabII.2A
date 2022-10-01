@@ -13,6 +13,14 @@ namespace Crucero
         private string domicilio;
         private string lugarNacimiento;
 
+
+        public string Sexo { get { return this.sexo == 'M' ? "Masculino" : "Femenino"; } }
+        public string Nacionalidad { get { return this.nacionalidad.ToString(); } }
+        public string FechaNacimiento { get { return this.fechaNacimiento.ToString(); } }
+        public string NumeroDocumento { get { return this.numeroDocumento.ToString(); } }
+        public string Domicilio { get { return this.domicilio; } }
+        public string LugarNacimiento { get { return this.lugarNacimiento; } }
+
         public Persona()
         {
             this.nombre = this.apellido = this.numeroDocumento = this.domicilio = this.lugarNacimiento = "";

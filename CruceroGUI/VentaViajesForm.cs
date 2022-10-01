@@ -11,15 +11,19 @@ using Crucero;
 
 namespace CruceroGUI
 {
-    public partial class VentaViajesForm : Form
+    public partial class VentaViajesForm : Form 
     {
         private List<Viaje> listaViajes;
         private Flota flota;
         private List<Viajero> listaViajeros;
-        public VentaViajesForm(List<Viaje> listaViajes,Flota flota,List<Viajero> listaViajeros)
-        {
-            InitializeComponent();
 
+        public VentaViajesForm()
+        {
+            this.InitializeComponent();
+        }
+        public VentaViajesForm(List<Viaje> listaViajes,Flota flota,List<Viajero> listaViajeros): this()
+        {
+            
             this.listaViajes = listaViajes;
             this.flota = flota;
             this.listaViajeros = new List<Viajero>();
@@ -28,7 +32,6 @@ namespace CruceroGUI
             this.nudNumeroDocumento.Text = "";
             this.cbSexo.Items.Add("Masculino");
             this.cbSexo.Items.Add("Femenino");
-            this.cbSexo.SelectedIndex = 0;
 
             this.dtpFechaNacimiento.MaxDate = this.dtpFechaNacimiento.Value = DateTime.Now;
             this.dtpFechaEmision.MaxDate = this.dtpFechaEmision.Value = DateTime.Now;
@@ -42,15 +45,11 @@ namespace CruceroGUI
             }
             this.cbCantidadValijas.Items.Add(0);
             this.cbCantidadValijas.Items.Add(1);
-            this.cbCantidadValijas.SelectedIndex = 0;
-            this.cbNacionalidad.SelectedIndex = 1;
 
             foreach (ePasaportes item in Enum.GetValues(typeof(ePasaportes)))
             {
                  this.cbTipoPasaporte.Items.Add(item);
             }
-
-            this.cbTipoPasaporte.SelectedIndex = 2;
 
             this.dgvGrupoFamiliar.AllowUserToAddRows = false;
             this.dgvGrupoFamiliar.AllowUserToDeleteRows = false;
@@ -225,54 +224,60 @@ namespace CruceroGUI
 
             if (this.dgvListaViajes.Rows.Count > 0)
             {
-                this.obtenerDatosDeDataGridView(out crucero,out viaje);
+                Menu.obtenerDatosDeDataGridView(this.dgvListaViajes,out crucero,out viaje);
                 if(crucero is not null)
+                {
                     crucero.agregarPasajeros(this.listaViajeros);
+                    MessageBox.Show("La venta del viaje se realizo de manera exitosa", "Venta exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                    
             }
 
             this.btnVenderViaje.Enabled = false;
         }
 
-        private void obtenerDatosDeDataGridView(out Embarcacion embarcacion,out Viaje viaje)
-        {
-            embarcacion = null;
-            viaje = null;
-            string ciudadDestino = this.dgvListaViajes.CurrentRow.Cells[1].Value.ToString();
-            string fechaInicioViaje = this.dgvListaViajes.CurrentRow.Cells[3].Value.ToString();
-            string duracionViaje = this.dgvListaViajes.CurrentRow.Cells[8].Value.ToString();
-            string nombreCrucero = this.dgvListaViajes.CurrentRow.Cells[2].Value.ToString();
-
-            foreach (Viaje item in this.listaViajes)
-            {
-
-                if (item.CiudadDestino == ciudadDestino &&
-                    item.DuracionViaje.ToString() == duracionViaje &&
-                    item.Crucero == nombreCrucero &&
-                    item.FechaInicioViaje.ToString() == fechaInicioViaje
-                    )
-                {//ES EL MISMO VIAJE
-                    viaje = item;
-                    embarcacion = this.flota.obtenerEmbarcacionDeNombre(nombreCrucero);
-                    break;
-                }
-            }
-
-        }
+       
 
         private void actualizar()
         {
             Viaje viaje;
             Embarcacion crucero;
             float costo=0;
-            
-            this.obtenerDatosDeDataGridView(out crucero,out viaje );
-            if(viaje is not null)
+
+            Menu.obtenerDatosDeDataGridView(this.dgvListaViajes, out crucero, out viaje);
+            if (viaje is not null)
             {
                 costo = viaje.calcularCostos(this.listaViajeros);
                 this.txtCostoFinalBruto.Text = "$"+ costo.ToString(".##");
                 this.txtNeto.Text = "$" + (costo*1.21).ToString(".##");
 
             }
+        }
+
+        private void dgvGrupoFamiliar_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            Menu.aplicarNumerosFilas(this.dgvGrupoFamiliar);
+        }
+
+        private void dgvListaViajes_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            Menu.aplicarNumerosFilas(this.dgvListaViajes);
+        }
+
+        private void VentaViajesForm_Load(object sender, EventArgs e)
+        {
+            if(this.cbSexo.Items.Count > 0)
+                this.cbSexo.SelectedIndex = 0;
+
+            if (this.cbCantidadValijas.Items.Count > 0)
+                this.cbCantidadValijas.SelectedIndex = 0;
+
+            if (this.cbTipoPasaporte.Items.Count > 0)
+                this.cbTipoPasaporte.SelectedIndex = 2;
+
+            if (this.cbNacionalidad.Items.Count > 0)
+                this.cbNacionalidad.SelectedIndex = 1;
         }
 
     }

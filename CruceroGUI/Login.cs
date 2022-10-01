@@ -13,6 +13,7 @@ namespace CruceroGUI
 {
     public partial class Login : Form
     {
+        private Menu menu;
         public Login()
         {
             InitializeComponent();
@@ -51,7 +52,7 @@ namespace CruceroGUI
                 if (esUsuarioValido(txtUsuario.Text,txtContrasenia.Text,out usuario))
                 {
                     this.Hide();
-                    Menu menu = new Menu(usuario);
+                    menu = new Menu(usuario);
                     menu.ShowDialog();
                     this.Close();
                     

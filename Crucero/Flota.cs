@@ -12,12 +12,12 @@ namespace Crucero
         public  Flota()
         {
             Embarcacion crucero1 = new Embarcacion("NOR111BR", "Norwegian Breakaway", 4, new List<eSalones> {eSalones.Comedor,eSalones.Casino,
-               eSalones.Spa,eSalones.Bar,eSalones.Teatro,eSalones.Cine,eSalones.Galeria,eSalones.Discoteca}, 400);
+               eSalones.Spa,eSalones.Bar,eSalones.Teatro,eSalones.Cine,eSalones.Galeria,eSalones.Discoteca}, 100);
             Embarcacion crucero2 = new Embarcacion("QUE222MA", "Queen Mary 2", 5, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina,eSalones.Bar,eSalones.Teatro,eSalones.Cine,eSalones.Discoteca}, 500);
             Embarcacion crucero3 = new Embarcacion("IND333SE", "Independence of The Seas", 1, new List<eSalones> {eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina,eSalones.Spa,eSalones.Bar,eSalones.Cine,eSalones.Galeria}, 600);
-            crucero3.EstaDisponible = true;
+            crucero3.EstaDisponible = false;
             Embarcacion crucero4 = new Embarcacion("LIB444SE", "Liberty of the Seas", 7, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina}, 700);
             Embarcacion crucero5 = new Embarcacion("FRE555SE", "Freedom of The Seas", 8, new List<eSalones> { eSalones.Comedor,eSalones.Casino,eSalones.Gimnasio,

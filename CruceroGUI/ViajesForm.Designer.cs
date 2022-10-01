@@ -30,6 +30,7 @@ namespace CruceroGUI
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnBorrarViaje = new System.Windows.Forms.Button();
             this.textBoxCostoViajePremium = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.dateTimePickerFechaViaje = new System.Windows.Forms.DateTimePicker();
@@ -60,7 +61,6 @@ namespace CruceroGUI
             this.costoPremium = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.costoTurista = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.duracionViaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnBorrarViaje = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaViajes)).BeginInit();
@@ -94,6 +94,17 @@ namespace CruceroGUI
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Crear viaje:";
+            // 
+            // btnBorrarViaje
+            // 
+            this.btnBorrarViaje.Enabled = false;
+            this.btnBorrarViaje.Location = new System.Drawing.Point(773, 119);
+            this.btnBorrarViaje.Name = "btnBorrarViaje";
+            this.btnBorrarViaje.Size = new System.Drawing.Size(84, 53);
+            this.btnBorrarViaje.TabIndex = 23;
+            this.btnBorrarViaje.Text = "Borrar viaje";
+            this.btnBorrarViaje.UseVisualStyleBackColor = true;
+            this.btnBorrarViaje.Click += new System.EventHandler(this.btnBorrarViaje_Click);
             // 
             // textBoxCostoViajePremium
             // 
@@ -293,6 +304,7 @@ namespace CruceroGUI
             this.dgvListaViajes.Size = new System.Drawing.Size(911, 174);
             this.dgvListaViajes.TabIndex = 0;
             this.dgvListaViajes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListaViajes_CellClick);
+            this.dgvListaViajes.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgvListaViajes_RowStateChanged);
             // 
             // ciudadDePartida
             // 
@@ -366,17 +378,6 @@ namespace CruceroGUI
             this.duracionViaje.ReadOnly = true;
             this.duracionViaje.Width = 125;
             // 
-            // btnBorrarViaje
-            // 
-            this.btnBorrarViaje.Enabled = false;
-            this.btnBorrarViaje.Location = new System.Drawing.Point(773, 119);
-            this.btnBorrarViaje.Name = "btnBorrarViaje";
-            this.btnBorrarViaje.Size = new System.Drawing.Size(84, 53);
-            this.btnBorrarViaje.TabIndex = 23;
-            this.btnBorrarViaje.Text = "Borrar viaje";
-            this.btnBorrarViaje.UseVisualStyleBackColor = true;
-            this.btnBorrarViaje.Click += new System.EventHandler(this.btnBorrarViaje_Click);
-            // 
             // ViajesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -386,6 +387,7 @@ namespace CruceroGUI
             this.Controls.Add(this.groupBox1);
             this.Name = "ViajesForm";
             this.Text = "Viajes";
+            this.Load += new System.EventHandler(this.ViajesForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

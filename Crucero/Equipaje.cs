@@ -39,7 +39,6 @@ namespace Crucero
                 }
                 retorno += equipaje.valijas * Equipaje.pesoValija;
             }
-
             return retorno;
         }
     }

@@ -18,7 +18,6 @@ namespace CruceroGUI
         private List<Viaje> listaViajes;
         private bool fechaElegida;
         private Embarcacion cruceroElegido;
-        
         private string ciudadPartida;
         private string ciudadDeDestino;
         private DateTime fechaInicioViaje;
@@ -29,9 +28,11 @@ namespace CruceroGUI
         private float costoDePremium;
         private int duracionDeViaje;
 
+
         public ViajesForm(List<Viaje> listaViajes,Flota flota)
         {
             InitializeComponent();
+
             this.flota = flota;
             this.fechaElegida = false;
             this.listaViajes = listaViajes;
@@ -45,10 +46,6 @@ namespace CruceroGUI
             //-----------------
 
             //CARGO LAS CIUDADES DE PARTIDA Y DESTINO
-            this.comboBoxCiudadPartida.Items.Add(eCiudades.BuenosAires_Argentina);
-            this.comboBoxCiudadPartida.SelectedIndex = 0;
-            this.comboBoxCiudadPartida.Enabled = false;
-            this.ciudadPartida = this.comboBoxCiudadPartida.Text.ToString();
 
             foreach (eCiudades item in Enum.GetValues(typeof(eCiudades)))
             {
@@ -71,18 +68,21 @@ namespace CruceroGUI
             //PARAMETROS LISTA VIAJES
             this.dgvListaViajes.AllowUserToAddRows = false;
             this.dgvListaViajes.AllowUserToDeleteRows = false;
+
         }
 
         private void comboBoxCrucero_SelectedIndexChanged(object sender, EventArgs e)
         {
             string nombreCruceroElegido = this.comboBoxCrucero.Text.ToString();
             this.cruceroElegido = this.flota.obtenerEmbarcacionDeNombre(nombreCruceroElegido);
-            int camarotesPremium  = this.cantCamarotesPremium = cruceroElegido.CamarotesPremium();
-            int camarotesTurista = this.cantCamarotesTurista = cruceroElegido.CamarotesTurista();
-            this.nombreDeCrucero = nombreCruceroElegido;
-            this.textBoxCCP.Text  = camarotesPremium.ToString();
-            this.textBoxCCT.Text = camarotesTurista.ToString();
-            
+            if(this.cruceroElegido is not null)
+            {
+                int camarotesPremium = this.cantCamarotesPremium = cruceroElegido.CamarotesPremium();
+                int camarotesTurista = this.cantCamarotesTurista = cruceroElegido.CamarotesTurista();
+                this.nombreDeCrucero = nombreCruceroElegido;
+                this.textBoxCCP.Text = camarotesPremium.ToString();
+                this.textBoxCCT.Text = camarotesTurista.ToString();
+            } 
         }
 
         private void comboBoxCiudadDestino_SelectedIndexChanged(object sender, EventArgs e)
@@ -157,6 +157,19 @@ namespace CruceroGUI
             }
             
             this.btnBorrarViaje.Enabled = false;
+        }
+
+        private void dgvListaViajes_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            Menu.aplicarNumerosFilas(this.dgvListaViajes);
+        }
+
+        private void ViajesForm_Load(object sender, EventArgs e)
+        {
+            this.comboBoxCiudadPartida.Items.Add(eCiudades.BuenosAires_Argentina);
+            this.comboBoxCiudadPartida.SelectedIndex = 0;
+            this.comboBoxCiudadPartida.Enabled = false;
+            this.ciudadPartida = this.comboBoxCiudadPartida.Text.ToString();
         }
     }
 }

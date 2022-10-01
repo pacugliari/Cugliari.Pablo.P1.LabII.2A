@@ -11,19 +11,63 @@ namespace Crucero
         private string matricula;
         private string nombre;
         private int cantidadCamarotes;
-        private int cantidadSalones;
         private List<eSalones> salones;
-        private List<Viajero> personas;
+        private List<Viajero> pasajeros;
         private int cantidadCasinos;
         private float capacidadBodega;
         private int cantidadCamarotesPremium;
         private bool estaDisponible;
         private int cantidadPasajerosPorCamarote;
+        private int camarotesPremiumUsados;
+        private int camarotesTuristaUsados;
+        private float capacidadBodegaUsada;
 
 
         public bool EstaDisponible { 
             set { this.estaDisponible = value; }
             get { return this.estaDisponible; } 
+        }
+
+        public string Matricula { get { return this.matricula; } }
+        public string Nombre { get { return this.nombre; } }
+        public string CantidadSalones { get { return this.salones.Count.ToString(); } }
+        public string CantidadCasinos { get { return this.cantidadCasinos.ToString(); } }
+
+        public int CamarotesPremiumUsados { get { return this.camarotesPremiumUsados; } }
+        public int CamarotesTuristaUsados { get { return this.camarotesTuristaUsados; } }
+
+        public float CapacidadBodega { get { return this.capacidadBodega; } }
+        public float CapacidadBodegaUsada { get { return this.capacidadBodegaUsada; } }
+        public string CantidadPasajerosPorCamarote { get { return this.cantidadPasajerosPorCamarote.ToString(); } }
+
+        public List<Viajero> Pasajeros { get { return this.pasajeros; } }
+
+        public Viajero obtenerPasajero(string numeroDocumentoViaje)
+        {
+            Viajero retorno = null;
+
+            foreach (Viajero item in this.pasajeros)
+            {
+                if(item.Pasaporte.NumeroDocumentoViaje == numeroDocumentoViaje)
+                {
+                    retorno = item;
+                    break;
+                }
+            }
+
+            return retorno;
+        }
+
+        public bool estaCompleto()
+        {
+            bool retorno = false;
+
+            if((this.camarotesPremiumUsados == this.CamarotesPremium() && this.camarotesTuristaUsados == this.CamarotesTurista()) || (this.capacidadBodegaUsada == this.capacidadBodega))
+            {
+                retorno = true;
+            }
+
+            return retorno;
         }
 
         public Embarcacion(string matricula,string nombre,int cantidadCamarotes,List<eSalones> salones,float capacidadBodega)
@@ -32,10 +76,13 @@ namespace Crucero
             this.nombre = nombre;
             this.cantidadCamarotes = cantidadCamarotes;
             this.salones = salones;
-            this.cantidadSalones = this.salones.Count;
             this.cantidadCasinos = 0;
             this.estaDisponible = true;
             this.cantidadPasajerosPorCamarote = 4;
+            this.pasajeros = new List<Viajero>();
+            this.camarotesPremiumUsados = 0;
+            this.camarotesTuristaUsados = 0;
+            this.capacidadBodegaUsada = 0;
 
             foreach (eSalones item in this.salones)
             {
@@ -51,9 +98,17 @@ namespace Crucero
 
         public void agregarPasajeros(List<Viajero> viajeros)
         {
+            int cantCamPremium = 0;
+            int cantCamTurista = 0;
+            float pesoUsado = 0;
+            Embarcacion.calcularCamarotes(viajeros, out cantCamTurista, out cantCamPremium);
+            pesoUsado = Equipaje.calcularPesoTotal(viajeros);
+            this.camarotesTuristaUsados += cantCamTurista;
+            this.camarotesPremiumUsados += cantCamPremium;
+            this.capacidadBodegaUsada += pesoUsado;
             foreach (Viajero item in viajeros)
             {
-                this.personas.Add(item);
+                this.pasajeros.Add(item);
             }
         }
 
@@ -128,8 +183,9 @@ namespace Crucero
         public bool tieneEspacioPara(int cantidadCamarotesTurista,int cantidadCamarotesPremium,float pesoGrupoFamiliar)
         {
             bool retorno = false;
-            if(this.capacidadBodega >= pesoGrupoFamiliar && this.CamarotesPremium() >= cantidadCamarotesPremium 
-                && this.CamarotesTurista() >= cantidadCamarotesTurista)
+            if((this.capacidadBodega-this.capacidadBodegaUsada) >= pesoGrupoFamiliar && 
+                (this.CamarotesPremium()-this.camarotesPremiumUsados) >= cantidadCamarotesPremium 
+                && (this.CamarotesTurista()-this.camarotesTuristaUsados) >= cantidadCamarotesTurista)
             {
                 retorno = true;
             }

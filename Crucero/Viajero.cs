@@ -15,6 +15,13 @@ namespace Crucero
 
         public Equipaje Equipaje { get { return this.equipaje; } }
         public bool EsPremium { get { return this.esPremium; } }
+        public Pasaporte Pasaporte { get { return this.pasaporte; } }
+
+        public string Nombre { get { return this.nombre; } }
+
+        public string Apellido { get { return this.apellido; } }
+
+        public string Edad { get { return this.edad.ToString(); } }
 
         public Viajero(string nombre, string apellido, char sexo, string nacionalidad, DateTime fechaNacimiento,
             string numeroDocumento, string domicilio, string lugarNacimiento, string numeroDocumentoViaje, DateTime fechaEmision,
