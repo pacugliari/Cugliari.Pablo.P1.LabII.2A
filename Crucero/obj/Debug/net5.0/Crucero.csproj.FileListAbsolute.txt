@@ -9,3 +9,4 @@ C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\Crucero
 C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\Crucero.dll
 C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\ref\Crucero.dll
 C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\Crucero.pdb
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\Crucero.csproj.AssemblyReference.cache

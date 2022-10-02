@@ -97,6 +97,8 @@ namespace CruceroGUI
             this.label17 = new System.Windows.Forms.Label();
             this.txtCostoFinalBruto = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.cbSeleccionarCliente = new System.Windows.Forms.ComboBox();
+            this.lblSeleccionarCliente = new System.Windows.Forms.Label();
             this.gbDatosPasajero.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNumeroDocumento)).BeginInit();
             this.gbDatosPasaporte.SuspendLayout();
@@ -127,7 +129,7 @@ namespace CruceroGUI
             this.gbDatosPasajero.Controls.Add(this.label2);
             this.gbDatosPasajero.Controls.Add(this.txtNombre);
             this.gbDatosPasajero.Controls.Add(this.label1);
-            this.gbDatosPasajero.Location = new System.Drawing.Point(12, 12);
+            this.gbDatosPasajero.Location = new System.Drawing.Point(12, 45);
             this.gbDatosPasajero.Name = "gbDatosPasajero";
             this.gbDatosPasajero.Size = new System.Drawing.Size(363, 333);
             this.gbDatosPasajero.TabIndex = 0;
@@ -298,7 +300,7 @@ namespace CruceroGUI
             this.gbDatosPasaporte.Controls.Add(this.label13);
             this.gbDatosPasaporte.Controls.Add(this.txtPasaporte);
             this.gbDatosPasaporte.Controls.Add(this.label16);
-            this.gbDatosPasaporte.Location = new System.Drawing.Point(395, 12);
+            this.gbDatosPasaporte.Location = new System.Drawing.Point(395, 45);
             this.gbDatosPasaporte.Name = "gbDatosPasaporte";
             this.gbDatosPasaporte.Size = new System.Drawing.Size(363, 241);
             this.gbDatosPasaporte.TabIndex = 1;
@@ -411,7 +413,7 @@ namespace CruceroGUI
             // gbGrupoFamiliar
             // 
             this.gbGrupoFamiliar.Controls.Add(this.dgvGrupoFamiliar);
-            this.gbGrupoFamiliar.Location = new System.Drawing.Point(14, 351);
+            this.gbGrupoFamiliar.Location = new System.Drawing.Point(14, 384);
             this.gbGrupoFamiliar.Name = "gbGrupoFamiliar";
             this.gbGrupoFamiliar.Size = new System.Drawing.Size(361, 177);
             this.gbGrupoFamiliar.TabIndex = 2;
@@ -450,7 +452,7 @@ namespace CruceroGUI
             // 
             // btnAgregarPasajero
             // 
-            this.btnAgregarPasajero.Location = new System.Drawing.Point(974, 37);
+            this.btnAgregarPasajero.Location = new System.Drawing.Point(974, 70);
             this.btnAgregarPasajero.Name = "btnAgregarPasajero";
             this.btnAgregarPasajero.Size = new System.Drawing.Size(148, 29);
             this.btnAgregarPasajero.TabIndex = 15;
@@ -460,7 +462,7 @@ namespace CruceroGUI
             // 
             // btnBorrarPasajero
             // 
-            this.btnBorrarPasajero.Location = new System.Drawing.Point(974, 74);
+            this.btnBorrarPasajero.Location = new System.Drawing.Point(974, 107);
             this.btnBorrarPasajero.Name = "btnBorrarPasajero";
             this.btnBorrarPasajero.Size = new System.Drawing.Size(148, 29);
             this.btnBorrarPasajero.TabIndex = 16;
@@ -478,7 +480,7 @@ namespace CruceroGUI
             this.gbNecesidadesViaje.Controls.Add(this.cbSpa);
             this.gbNecesidadesViaje.Controls.Add(this.cbPiscina);
             this.gbNecesidadesViaje.Controls.Add(this.cbGimnasio);
-            this.gbNecesidadesViaje.Location = new System.Drawing.Point(774, 12);
+            this.gbNecesidadesViaje.Location = new System.Drawing.Point(774, 45);
             this.gbNecesidadesViaje.Name = "gbNecesidadesViaje";
             this.gbNecesidadesViaje.Size = new System.Drawing.Size(171, 333);
             this.gbNecesidadesViaje.TabIndex = 3;
@@ -579,7 +581,7 @@ namespace CruceroGUI
             // gbViajesDisponibles
             // 
             this.gbViajesDisponibles.Controls.Add(this.dgvListaViajes);
-            this.gbViajesDisponibles.Location = new System.Drawing.Point(397, 351);
+            this.gbViajesDisponibles.Location = new System.Drawing.Point(397, 384);
             this.gbViajesDisponibles.Name = "gbViajesDisponibles";
             this.gbViajesDisponibles.Size = new System.Drawing.Size(725, 177);
             this.gbViajesDisponibles.TabIndex = 4;
@@ -686,7 +688,7 @@ namespace CruceroGUI
             this.gbEquipaje.Controls.Add(this.cbCantidadValijas);
             this.gbEquipaje.Controls.Add(this.label11);
             this.gbEquipaje.Controls.Add(this.cbBolsoMano);
-            this.gbEquipaje.Location = new System.Drawing.Point(395, 259);
+            this.gbEquipaje.Location = new System.Drawing.Point(395, 292);
             this.gbEquipaje.Name = "gbEquipaje";
             this.gbEquipaje.Size = new System.Drawing.Size(363, 86);
             this.gbEquipaje.TabIndex = 5;
@@ -722,7 +724,7 @@ namespace CruceroGUI
             // 
             // btnVenderViaje
             // 
-            this.btnVenderViaje.Location = new System.Drawing.Point(974, 147);
+            this.btnVenderViaje.Location = new System.Drawing.Point(974, 180);
             this.btnVenderViaje.Name = "btnVenderViaje";
             this.btnVenderViaje.Size = new System.Drawing.Size(148, 29);
             this.btnVenderViaje.TabIndex = 17;
@@ -732,7 +734,7 @@ namespace CruceroGUI
             // 
             // btnBuscarViajes
             // 
-            this.btnBuscarViajes.Location = new System.Drawing.Point(974, 112);
+            this.btnBuscarViajes.Location = new System.Drawing.Point(974, 145);
             this.btnBuscarViajes.Name = "btnBuscarViajes";
             this.btnBuscarViajes.Size = new System.Drawing.Size(148, 29);
             this.btnBuscarViajes.TabIndex = 18;
@@ -746,7 +748,7 @@ namespace CruceroGUI
             this.gbCostos.Controls.Add(this.label17);
             this.gbCostos.Controls.Add(this.txtCostoFinalBruto);
             this.gbCostos.Controls.Add(this.label15);
-            this.gbCostos.Location = new System.Drawing.Point(964, 189);
+            this.gbCostos.Location = new System.Drawing.Point(964, 222);
             this.gbCostos.Name = "gbCostos";
             this.gbCostos.Size = new System.Drawing.Size(152, 150);
             this.gbCostos.TabIndex = 19;
@@ -787,11 +789,31 @@ namespace CruceroGUI
             this.label15.TabIndex = 20;
             this.label15.Text = "Costo final bruto:";
             // 
+            // cbSeleccionarCliente
+            // 
+            this.cbSeleccionarCliente.FormattingEnabled = true;
+            this.cbSeleccionarCliente.Location = new System.Drawing.Point(165, 12);
+            this.cbSeleccionarCliente.Name = "cbSeleccionarCliente";
+            this.cbSeleccionarCliente.Size = new System.Drawing.Size(361, 28);
+            this.cbSeleccionarCliente.TabIndex = 20;
+            this.cbSeleccionarCliente.SelectedIndexChanged += new System.EventHandler(this.cbSeleccionarCliente_SelectedIndexChanged);
+            // 
+            // lblSeleccionarCliente
+            // 
+            this.lblSeleccionarCliente.AutoSize = true;
+            this.lblSeleccionarCliente.Location = new System.Drawing.Point(23, 15);
+            this.lblSeleccionarCliente.Name = "lblSeleccionarCliente";
+            this.lblSeleccionarCliente.Size = new System.Drawing.Size(136, 20);
+            this.lblSeleccionarCliente.TabIndex = 21;
+            this.lblSeleccionarCliente.Text = "Seleccionar cliente:";
+            // 
             // VentaViajesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1140, 540);
+            this.ClientSize = new System.Drawing.Size(1140, 579);
+            this.Controls.Add(this.lblSeleccionarCliente);
+            this.Controls.Add(this.cbSeleccionarCliente);
             this.Controls.Add(this.gbCostos);
             this.Controls.Add(this.btnBuscarViajes);
             this.Controls.Add(this.btnVenderViaje);
@@ -805,6 +827,7 @@ namespace CruceroGUI
             this.Controls.Add(this.gbDatosPasajero);
             this.Name = "VentaViajesForm";
             this.Text = "Venta de viajes";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VentaViajesForm_FormClosing);
             this.Load += new System.EventHandler(this.VentaViajesForm_Load);
             this.gbDatosPasajero.ResumeLayout(false);
             this.gbDatosPasajero.PerformLayout();
@@ -822,6 +845,7 @@ namespace CruceroGUI
             this.gbCostos.ResumeLayout(false);
             this.gbCostos.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -830,7 +854,6 @@ namespace CruceroGUI
         private System.Windows.Forms.DataGridViewTextBoxColumn nombrePasajero;
         private System.Windows.Forms.DataGridViewTextBoxColumn apellidoPasajero;
         private System.Windows.Forms.CheckBox cbGimnasio;
-        private System.Windows.Forms.CheckBox cbPremium;
         private System.Windows.Forms.CheckBox cbDiscoteca;
         private System.Windows.Forms.CheckBox cbGaleria;
         private System.Windows.Forms.CheckBox cbCine;
@@ -848,9 +871,6 @@ namespace CruceroGUI
         private System.Windows.Forms.DataGridViewTextBoxColumn costoPremium;
         private System.Windows.Forms.DataGridViewTextBoxColumn costoTurista;
         private System.Windows.Forms.DataGridViewTextBoxColumn duracionViaje;
-        private System.Windows.Forms.ComboBox cbCantidadValijas;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.CheckBox cbBolsoMano;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox txtCostoFinalBruto;
         private System.Windows.Forms.Label label15;
@@ -894,5 +914,11 @@ namespace CruceroGUI
         protected System.Windows.Forms.TextBox txtPasaporte;
         protected System.Windows.Forms.Label label16;
         protected System.Windows.Forms.DateTimePicker dtpFechaVencimiento;
+        protected System.Windows.Forms.CheckBox cbPremium;
+        protected System.Windows.Forms.ComboBox cbCantidadValijas;
+        protected System.Windows.Forms.Label label11;
+        protected System.Windows.Forms.CheckBox cbBolsoMano;
+        protected System.Windows.Forms.Label lblSeleccionarCliente;
+        protected System.Windows.Forms.ComboBox cbSeleccionarCliente;
     }
 }

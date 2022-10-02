@@ -20,22 +20,22 @@ namespace CruceroGUI
         private InformesHistoricosForm informesHistoricosForm;
         private static List<Viaje> listaViajes;
         private static Flota flota;
-        private List<Viajero> listaViajeros;
+        private static List<Pasajero> clientes;
 
         static Menu()
         {
             Menu.listaViajes = new List<Viaje>();
             Menu.flota = new Flota();
+            Menu.clientes = new List<Pasajero>();
         }
         public Menu(Vendedor usuario)
         {
             InitializeComponent();
-            this.txtInformacionVendedor.Text = (string)usuario;
-            this.listaViajeros = new List<Viajero>();
+            this.txtInformacionVendedor.Text = (string)usuario; 
             this.viajesForm = new ViajesForm(Menu.listaViajes, Menu.flota);
-            this.ventaViajesForm = new VentaViajesForm(Menu.listaViajes, Menu.flota,this.listaViajeros);
+            this.ventaViajesForm = new VentaViajesForm(Menu.listaViajes, Menu.flota,Menu.clientes);
             this.informesForm = new InformesForm(Menu.listaViajes);
-            this.informesHistoricosForm = new InformesHistoricosForm();
+            this.informesHistoricosForm = new InformesHistoricosForm(Menu.clientes);
         }
 
         private void btnViajes_Click(object sender, EventArgs e)
@@ -52,8 +52,10 @@ namespace CruceroGUI
 
         private void btnInformes_Click(object sender, EventArgs e)
         {
+            Menu.vaciarFormulario(this.informesForm);
             this.informesForm.ShowDialog();
         }
+
 
         private void btnInformesHistoricos_Click(object sender, EventArgs e)
         {
@@ -70,29 +72,49 @@ namespace CruceroGUI
             lista.Refresh();
         }
 
-        public static void obtenerDatosDeDataGridView(DataGridView lista, out Embarcacion embarcacion, out Viaje viaje)
+        public static Pasajero buscarCliente(string dni)
         {
-            embarcacion = null;
-            viaje = null;
-            string ciudadDestino = lista.CurrentRow.Cells[1].Value.ToString();
-            string fechaInicioViaje = lista.CurrentRow.Cells[3].Value.ToString();
-            string duracionViaje = lista.CurrentRow.Cells[8].Value.ToString();
-            string nombreCrucero = lista.CurrentRow.Cells[2].Value.ToString();
+            Pasajero retorno = null;
 
-            foreach (Viaje item in Menu.listaViajes)
+            foreach (Pasajero item in Menu.clientes)
             {
-
-                if (item.CiudadDestino == ciudadDestino &&
-                    item.DuracionViaje.ToString() == duracionViaje &&
-                    item.Crucero == nombreCrucero &&
-                    item.FechaInicioViaje.ToString() == fechaInicioViaje
-                    )
-                {//ES EL MISMO VIAJE
-                    viaje = item;
-                    embarcacion = Menu.flota.obtenerEmbarcacionDeNombre(nombreCrucero);
+                if(item.NumeroDocumento == dni)
+                {
+                    retorno = item;
                     break;
                 }
             }
+            return retorno;
+        }
+
+        public static void obtenerDatosDeDataGridView(DataGridView lista, out Crucero.Crucero embarcacion, out Viaje viaje)
+        {
+            embarcacion = null;
+            viaje = null;
+
+            if(lista is not null)
+            {
+                string ciudadDestino = lista.CurrentRow.Cells[1].Value.ToString();
+                string fechaInicioViaje = lista.CurrentRow.Cells[3].Value.ToString();
+                string duracionViaje = lista.CurrentRow.Cells[8].Value.ToString();
+                string nombreCrucero = lista.CurrentRow.Cells[2].Value.ToString();
+
+                foreach (Viaje item in Menu.listaViajes)
+                {
+
+                    if (item.CiudadDestino == ciudadDestino &&
+                        item.DuracionViaje.ToString() == duracionViaje &&
+                        item.Crucero == nombreCrucero &&
+                        item.FechaInicioViaje.ToString() == fechaInicioViaje
+                        )
+                    {//ES EL MISMO VIAJE
+                        viaje = item;
+                        embarcacion = Menu.flota.obtenerEmbarcacionDeNombre(nombreCrucero);
+                        break;
+                    }
+                }
+            }
+
 
         }
 
@@ -124,5 +146,7 @@ namespace CruceroGUI
                 }
             }
         }
+
+
     }
 }

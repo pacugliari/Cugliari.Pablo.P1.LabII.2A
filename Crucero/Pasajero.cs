@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Crucero
 {
-    public class Viajero:Persona
+    public class Pasajero:Persona
     {
         private int edad;
         private Pasaporte pasaporte;
@@ -23,7 +23,7 @@ namespace Crucero
 
         public string Edad { get { return this.edad.ToString(); } }
 
-        public Viajero(string nombre, string apellido, char sexo, string nacionalidad, DateTime fechaNacimiento,
+        public Pasajero(string nombre, string apellido, char sexo, string nacionalidad, DateTime fechaNacimiento,
             string numeroDocumento, string domicilio, string lugarNacimiento, string numeroDocumentoViaje, DateTime fechaEmision,
             DateTime fechaVencimiento, string tipoPasaporte, string codigoPaisExterior, string autoridadExpedidora, Equipaje equipaje,bool esPremium) : 
             base(nombre, apellido,sexo, nacionalidad, fechaNacimiento, numeroDocumento, domicilio, lugarNacimiento)
@@ -34,6 +34,27 @@ namespace Crucero
             this.pasaporte = new Pasaporte(nombre, apellido, sexo, nacionalidad, fechaNacimiento, numeroDocumento, domicilio, lugarNacimiento,
                 numeroDocumentoViaje, fechaEmision, fechaVencimiento, tipoPasaporte, codigoPaisExterior, autoridadExpedidora);
 
+        }
+
+        public static bool operator ==(Pasajero p1,Pasajero p2)
+        {
+            return (p1.numeroDocumento == p2.numeroDocumento);
+        }
+
+
+        public static bool operator !=(Pasajero p1, Pasajero p2)
+        {
+            return !(p1 == p2);
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool retorno = false;
+            if(obj is Pasajero)
+            {
+                retorno = this == ((Pasajero)obj);
+            }
+            return retorno;
         }
 
         private int calcularEdad(DateTime FechaNacimiento)

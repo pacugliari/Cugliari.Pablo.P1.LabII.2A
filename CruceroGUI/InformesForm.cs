@@ -14,7 +14,7 @@ namespace CruceroGUI
     public partial class InformesForm : Form
     {
         private List<Viaje> listaViajes;
-        private Embarcacion cruceroSeleccionado;
+        private Crucero.Crucero cruceroSeleccionado;
         public InformesForm(List<Viaje> listaViajes)
         {
             InitializeComponent();
@@ -73,7 +73,7 @@ namespace CruceroGUI
                 this.cbCasino.Checked  = this.cruceroSeleccionado.tieneElSalon(eSalones.Casino);
                 this.cbComedor.Checked = this.cruceroSeleccionado.tieneElSalon(eSalones.Comedor);
 
-                foreach (Viajero item in this.cruceroSeleccionado.Pasajeros)
+                foreach (Pasajero item in this.cruceroSeleccionado.Pasajeros)
                 {
                     this.dgvListaPasajeros.Rows.Add(item.Pasaporte.NumeroDocumentoViaje,item.Nombre,item.Apellido,item.Edad);
                 }
@@ -107,7 +107,7 @@ namespace CruceroGUI
             
             if(this.dgvListaPasajeros.RowCount > 0)
             {
-                Viajero pasajero = this.cruceroSeleccionado.obtenerPasajero(this.dgvListaPasajeros.CurrentRow.Cells[0].Value.ToString());
+                Pasajero pasajero = this.cruceroSeleccionado.obtenerPasajero(this.dgvListaPasajeros.CurrentRow.Cells[0].Value.ToString());
                 if(pasajero is not null)
                 {
                     this.dgvListaPasajeros.CurrentRow.Selected = true;

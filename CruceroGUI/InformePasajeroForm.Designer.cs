@@ -29,6 +29,7 @@ namespace CruceroGUI
         /// </summary>
         private void InitializeComponent()
         {
+            this.gbEquipaje.SuspendLayout();
             this.gbDatosPasajero.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNumeroDocumento)).BeginInit();
             this.gbDatosPasaporte.SuspendLayout();
@@ -38,16 +39,19 @@ namespace CruceroGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(766, 354);
+            this.ClientSize = new System.Drawing.Size(766, 388);
             this.Name = "InformePasajeroForm";
             this.Text = "InformePasajeroForm";
             this.Load += new System.EventHandler(this.InformePasajeroForm_Load);
+            this.gbEquipaje.ResumeLayout(false);
+            this.gbEquipaje.PerformLayout();
             this.gbDatosPasajero.ResumeLayout(false);
             this.gbDatosPasajero.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNumeroDocumento)).EndInit();
             this.gbDatosPasaporte.ResumeLayout(false);
             this.gbDatosPasaporte.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

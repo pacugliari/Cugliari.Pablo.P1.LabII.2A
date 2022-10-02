@@ -4,14 +4,14 @@ namespace Crucero
 {
     public class Persona
     {
-        protected string nombre;//28 CARACTERES
-        protected string apellido;//28 CARACTERES
-        private char sexo;//1 CARACTER
-        private ePaises nacionalidad;//18 CARACTERES
-        private DateTime fechaNacimiento;
-        private string numeroDocumento;
-        private string domicilio;
-        private string lugarNacimiento;
+        protected string nombre;
+        protected string apellido;
+        protected char sexo;
+        protected ePaises nacionalidad;
+        protected DateTime fechaNacimiento;
+        protected string numeroDocumento;
+        protected string domicilio;
+        protected string lugarNacimiento;
 
 
         public string Sexo { get { return this.sexo == 'M' ? "Masculino" : "Femenino"; } }

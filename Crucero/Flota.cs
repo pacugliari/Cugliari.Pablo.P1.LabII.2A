@@ -8,38 +8,38 @@ namespace Crucero
 {
     public class Flota
     {
-        List<Embarcacion> listaCruceros;
+        List<Crucero> listaCruceros;
         public  Flota()
         {
-            Embarcacion crucero1 = new Embarcacion("NOR111BR", "Norwegian Breakaway", 4, new List<eSalones> {eSalones.Comedor,eSalones.Casino,
+            Crucero crucero1 = new Crucero("NOR111BR", "Norwegian Breakaway", 4, new List<eSalones> {eSalones.Comedor,eSalones.Casino,
                eSalones.Spa,eSalones.Bar,eSalones.Teatro,eSalones.Cine,eSalones.Galeria,eSalones.Discoteca}, 100);
-            Embarcacion crucero2 = new Embarcacion("QUE222MA", "Queen Mary 2", 5, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
+            Crucero crucero2 = new Crucero("QUE222MA", "Queen Mary 2", 5, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina,eSalones.Bar,eSalones.Teatro,eSalones.Cine,eSalones.Discoteca}, 500);
-            Embarcacion crucero3 = new Embarcacion("IND333SE", "Independence of The Seas", 1, new List<eSalones> {eSalones.Comedor,eSalones.Gimnasio,
+            Crucero crucero3 = new Crucero("IND333SE", "Independence of The Seas", 1, new List<eSalones> {eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina,eSalones.Spa,eSalones.Bar,eSalones.Cine,eSalones.Galeria}, 600);
             crucero3.EstaDisponible = false;
-            Embarcacion crucero4 = new Embarcacion("LIB444SE", "Liberty of the Seas", 7, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
+            Crucero crucero4 = new Crucero("LIB444SE", "Liberty of the Seas", 7, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina}, 700);
-            Embarcacion crucero5 = new Embarcacion("FRE555SE", "Freedom of The Seas", 8, new List<eSalones> { eSalones.Comedor,eSalones.Casino,eSalones.Gimnasio,
+            Crucero crucero5 = new Crucero("FRE555SE", "Freedom of The Seas", 8, new List<eSalones> { eSalones.Comedor,eSalones.Casino,eSalones.Gimnasio,
                 eSalones.Piscina,eSalones.Spa,eSalones.Bar}, 800);
-            Embarcacion crucero6 = new Embarcacion("NOR666EP", "Norvegian Epic", 9, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
+            Crucero crucero6 = new Crucero("NOR666EP", "Norvegian Epic", 9, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina,eSalones.Spa,eSalones.Bar,eSalones.Teatro,eSalones.Cine}, 900);
-            Embarcacion crucero7 = new Embarcacion("QUA777SE", "Quantum of The Seas", 10, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
+            Crucero crucero7 = new Crucero("QUA777SE", "Quantum of The Seas", 10, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina,eSalones.Spa,eSalones.Bar,eSalones.Teatro,eSalones.Cine,eSalones.Galeria,eSalones.Discoteca,eSalones.Casino,}, 1000);
-            this.listaCruceros = new List<Embarcacion> { crucero1, crucero2, crucero3, crucero4, crucero5, crucero6, crucero7 };
+            this.listaCruceros = new List<Crucero> { crucero1, crucero2, crucero3, crucero4, crucero5, crucero6, crucero7 };
         }
 
-        public List<Embarcacion> obtenerListaEmbarcacion()
+        public List<Crucero> obtenerListaEmbarcacion()
         {
             return this.listaCruceros;
         }
 
-        public static List<Embarcacion> filtrarFlota(Flota flota,List<eSalones> necesidadesPasajero,List<Viajero> listaViajeros)
+        public static List<Crucero> filtrarFlota(Flota flota,List<eSalones> necesidadesPasajero,List<Pasajero> listaViajeros)
         {
-            List<Embarcacion> filtrada = new List<Embarcacion>();
-            List<Embarcacion> filtrada2 = new List<Embarcacion>();
+            List<Crucero> filtrada = new List<Crucero>();
+            List<Crucero> filtrada2 = new List<Crucero>();
             bool tieneTodos = true;
-            foreach (Embarcacion cruceroIndice in flota.listaCruceros)
+            foreach (Crucero cruceroIndice in flota.listaCruceros)
             {
                 tieneTodos = true;
                 foreach (eSalones salon in necesidadesPasajero)
@@ -57,8 +57,8 @@ namespace Crucero
             int cantidadCamarotesPremium=0;
             float pesoGrupoFamiliar = Equipaje.calcularPesoTotal(listaViajeros);
 
-            Embarcacion.calcularCamarotes(listaViajeros,out cantidadCamarotesTurista,out cantidadCamarotesPremium);
-            foreach (Embarcacion cruceroIndice in filtrada)
+            Crucero.calcularCamarotes(listaViajeros,out cantidadCamarotesTurista,out cantidadCamarotesPremium);
+            foreach (Crucero cruceroIndice in filtrada)
             {
                 if (cruceroIndice.tieneEspacioPara(cantidadCamarotesTurista, cantidadCamarotesPremium, pesoGrupoFamiliar))
                 {
@@ -69,10 +69,10 @@ namespace Crucero
             return filtrada2;
         }
 
-        public Embarcacion obtenerEmbarcacionDeNombre (string nombreCrucero)
+        public Crucero obtenerEmbarcacionDeNombre (string nombreCrucero)
         {
-            Embarcacion retorno = null;
-            foreach (Embarcacion cruceroIndice in this.listaCruceros)
+            Crucero retorno = null;
+            foreach (Crucero cruceroIndice in this.listaCruceros)
             {
                 if((string)cruceroIndice == nombreCrucero)
                 {

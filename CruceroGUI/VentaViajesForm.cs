@@ -15,18 +15,22 @@ namespace CruceroGUI
     {
         private List<Viaje> listaViajes;
         private Flota flota;
-        private List<Viajero> listaViajeros;
+        private List<Pasajero> listaViajeros;
+        private List<Pasajero> clientes;
+        private float recaudacion;
 
         public VentaViajesForm()
         {
             this.InitializeComponent();
+            this.listaViajeros = new List<Pasajero>();
         }
-        public VentaViajesForm(List<Viaje> listaViajes,Flota flota,List<Viajero> listaViajeros): this()
+        public VentaViajesForm(List<Viaje> listaViajes,Flota flota,List<Pasajero> clientes): this()
         {
             
             this.listaViajes = listaViajes;
-            this.flota = flota;
-            this.listaViajeros = new List<Viajero>();
+            this.flota = flota; 
+            this.clientes = clientes;
+            this.recaudacion = 0;
 
             this.nudNumeroDocumento.Controls[0].Visible = false;
             this.nudNumeroDocumento.Text = "";
@@ -36,6 +40,8 @@ namespace CruceroGUI
             this.dtpFechaNacimiento.MaxDate = this.dtpFechaNacimiento.Value = DateTime.Now;
             this.dtpFechaEmision.MaxDate = this.dtpFechaEmision.Value = DateTime.Now;
             this.dtpFechaVencimiento.MinDate = this.dtpFechaEmision.Value;
+
+            this.cbSeleccionarCliente.Items.Add("Vacio");
           
 
             foreach (ePaises item in Enum.GetValues(typeof(ePaises)))
@@ -61,44 +67,71 @@ namespace CruceroGUI
 
         private void btnAgregarPasajero_Click(object sender, EventArgs e)
         {
-            this.dgvListaViajes.Rows.Clear();
             this.txtCostoFinalBruto.Text = "";
             this.txtNeto.Text = "";
+            this.btnVenderViaje.Enabled = false;
+            this.dgvListaViajes.Rows.Clear();
+            this.dgvGrupoFamiliar.Rows.Clear();
 
-            if (estanTodosLosCamposCompletos())
+            foreach (Pasajero item in this.listaViajeros)
             {
-                string nombre = this.txtNombre.Text;
-                string apellido = this.txtApellido.Text;
-                char sexo = 'M';
-                string nacionalidad = this.cbNacionalidad.Text;
-                DateTime fechaNacimiento = this.dtpFechaNacimiento.Value;
-                string numeroDocumento = this.nudNumeroDocumento.Value.ToString();
-                string domicilio = this.txtDomicilio.Text;
-                string ciudad = this.txtCiudad.Text;
-                string numeroDocumentoViaje = this.txtPasaporte.Text;
-                DateTime fechaEmision = this.dtpFechaEmision.Value;
-                DateTime fechaVencimiento = this.dtpFechaVencimiento.Value;
-                string tipoPasaporte = this.cbTipoPasaporte.Text;
-                string codigoPaisExterior = this.txtCodigoExterior.Text;
-                string autoridadExpendidora = this.txtExpendidora.Text;
-                bool tieneBolso = this.cbBolsoMano.Checked;
-                int cantidadValijas;
-                int.TryParse(this.cbCantidadValijas.Text, out cantidadValijas);
-                Equipaje equipaje = new Equipaje(tieneBolso,cantidadValijas);
-                bool esPremium = this.cbPremium.Checked;
-                
-                if(this.cbSexo.Text == "Femenino")
-                {
-                    sexo = 'F';
-                }
-                
-                this.listaViajeros.Add(new Viajero(nombre, apellido, sexo, nacionalidad, fechaNacimiento, numeroDocumento, domicilio, ciudad,
-                    numeroDocumentoViaje, fechaEmision, fechaVencimiento, tipoPasaporte, codigoPaisExterior, autoridadExpendidora,equipaje,esPremium));
-
-                this.dgvGrupoFamiliar.Rows.Add(this.txtNombre.Text, this.txtApellido.Text);
+                this.dgvGrupoFamiliar.Rows.Add(item.Nombre, item.Apellido);
             }
-            else
-                MessageBox.Show("Deben estar todos los campos completos de para dar de alta un pasajero:\n-Datos de pasajero\n-Datos de pasaporte", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            string nombre = this.txtNombre.Text;
+            string apellido = this.txtApellido.Text;
+            char sexo = 'M';
+            string nacionalidad = this.cbNacionalidad.Text;
+            DateTime fechaNacimiento = this.dtpFechaNacimiento.Value;
+            string numeroDocumento = this.nudNumeroDocumento.Value.ToString();
+            string domicilio = this.txtDomicilio.Text;
+            string ciudad = this.txtCiudad.Text;
+            string numeroDocumentoViaje = this.txtPasaporte.Text;
+            DateTime fechaEmision = this.dtpFechaEmision.Value;
+            DateTime fechaVencimiento = this.dtpFechaVencimiento.Value;
+            string tipoPasaporte = this.cbTipoPasaporte.Text;
+            string codigoPaisExterior = this.txtCodigoExterior.Text;
+            string autoridadExpendidora = this.txtExpendidora.Text;
+            bool tieneBolso = this.cbBolsoMano.Checked;
+            int cantidadValijas;
+            int.TryParse(this.cbCantidadValijas.Text, out cantidadValijas);
+            Equipaje equipaje = new Equipaje(tieneBolso, cantidadValijas);
+            bool esPremium = this.cbPremium.Checked;
+            bool darAlta = true;
+            Pasajero pasajeroNuevo = Menu.buscarCliente(numeroDocumento.ToString());
+
+            sexo = this.cbSexo.Text == "Femenino" ? 'F' : 'M';
+
+            
+            if (pasajeroNuevo is null)
+            {
+                if (estanTodosLosCamposCompletos())
+                {
+                    pasajeroNuevo = new Pasajero(nombre, apellido, sexo, nacionalidad, fechaNacimiento, numeroDocumento, domicilio, ciudad,
+                                       numeroDocumentoViaje, fechaEmision, fechaVencimiento, tipoPasaporte, codigoPaisExterior, autoridadExpendidora, equipaje, esPremium);
+                }
+                else
+                {
+                    MessageBox.Show("Deben estar todos los campos completos de para dar de alta un pasajero:\n-Datos de pasajero\n-Datos de pasaporte", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    darAlta = false;
+                }
+                   
+            }
+            else if (pasajeroNuevo is not null && this.cbSeleccionarCliente.Text == "Vacio")
+            {
+                MessageBox.Show("El numero de documento ya se encuentra dado de alta como cliente", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.cbSeleccionarCliente.Focus();
+                darAlta = false;
+            }
+
+            if (!this.listaViajeros.Contains(pasajeroNuevo) && darAlta)
+            {
+                this.habiliarEstadoDatosPasajero(true);
+                this.VentaViajesForm_Load(sender,e);
+                this.listaViajeros.Add(pasajeroNuevo);
+                this.dgvGrupoFamiliar.Rows.Add(pasajeroNuevo.Nombre, pasajeroNuevo.Apellido);
+            }    
         }
 
         private bool estanTodosLosCamposCompletos()
@@ -193,7 +226,7 @@ namespace CruceroGUI
             this.dgvListaViajes.Rows.Clear();
             if (this.dgvGrupoFamiliar.Rows.Count > 0)
             {
-                List<Embarcacion> listaFiltradaDeCruceros = Flota.filtrarFlota(this.flota, this.obtenerNecesidades(), this.listaViajeros);
+                List<Crucero.Crucero> listaFiltradaDeCruceros = Flota.filtrarFlota(this.flota, this.obtenerNecesidades(), this.listaViajeros);
                 List<Viaje> listaFiltradaDeViajes = Viaje.filtrarViajes(this.listaViajes, listaFiltradaDeCruceros);
                 foreach (Viaje item in listaFiltradaDeViajes)
                 {
@@ -219,21 +252,44 @@ namespace CruceroGUI
 
         private void btnVenderViaje_Click(object sender, EventArgs e)
         {
-            Embarcacion crucero;
+            Crucero.Crucero crucero;
             Viaje viaje;
 
             if (this.dgvListaViajes.Rows.Count > 0)
             {
                 Menu.obtenerDatosDeDataGridView(this.dgvListaViajes,out crucero,out viaje);
-                if(crucero is not null)
+                if (crucero is not null)
                 {
-                    crucero.agregarPasajeros(this.listaViajeros);
+                    List<Pasajero> filtrada = new List<Pasajero>();
+                    foreach (Pasajero item in this.listaViajeros)
+                    {
+                        if (!crucero.Pasajeros.Contains(item))
+                        {
+                            filtrada.Add(item);
+                        }
+                    }
+                    foreach (Pasajero item in filtrada)
+                    {
+                        if (Historico.PasajerosConCantidadViajes.ContainsKey(item.NumeroDocumento))
+                            Historico.PasajerosConCantidadViajes[item.NumeroDocumento]++;
+                        else
+                            Historico.PasajerosConCantidadViajes.Add(item.NumeroDocumento, 1);
+
+                        this.cbSeleccionarCliente.Items.Add(item.NumeroDocumento + "," + item.Nombre + "," + item.Apellido);
+                    }
+
+                    crucero.agregarPasajeros(filtrada);
+                    this.clientes.AddRange(filtrada);
+                    
+                    Historico.DestinosConCantidadViajes[viaje.CiudadDestino]++;
+                    Historico.CrucerosConHoras[crucero.Nombre] += viaje.DuracionViaje;
+                    Historico.DestinosConFacturacion[viaje.CiudadDestino] += this.recaudacion;
                     MessageBox.Show("La venta del viaje se realizo de manera exitosa", "Venta exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                     
             }
-
+            this.listaViajeros.Clear();
             this.btnVenderViaje.Enabled = false;
         }
 
@@ -242,7 +298,7 @@ namespace CruceroGUI
         private void actualizar()
         {
             Viaje viaje;
-            Embarcacion crucero;
+            Crucero.Crucero crucero;
             float costo=0;
 
             Menu.obtenerDatosDeDataGridView(this.dgvListaViajes, out crucero, out viaje);
@@ -251,7 +307,7 @@ namespace CruceroGUI
                 costo = viaje.calcularCostos(this.listaViajeros);
                 this.txtCostoFinalBruto.Text = "$"+ costo.ToString(".##");
                 this.txtNeto.Text = "$" + (costo*1.21).ToString(".##");
-
+                this.recaudacion = (float)(costo * 1.21);
             }
         }
 
@@ -267,7 +323,13 @@ namespace CruceroGUI
 
         private void VentaViajesForm_Load(object sender, EventArgs e)
         {
-            if(this.cbSexo.Items.Count > 0)
+
+            this.recaudacion = 0;
+
+            if(this.cbSeleccionarCliente.Items.Count > 0)
+                this.cbSeleccionarCliente.SelectedIndex = 0;
+
+            if (this.cbSexo.Items.Count > 0)
                 this.cbSexo.SelectedIndex = 0;
 
             if (this.cbCantidadValijas.Items.Count > 0)
@@ -280,5 +342,67 @@ namespace CruceroGUI
                 this.cbNacionalidad.SelectedIndex = 1;
         }
 
+        protected virtual void cargarDatosPasajero(Pasajero pasajero)
+        {
+            //DATOS PERSONA
+            if(pasajero is not null)
+            {
+                this.txtNombre.Text = pasajero.Nombre;
+                this.txtApellido.Text = pasajero.Apellido;
+                this.cbSexo.Text = pasajero.Sexo;
+                this.cbNacionalidad.Text = pasajero.Nacionalidad;
+                this.dtpFechaNacimiento.Text = pasajero.FechaNacimiento;
+                this.nudNumeroDocumento.Text = pasajero.NumeroDocumento;
+                this.txtDomicilio.Text = pasajero.Domicilio;
+                this.txtCiudad.Text = pasajero.LugarNacimiento;
+                //DATOS PASAPORTE
+                this.txtPasaporte.Text = pasajero.Pasaporte.NumeroDocumentoViaje;
+                this.dtpFechaEmision.Value = pasajero.Pasaporte.FechaEmision;
+                this.dtpFechaVencimiento.Value = pasajero.Pasaporte.FechaVencimiento;
+                this.cbTipoPasaporte.Text = pasajero.Pasaporte.TipoPasaporte;
+                this.txtCodigoExterior.Text = pasajero.Pasaporte.CodigoPaisExterior;
+                this.txtExpendidora.Text = pasajero.Pasaporte.AutoridadExpedidora;
+            }
+
+        }
+
+        private void habiliarEstadoDatosPasajero(bool estado)
+        {
+            foreach (Control item in this.gbDatosPasajero.Controls)
+            {
+                item.Enabled = estado;
+            }
+
+            foreach (Control item in this.gbDatosPasaporte.Controls)
+            {
+                item.Enabled = estado;
+            }
+        }
+
+        private void cbSeleccionarCliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string texto = this.cbSeleccionarCliente.SelectedItem.ToString();
+            if (texto != "Vacio")
+            {
+                texto = texto.Split(',')[0].ToString();
+                Pasajero pasajero = Menu.buscarCliente(texto);
+                this.cargarDatosPasajero(pasajero);
+                this.habiliarEstadoDatosPasajero(false);
+            }
+            else
+            {
+                this.habiliarEstadoDatosPasajero(true);
+                Menu.vaciarFormulario(this);
+                this.VentaViajesForm_Load(sender, e);
+            }
+
+
+
+        }
+
+        private void VentaViajesForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.listaViajeros.Clear();
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace Crucero
         private eCiudades ciudadPartida;
         private eCiudades ciudadDestino;
         private DateTime fechaInicioViaje;
-        private Embarcacion crucero;
+        private Crucero crucero;
         private int cantidadCamarotesPremium;
         private int cantidadCamarotesTurista;
         private float costoTurista;
@@ -28,20 +28,20 @@ namespace Crucero
         public string CostoPremium { get { return "$" + this.costoPremium.ToString(); } }
         public int DuracionViaje { get { return this.duracionViaje; } }
 
-        public static bool operator ==(Embarcacion crucero,Viaje viaje)
+        public static bool operator ==(Crucero crucero,Viaje viaje)
         {
             return (string)crucero == (string)viaje.crucero;
         }
 
-        public static bool operator !=(Embarcacion crucero, Viaje viaje)
+        public static bool operator !=(Crucero crucero, Viaje viaje)
         {
             return !(crucero == viaje);
         }
 
-        public static List<Viaje> filtrarViajes(List<Viaje> listaViajes ,List<Embarcacion> listaCruceros)
+        public static List<Viaje> filtrarViajes(List<Viaje> listaViajes ,List<Crucero> listaCruceros)
         {
             List<Viaje> filtrada = new List<Viaje>();
-            foreach (Embarcacion cruceroIndice in listaCruceros)
+            foreach (Crucero cruceroIndice in listaCruceros)
             {
                 foreach (Viaje viajeIndice in listaViajes)
                 {
@@ -59,7 +59,7 @@ namespace Crucero
             
         }
 
-        public Viaje(string ciudadPartida, string ciudadDestino, DateTime fechaInicioViaje, Embarcacion crucero,
+        public Viaje(string ciudadPartida, string ciudadDestino, DateTime fechaInicioViaje, Crucero crucero,
             int cantidadCamarotesPremium, int cantidadCamarotesTurista, float costoTurista, float costoPremium, int duracionViaje)
         {
             Enum.TryParse(ciudadPartida, out this.ciudadPartida);
@@ -73,7 +73,7 @@ namespace Crucero
             this.duracionViaje = duracionViaje;
         }
 
-        private static bool esRegional(string nombreDestino)
+        public static bool esRegional(string nombreDestino)
         {
             bool retorno = false;
             eCiudades destino;
@@ -116,12 +116,12 @@ namespace Crucero
             return duracion;
         }
 
-        public float calcularCostos(List<Viajero> listaViajeros)
+        public float calcularCostos(List<Pasajero> listaViajeros)
         {
             int cantidadDeTuristas=0;
             int cantidadDePremium=0;
 
-            Embarcacion.contarTiposPasajeros(listaViajeros,out cantidadDeTuristas,out cantidadDePremium);
+            global::Crucero.Crucero.contarTiposPasajeros(listaViajeros, out cantidadDeTuristas,out cantidadDePremium);
 
             return (cantidadDeTuristas * this.costoTurista) + (cantidadDePremium * this.costoPremium);
         }

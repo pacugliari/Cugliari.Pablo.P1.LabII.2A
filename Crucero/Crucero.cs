@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Crucero
 {
-    public class Embarcacion
+    public class Crucero
     {
         private string matricula;
         private string nombre;
         private int cantidadCamarotes;
         private List<eSalones> salones;
-        private List<Viajero> pasajeros;
+        private List<Pasajero> pasajeros;
         private int cantidadCasinos;
         private float capacidadBodega;
         private int cantidadCamarotesPremium;
@@ -40,13 +40,13 @@ namespace Crucero
         public float CapacidadBodegaUsada { get { return this.capacidadBodegaUsada; } }
         public string CantidadPasajerosPorCamarote { get { return this.cantidadPasajerosPorCamarote.ToString(); } }
 
-        public List<Viajero> Pasajeros { get { return this.pasajeros; } }
+        public List<Pasajero> Pasajeros { get { return this.pasajeros; } }
 
-        public Viajero obtenerPasajero(string numeroDocumentoViaje)
+        public Pasajero obtenerPasajero(string numeroDocumentoViaje)
         {
-            Viajero retorno = null;
+            Pasajero retorno = null;
 
-            foreach (Viajero item in this.pasajeros)
+            foreach (Pasajero item in this.pasajeros)
             {
                 if(item.Pasaporte.NumeroDocumentoViaje == numeroDocumentoViaje)
                 {
@@ -62,7 +62,8 @@ namespace Crucero
         {
             bool retorno = false;
 
-            if((this.camarotesPremiumUsados == this.CamarotesPremium() && this.camarotesTuristaUsados == this.CamarotesTurista()) || (this.capacidadBodegaUsada == this.capacidadBodega))
+            if((this.camarotesPremiumUsados == this.CamarotesPremium() && this.camarotesTuristaUsados == this.CamarotesTurista()) 
+                && (this.capacidadBodegaUsada == this.capacidadBodega))
             {
                 retorno = true;
             }
@@ -70,7 +71,7 @@ namespace Crucero
             return retorno;
         }
 
-        public Embarcacion(string matricula,string nombre,int cantidadCamarotes,List<eSalones> salones,float capacidadBodega)
+        public Crucero(string matricula,string nombre,int cantidadCamarotes,List<eSalones> salones,float capacidadBodega)
         {
             this.matricula = matricula;
             this.nombre = nombre;
@@ -79,7 +80,7 @@ namespace Crucero
             this.cantidadCasinos = 0;
             this.estaDisponible = true;
             this.cantidadPasajerosPorCamarote = 4;
-            this.pasajeros = new List<Viajero>();
+            this.pasajeros = new List<Pasajero>();
             this.camarotesPremiumUsados = 0;
             this.camarotesTuristaUsados = 0;
             this.capacidadBodegaUsada = 0;
@@ -96,17 +97,17 @@ namespace Crucero
        
         }
 
-        public void agregarPasajeros(List<Viajero> viajeros)
+        public void agregarPasajeros(List<Pasajero> viajeros)
         {
             int cantCamPremium = 0;
             int cantCamTurista = 0;
             float pesoUsado = 0;
-            Embarcacion.calcularCamarotes(viajeros, out cantCamTurista, out cantCamPremium);
+            Crucero.calcularCamarotes(viajeros, out cantCamTurista, out cantCamPremium);
             pesoUsado = Equipaje.calcularPesoTotal(viajeros);
             this.camarotesTuristaUsados += cantCamTurista;
             this.camarotesPremiumUsados += cantCamPremium;
             this.capacidadBodegaUsada += pesoUsado;
-            foreach (Viajero item in viajeros)
+            foreach (Pasajero item in viajeros)
             {
                 this.pasajeros.Add(item);
             }
@@ -130,7 +131,7 @@ namespace Crucero
             return this.cantidadCamarotes- this.cantidadCamarotesPremium;
         }
 
-        public static explicit operator string(Embarcacion embarcacion)
+        public static explicit operator string(Crucero embarcacion)
         {
             return embarcacion.nombre;
         }
@@ -152,12 +153,12 @@ namespace Crucero
             return retorno;
         }
 
-        public static void contarTiposPasajeros(List<Viajero> listaViajeros, out int cantidadTuristas, out int cantidadPremium)
+        public static void contarTiposPasajeros(List<Pasajero> listaViajeros, out int cantidadTuristas, out int cantidadPremium)
         {
             cantidadTuristas = 0;
             cantidadPremium = 0;
 
-            foreach (Viajero item in listaViajeros)
+            foreach (Pasajero item in listaViajeros)
             {
                 if (item.EsPremium)
                 {
@@ -168,15 +169,15 @@ namespace Crucero
             }
         }
 
-        public static void calcularCamarotes(List<Viajero> listaViajeros,out int cantidadCamarotesTurista,out int cantidadCamarotesPremium)
+        public static void calcularCamarotes(List<Pasajero> listaViajeros,out int cantidadCamarotesTurista,out int cantidadCamarotesPremium)
         {
             int cantidadTuristas = 0;
             int cantidadPremium = 0;
 
-            Embarcacion.contarTiposPasajeros(listaViajeros,out cantidadTuristas,out cantidadPremium);
+            Crucero.contarTiposPasajeros(listaViajeros,out cantidadTuristas,out cantidadPremium);
 
-            cantidadCamarotesTurista = Embarcacion.calcularCantidadCamarotes(cantidadTuristas);
-            cantidadCamarotesPremium = Embarcacion.calcularCantidadCamarotes(cantidadPremium);
+            cantidadCamarotesTurista = Crucero.calcularCantidadCamarotes(cantidadTuristas);
+            cantidadCamarotesPremium = Crucero.calcularCantidadCamarotes(cantidadPremium);
 
         }
 

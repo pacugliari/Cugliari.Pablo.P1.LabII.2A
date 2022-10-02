@@ -17,7 +17,7 @@ namespace CruceroGUI
         private Flota flota;
         private List<Viaje> listaViajes;
         private bool fechaElegida;
-        private Embarcacion cruceroElegido;
+        private Crucero.Crucero cruceroElegido;
         private string ciudadPartida;
         private string ciudadDeDestino;
         private DateTime fechaInicioViaje;
@@ -55,7 +55,7 @@ namespace CruceroGUI
 
             //CARGO LAS 7 EMBARCACIONES
 
-            foreach (Embarcacion item in this.flota.obtenerListaEmbarcacion())
+            foreach (Crucero.Crucero item in this.flota.obtenerListaEmbarcacion())
             {
                 this.comboBoxCrucero.Items.Add((string)item);
             }
@@ -170,6 +170,8 @@ namespace CruceroGUI
             this.comboBoxCiudadPartida.SelectedIndex = 0;
             this.comboBoxCiudadPartida.Enabled = false;
             this.ciudadPartida = this.comboBoxCiudadPartida.Text.ToString();
+            this.actualizar();
+            this.textBoxCostoViajePremium.Text = "";
         }
     }
 }

@@ -15,6 +15,9 @@ namespace Crucero
 
         //PESO BOLSO Y VALIJAS DE 25KG
 
+        public bool BolsoMano { get { return this.bolsoMano; } }
+        public int Valijas { get { return this.valijas; } }
+
         static Equipaje()
         {
             Equipaje.pesoBolso = Equipaje.pesoValija = 25;
@@ -25,12 +28,12 @@ namespace Crucero
             this.valijas = valijas;
         }
 
-        public static float calcularPesoTotal(List<Viajero> listaViajeros)
+        public static float calcularPesoTotal(List<Pasajero> listaViajeros)
         {
             float retorno = 0;
             Equipaje equipaje;
           
-            foreach (Viajero item in listaViajeros)
+            foreach (Pasajero item in listaViajeros)
             {
                 equipaje = item.Equipaje;
                 if (equipaje.bolsoMano)

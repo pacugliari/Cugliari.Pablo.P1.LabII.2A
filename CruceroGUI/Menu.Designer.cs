@@ -75,7 +75,7 @@ namespace CruceroGUI
             // 
             // btnInformesHistoricos
             // 
-            this.btnInformesHistoricos.Location = new System.Drawing.Point(52, 197);
+            this.btnInformesHistoricos.Location = new System.Drawing.Point(52, 174);
             this.btnInformesHistoricos.Name = "btnInformesHistoricos";
             this.btnInformesHistoricos.Size = new System.Drawing.Size(145, 29);
             this.btnInformesHistoricos.TabIndex = 3;
@@ -85,7 +85,7 @@ namespace CruceroGUI
             // 
             // btnInformes
             // 
-            this.btnInformes.Location = new System.Drawing.Point(52, 142);
+            this.btnInformes.Location = new System.Drawing.Point(52, 130);
             this.btnInformes.Name = "btnInformes";
             this.btnInformes.Size = new System.Drawing.Size(145, 29);
             this.btnInformes.TabIndex = 2;
@@ -95,7 +95,7 @@ namespace CruceroGUI
             // 
             // btnVentaViajes
             // 
-            this.btnVentaViajes.Location = new System.Drawing.Point(52, 89);
+            this.btnVentaViajes.Location = new System.Drawing.Point(52, 86);
             this.btnVentaViajes.Name = "btnVentaViajes";
             this.btnVentaViajes.Size = new System.Drawing.Size(145, 29);
             this.btnVentaViajes.TabIndex = 1;
