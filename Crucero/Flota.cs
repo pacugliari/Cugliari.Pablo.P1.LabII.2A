@@ -8,7 +8,7 @@ namespace Crucero
 {
     public class Flota
     {
-        List<Crucero> listaCruceros;
+        private List<Crucero> listaCruceros;
         public  Flota()
         {
             Crucero crucero1 = new Crucero("NOR111BR", "Norwegian Breakaway", 4, new List<eSalones> {eSalones.Comedor,eSalones.Casino,

@@ -35,7 +35,7 @@ namespace CruceroGUI
             this.viajesForm = new ViajesForm(Menu.listaViajes, Menu.flota);
             this.ventaViajesForm = new VentaViajesForm(Menu.listaViajes, Menu.flota,Menu.clientes);
             this.informesForm = new InformesForm(Menu.listaViajes);
-            this.informesHistoricosForm = new InformesHistoricosForm(Menu.clientes);
+            this.informesHistoricosForm = new InformesHistoricosForm(Menu.clientes,Menu.flota);
         }
 
         private void btnViajes_Click(object sender, EventArgs e)

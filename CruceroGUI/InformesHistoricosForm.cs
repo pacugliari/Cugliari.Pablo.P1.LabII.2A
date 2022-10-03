@@ -15,11 +15,13 @@ namespace CruceroGUI
     {
 
         private List<Pasajero> clientes;
-        public InformesHistoricosForm(List<Pasajero> clientes)
+        private Flota flota;
+        public InformesHistoricosForm(List<Pasajero> clientes,Flota flota)
         {
             InitializeComponent();
 
             this.clientes = clientes;
+            this.flota = flota;
 
             //INICIALIZO CON LAS PROPIEDADES A LOS DATAGRIDVIEW
             foreach (Control item in this.Controls)
@@ -127,7 +129,7 @@ namespace CruceroGUI
             Dictionary<string, int> lista = Historico.obtenerCrucerosConHoras();
             foreach (KeyValuePair<string, int> item in lista)
             {
-                this.dgvListaHorasCrucero.Rows.Add(item.Key,item.Value);
+                this.dgvListaHorasCrucero.Rows.Add(item.Key,item.Value, this.flota.obtenerEmbarcacionDeNombre(item.Key).Pasajeros.Count);
             }
             Menu.aplicarNumerosFilas(this.dgvListaPasajeros);
         }

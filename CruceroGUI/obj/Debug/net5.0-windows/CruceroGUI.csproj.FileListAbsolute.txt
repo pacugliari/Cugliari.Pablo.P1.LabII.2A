@@ -25,3 +25,4 @@ C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\CruceroGUI\obj\Debug\net5.0-wind
 C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\CruceroGUI\obj\Debug\net5.0-windows\CruceroGUI.InformesForm.resources
 C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\CruceroGUI\obj\Debug\net5.0-windows\CruceroGUI.InformesHistoricosForm.resources
 C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\CruceroGUI\obj\Debug\net5.0-windows\CruceroGUI.InformePasajeroForm.resources
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\CruceroGUI\obj\Debug\net5.0-windows\CruceroGUI.Properties.Resources.resources

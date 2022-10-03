@@ -125,13 +125,16 @@ namespace CruceroGUI
                 darAlta = false;
             }
 
-            if (!this.listaViajeros.Contains(pasajeroNuevo) && darAlta)
+
+            if (!this.listaViajeros.Contains(pasajeroNuevo) && darAlta )
             {
                 this.habiliarEstadoDatosPasajero(true);
-                this.VentaViajesForm_Load(sender,e);
+                this.VentaViajesForm_Load(sender, e);
                 this.listaViajeros.Add(pasajeroNuevo);
                 this.dgvGrupoFamiliar.Rows.Add(pasajeroNuevo.Nombre, pasajeroNuevo.Apellido);
-            }    
+            }
+
+
         }
 
         private bool estanTodosLosCamposCompletos()
@@ -240,11 +243,37 @@ namespace CruceroGUI
 
         private void dgvListaViajes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            Crucero.Crucero crucero;
+            Viaje viaje;
+            StringBuilder textoRepetido = new StringBuilder();
+            textoRepetido.AppendLine("Los siguientes pasajeros ya se encuentran en el viaje: ");
+            bool hayRepetidos = false;
+
             if (this.dgvListaViajes.Rows.Count > 0)
             {
                 this.dgvListaViajes.CurrentRow.Selected = true;
                 this.btnVenderViaje.Enabled = true;
-                this.actualizar();
+                Menu.obtenerDatosDeDataGridView(this.dgvListaViajes, out crucero, out viaje);
+                foreach (Pasajero item in crucero.Pasajeros)
+                {
+                    if (this.listaViajeros.Contains(item))
+                    {
+                        hayRepetidos = true;
+                        this.dgvGrupoFamiliar.Rows.RemoveAt(this.listaViajeros.IndexOf(item));
+                        this.listaViajeros.Remove(item);
+                        textoRepetido.AppendLine($"DNI:{item.NumeroDocumento}-Nombre:{item.Nombre}-Apellido:{item.Apellido}");
+                    }  
+                }
+                if (hayRepetidos)
+                {
+                    MessageBox.Show(textoRepetido.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (this.listaViajeros.Count == 0)
+                {
+                    Menu.vaciarFormulario(this);
+
+                }else
+                    this.actualizar();
             }
             else
                 this.btnVenderViaje.Enabled = false;
@@ -254,13 +283,14 @@ namespace CruceroGUI
         {
             Crucero.Crucero crucero;
             Viaje viaje;
+            List<Pasajero> filtrada = new List<Pasajero>();
 
             if (this.dgvListaViajes.Rows.Count > 0)
             {
                 Menu.obtenerDatosDeDataGridView(this.dgvListaViajes,out crucero,out viaje);
                 if (crucero is not null)
                 {
-                    List<Pasajero> filtrada = new List<Pasajero>();
+                    
                     foreach (Pasajero item in this.listaViajeros)
                     {
                         if (!crucero.Pasajeros.Contains(item))
@@ -275,17 +305,23 @@ namespace CruceroGUI
                         else
                             Historico.PasajerosConCantidadViajes.Add(item.NumeroDocumento, 1);
 
-                        this.cbSeleccionarCliente.Items.Add(item.NumeroDocumento + "," + item.Nombre + "," + item.Apellido);
+                        if (!this.clientes.Contains(item))
+                        {
+                            this.cbSeleccionarCliente.Items.Add(item.NumeroDocumento + "," + item.Nombre + "," + item.Apellido);
+                        }
                     }
 
-                    crucero.agregarPasajeros(filtrada);
-                    this.clientes.AddRange(filtrada);
-                    
-                    Historico.DestinosConCantidadViajes[viaje.CiudadDestino]++;
-                    Historico.CrucerosConHoras[crucero.Nombre] += viaje.DuracionViaje;
-                    Historico.DestinosConFacturacion[viaje.CiudadDestino] += this.recaudacion;
-                    MessageBox.Show("La venta del viaje se realizo de manera exitosa", "Venta exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
+                        crucero.agregarPasajeros(filtrada);
+                        this.clientes.AddRange(filtrada);
+
+                        Historico.DestinosConCantidadViajes[viaje.CiudadDestino]++;
+                        Historico.CrucerosConHoras[crucero.Nombre] = viaje.DuracionViaje;
+                        Historico.DestinosConFacturacion[viaje.CiudadDestino] += this.recaudacion;
+
+
+                        MessageBox.Show("La venta del viaje se realizo de manera exitosa\n", "Venta exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        this.Close();
                 }
                     
             }
@@ -391,9 +427,29 @@ namespace CruceroGUI
             }
             else
             {
+                foreach (Control item in this.gbDatosPasajero.Controls)
+                {
+                    if(item is not Label && item is not ComboBox)
+                    {
+                        item.Text = "";
+                    }
+                    else if (item is ComboBox)
+                    {
+                        ((ComboBox)item).SelectedIndex = 0;
+                    }
+                }
+
+                foreach (Control item in this.gbDatosPasaporte.Controls)
+                {
+                    if (item is not Label && item is not ComboBox)
+                    {
+                        item.Text = "";
+                    }else if (item is ComboBox)
+                    {
+                        ((ComboBox)item).SelectedIndex = 0;
+                    }
+                }
                 this.habiliarEstadoDatosPasajero(true);
-                Menu.vaciarFormulario(this);
-                this.VentaViajesForm_Load(sender, e);
             }
 
 
