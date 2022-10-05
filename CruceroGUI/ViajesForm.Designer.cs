@@ -447,11 +447,11 @@ namespace CruceroGUI
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label lblP;
-        private System.Windows.Forms.Label lblCCT;
-        private System.Windows.Forms.Label lblCCP;
-        private System.Windows.Forms.Label label12;
+        //private System.Windows.Forms.Label label16;
+        //private System.Windows.Forms.Label lblP;
+        //private System.Windows.Forms.Label lblCCT;
+        //private System.Windows.Forms.Label lblCCP;
+        //private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lblAyuda2;
         private System.Windows.Forms.ComboBox comboBoxCrucero;
         private System.Windows.Forms.ComboBox comboBoxCiudadPartida;
@@ -459,7 +459,7 @@ namespace CruceroGUI
         private System.Windows.Forms.DateTimePicker dateTimePickerFechaViaje;
         private System.Windows.Forms.TextBox textBoxCostoViajePremium;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label lblT;
+        //private System.Windows.Forms.Label lblT;
         private System.Windows.Forms.DataGridView dgvListaViajes;
         private System.Windows.Forms.DataGridViewTextBoxColumn ciudadDePartida;
         private System.Windows.Forms.DataGridViewTextBoxColumn ciudadDestino;

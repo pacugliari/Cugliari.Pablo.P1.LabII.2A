@@ -14,11 +14,26 @@ namespace CruceroLOG
         private static Dictionary<string, int> crucerosConHoras;
         private static Dictionary<DateTime, string> fechasOcupadasViajes;
 
+        /// <summary>
+        /// Propiedad para obtener los destinos y su facturacion
+        /// </summary>
         public static Dictionary<string, float> DestinosConFacturacion { get { return Historico.destinosConFacturacion; } }
+        /// <summary>
+        /// Propiedad para obtener los pasajeros y sus cantidad de viajes
+        /// </summary>
         public static Dictionary<string, int> PasajerosConCantidadViajes { get { return Historico.pasajerosConCantidadViajes; } }
+        /// <summary>
+        /// Propiedad para obtener los destinos con la cantidad de viajes
+        /// </summary>
         public static Dictionary<string, int> DestinosConCantidadViajes { get { return Historico.destinosConCantidadViajes; } }
+        /// <summary>
+        /// Propiedad para obtener la cantidad de horas del crucero y su nombre
+        /// </summary>
         public static Dictionary<string, int> CrucerosConHoras { get { return Historico.crucerosConHoras; } }
 
+        /// <summary>
+        /// Constructor estatico que iniciliza los atributos ,los destinos validos y los cruceros 
+        /// </summary>
         static Historico()
         {
             Historico.destinosConFacturacion = new Dictionary<string, float>();
@@ -51,26 +66,36 @@ namespace CruceroLOG
 
         }
 
-        public static void AgregarFechasOcupadas(Crucero crucero,DateTime fechaInicio,int duracion)
-        {
-            DateTime fechaTermina = fechaInicio.AddHours(duracion);
-
-        }
-
+        /// <summary>
+        /// Obtiene un diccionario ordenado de manera descendente de los destinos y su facturacion
+        /// </summary>
+        /// <returns>Diccionario con nombre de destino como key y facturacion como valor </returns>
         public static Dictionary<string, float>obtenerDestinosConFacturacion()
         {
             return Historico.destinosConFacturacion.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
         }
+
+        /// <summary>
+        /// Obtiene un diccionario ordenado de manera descendente de los pasajeros y las cantidad de viajes
+        /// </summary>
+        /// <returns>Diccionario ordenado con dni de key y cantidad de viajes como valor</returns>
         public static Dictionary<string, int> obtenerPasajerosConCantidadViajes()
         {
             return Historico.PasajerosConCantidadViajes.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
         }
 
+        /// <summary>
+        /// Obtiene un diccionario ordenado de manera descendente de los cruceros y sus horas viajadas
+        /// </summary>
+        /// <returns>Diccionario ordenado con nombreCrucero como key y las horas viajadas como valor</returns>
         public static Dictionary<string, int> obtenerCrucerosConHoras()
         {
             return Historico.CrucerosConHoras.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
         }
-
+        /// <summary>
+        /// Obtiene un diccionario ordenado de manera descendente de los destinos y sus cantidad de viajes a ese lugar
+        /// </summary>
+        /// <returns>Diccionario ordenado con nombreDestino como key y cantidad de viajes como valor </returns>
         public static Dictionary<string, int> obtenerDestinosConCantidadViajes()
         {
             return Historico.DestinosConCantidadViajes.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);

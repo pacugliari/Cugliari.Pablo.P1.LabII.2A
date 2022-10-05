@@ -9,6 +9,10 @@ namespace CruceroLOG
     public static class Flota
     {
         private static List<Crucero> listaCruceros;
+
+        /// <summary>
+        /// Constructor estatico que inicializa 7 cruceros con sus nombre,caracteristicas y los agrega a la lista de cruceros
+        /// </summary>
         static  Flota()
         {
             Crucero crucero1 = new Crucero("NOR111BR", "Norwegian Breakaway", 4, new List<eSalones> {eSalones.Comedor,eSalones.Casino,
@@ -31,11 +35,21 @@ namespace CruceroLOG
             Flota.listaCruceros = new List<Crucero> { crucero1, crucero2, crucero3, crucero4, crucero5, crucero6, crucero7 };
         }
 
+        /// <summary>
+        /// Retorna la lista de cruceros de la flota
+        /// </summary>
+        /// <returns>Lista de cruceros</returns>
         public static List<Crucero> ObtenerListaEmbarcacion()
         {
             return Flota.listaCruceros;
         }
 
+        /// <summary>
+        /// Obtiene una lista filtrada segun las necesidades del pasajero de una lista de viajeros/pasajeros
+        /// </summary>
+        /// <param name="necesidadesPasajero">List de eSalones requeridos por el pasajero</param>
+        /// <param name="listaViajeros">Lista de pasajeros que contienen el peso y numero de camarotes necesarios</param>
+        /// <returns>Lista filtrada segun las necesidades</returns>
         public static List<Crucero> FiltrarFlota(List<eSalones> necesidadesPasajero,List<Pasajero> listaViajeros)
         {
             List<Crucero> filtrada = new List<Crucero>();
@@ -72,6 +86,11 @@ namespace CruceroLOG
             return filtrada2;
         }
 
+        /// <summary>
+        /// Busca en la lista de cruceros si alguno corresponde con el nombre del parametro
+        /// </summary>
+        /// <param name="nombreCrucero">nombre del crucero</param>
+        /// <returns>Si se encuentra en la lista retorna el Crucero sino null</returns>
         public static Crucero ObtenerEmbarcacionDeNombre (string nombreCrucero)
         {
             Crucero retorno = null;
