@@ -55,6 +55,18 @@ namespace CruceroGUI
             this.dgvListaViajes.AllowUserToAddRows = false;
             this.dgvListaViajes.AllowUserToDeleteRows = false;
 
+            StringBuilder textoAyuda = new StringBuilder();
+            textoAyuda.AppendLine("Ventana para creacion de viajes");
+            textoAyuda.AppendLine("Para poder dar de alta un viaje se debe :");
+            textoAyuda.AppendLine("1) Cargar los datos de ciudad de destino,crucero y fecha de inicio del viaje");
+            textoAyuda.AppendLine("2) Automaticamente se mostrara a la derecha los camarotes,costo y duracion");
+            textoAyuda.AppendLine("3) Click en agregar viaje");
+            textoAyuda.AppendLine("Para borrar un viaje:");
+            textoAyuda.AppendLine("1) Seleccionamos un viaje de la lista (si estan en viaje no pueden ser eliminados)");
+            textoAyuda.AppendLine("2) Click en borrar");
+
+            Login.MostrarAyuda(this.lblAyuda2, textoAyuda.ToString());
+
         }
 
         private void comboBoxCrucero_SelectedIndexChanged(object sender, EventArgs e)
@@ -141,10 +153,15 @@ namespace CruceroGUI
 
         private void btnBorrarViaje_Click(object sender, EventArgs e)
         {
-            if(this.dgvListaViajes.Rows.Count > 0)
+            int indice = this.dgvListaViajes.CurrentRow.Index;
+            if (this.dgvListaViajes.Rows.Count > 0)
             {
-                Menu.ListaViajes.RemoveAt(this.dgvListaViajes.CurrentRow.Index);
-                this.actualizar();
+                if (Menu.ListaViajes[indice].Crucero.EstaDisponible)
+                {
+                    Menu.ListaViajes.RemoveAt(indice);
+                    this.actualizar();
+                }
+
             }
             
             this.btnBorrarViaje.Enabled = false;

@@ -56,22 +56,7 @@ namespace CruceroLOG
             }
             return retorno;
         }
-        /*
-        public static Pasajero BuscarPasajero(Crucero crucero, string dniOPasaporte)
-        {
-            Pasajero retorno = null;
 
-            for (int i = 0; i < crucero.CantidadPasajeros; i++)
-            {
-                if (crucero[i].numeroDocumento == dniOPasaporte || crucero[i].pasaporte.NumeroDocumentoViaje == dniOPasaporte)
-                {
-                    retorno = crucero[i];
-                    break;
-                }
-            }
-
-            return retorno;
-        }*/
 
         public static Pasajero BuscarPasajero(Viaje viaje, string dniOPasaporte)
         {
@@ -92,6 +77,7 @@ namespace CruceroLOG
 
         public static bool operator ==(Pasajero p1, Pasajero p2)
         {
+            System.Diagnostics.Debug.WriteLine(p1.numeroDocumento, p2.numeroDocumento);
             return (p1.numeroDocumento == p2.numeroDocumento);
         }
 

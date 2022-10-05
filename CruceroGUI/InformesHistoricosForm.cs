@@ -44,6 +44,13 @@ namespace CruceroGUI
             this.rbDestinosOrdenados.Checked = false;
             this.rbPasajerosOrdenados.Checked = false;
             this.rbHorasCrucero.Checked = false;
+
+            StringBuilder textoAyuda = new StringBuilder();
+            textoAyuda.AppendLine("Ventana para informes historicos de cruceros/pasajeros/viajes");
+            textoAyuda.AppendLine("Para poder consultar la informacion solo seleccione una de las 3 opciones");
+
+
+            Login.MostrarAyuda(this.lblAyuda, textoAyuda.ToString());
         }
 
         private void rbDestinosOrdenados_CheckedChanged(object sender, EventArgs e)
@@ -111,9 +118,10 @@ namespace CruceroGUI
             foreach (KeyValuePair<string, int> item in lista)
             {
                 Crucero crucero = Flota.ObtenerEmbarcacionDeNombre(item.Key);
+                cantidadPersonas = 0;
                 foreach (Viaje item2 in Menu.ListaViajes)
                 {
-                    cantidadPersonas = 0;
+                    
                     if (crucero == item2)
                     {
                         cantidadPersonas += item2.CantidadPasajeros;

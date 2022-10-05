@@ -24,6 +24,16 @@ namespace CruceroGUI
             this.dgvListaPasajeros.AllowUserToAddRows = false;
             this.dgvListaPasajeros.AllowUserToDeleteRows = false;
 
+            StringBuilder textoAyuda = new StringBuilder();
+            textoAyuda.AppendLine("Ventana para informes de viajes/cruceros y pasajeros");
+            textoAyuda.AppendLine("Para poder consultar la informacion:");
+            textoAyuda.AppendLine("1) Seleccionar un viaje de la lista");
+            textoAyuda.AppendLine("2) Automaticamente mostrar en la parte inferior los datos del crucero");
+            textoAyuda.AppendLine("3) A la derecha se cargan los pasajeros del viaje");
+            textoAyuda.AppendLine("4) Si hacemos click sobre un pasajero nos mostrara la informacion del mismo");
+
+            Login.MostrarAyuda(this.lblAyuda, textoAyuda.ToString());
+
         }
 
         private void dgvListaViajes_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -74,12 +84,7 @@ namespace CruceroGUI
                 this.cbDiscoteca.Checked = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Discoteca);
                 this.cbCasino.Checked  = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Casino);
                 this.cbComedor.Checked = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Comedor);
-                /*
-                for (int i = 0; i < this.cruceroSeleccionado.CantidadPasajeros; i++)
-                {
-                    this.dgvListaPasajeros.Rows.Add(this.cruceroSeleccionado[i].Pasaporte.NumeroDocumentoViaje,
-                        this.cruceroSeleccionado[i].Nombre, this.cruceroSeleccionado[i].Apellido, this.cruceroSeleccionado[i].Edad);
-                }*/
+
 
                 for (int i = 0; i < this.viajeSeleccionado.CantidadPasajeros; i++)
                 {

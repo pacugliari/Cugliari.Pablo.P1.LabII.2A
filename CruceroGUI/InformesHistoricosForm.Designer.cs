@@ -29,6 +29,7 @@ namespace CruceroGUI
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InformesHistoricosForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbHorasCrucero = new System.Windows.Forms.RadioButton();
             this.rbPasajerosOrdenados = new System.Windows.Forms.RadioButton();
@@ -47,6 +48,8 @@ namespace CruceroGUI
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblAyuda = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaHorasCrucero)).BeginInit();
@@ -56,6 +59,8 @@ namespace CruceroGUI
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblAyuda);
+            this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.rbHorasCrucero);
             this.groupBox1.Controls.Add(this.rbPasajerosOrdenados);
             this.groupBox1.Controls.Add(this.rbDestinosOrdenados);
@@ -244,15 +249,40 @@ namespace CruceroGUI
             this.Edad.ReadOnly = true;
             this.Edad.Width = 125;
             // 
+            // lblAyuda
+            // 
+            this.lblAyuda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAyuda.AutoSize = true;
+            this.lblAyuda.Font = new System.Drawing.Font("Segoe UI Black", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAyuda.Image = ((System.Drawing.Image)(resources.GetObject("lblAyuda.Image")));
+            this.lblAyuda.Location = new System.Drawing.Point(470, 60);
+            this.lblAyuda.Name = "lblAyuda";
+            this.lblAyuda.Size = new System.Drawing.Size(29, 45);
+            this.lblAyuda.TabIndex = 25;
+            this.lblAyuda.Text = " ";
+            // 
+            // label18
+            // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.AutoSize = true;
+            this.label18.Image = global::CruceroGUI.Properties.Resources.pngwing_com;
+            this.label18.Location = new System.Drawing.Point(334, -147);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(113, 60);
+            this.label18.TabIndex = 24;
+            this.label18.Text = "                          \r\n\r\n\r\n";
+            // 
             // InformesHistoricosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(543, 450);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.MinimumSize = new System.Drawing.Size(561, 497);
             this.Name = "InformesHistoricosForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Historial";
             this.Load += new System.EventHandler(this.InformesHistoricosForm_Load);
             this.groupBox1.ResumeLayout(false);
@@ -285,5 +315,7 @@ namespace CruceroGUI
         private System.Windows.Forms.DataGridViewTextBoxColumn Crucero;
         private System.Windows.Forms.DataGridViewTextBoxColumn Horas;
         private System.Windows.Forms.DataGridViewTextBoxColumn CantidadPasajeros;
+        protected System.Windows.Forms.Label lblAyuda;
+        private System.Windows.Forms.Label label18;
     }
 }

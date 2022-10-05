@@ -17,7 +17,6 @@ namespace CruceroLOG
                 eSalones.Piscina,eSalones.Bar,eSalones.Teatro,eSalones.Cine,eSalones.Discoteca}, 500);
             Crucero crucero3 = new Crucero("IND333SE", "Independence of The Seas", 1, new List<eSalones> {eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina,eSalones.Spa,eSalones.Bar,eSalones.Cine,eSalones.Galeria}, 600);
-            crucero3.EstaDisponible = false;
             Crucero crucero4 = new Crucero("LIB444SE", "Liberty of the Seas", 7, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina}, 700);
             Crucero crucero5 = new Crucero("FRE555SE", "Freedom of The Seas", 8, new List<eSalones> { eSalones.Comedor,eSalones.Casino,eSalones.Gimnasio,
@@ -26,6 +25,9 @@ namespace CruceroLOG
                 eSalones.Piscina,eSalones.Spa,eSalones.Bar,eSalones.Teatro,eSalones.Cine}, 900);
             Crucero crucero7 = new Crucero("QUA777SE", "Quantum of The Seas", 10, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina,eSalones.Spa,eSalones.Bar,eSalones.Teatro,eSalones.Cine,eSalones.Galeria,eSalones.Discoteca,eSalones.Casino,}, 1000);
+
+            crucero3.EstaDisponible = false;
+            crucero6.EstaDisponible = false;
             Flota.listaCruceros = new List<Crucero> { crucero1, crucero2, crucero3, crucero4, crucero5, crucero6, crucero7 };
         }
 

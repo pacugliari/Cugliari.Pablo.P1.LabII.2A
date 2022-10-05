@@ -29,6 +29,12 @@ namespace CruceroGUI
             this.btnVenderViaje.Visible = false;
 
 
+            StringBuilder textoAyuda = new StringBuilder();
+            textoAyuda.AppendLine("Ventana de informacion de pasajero, la misma no posee accion, es solo consulta");
+
+            Login.MostrarAyuda(this.lblAyuda2, textoAyuda.ToString());
+
+
             foreach (Control item in this.gbEquipaje.Controls)
             {
                 item.Enabled = false;

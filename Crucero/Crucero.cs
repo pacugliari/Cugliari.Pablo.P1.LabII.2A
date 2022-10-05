@@ -12,7 +12,6 @@ namespace CruceroLOG
         private string nombre;
         private int totalDeCamarotes;
         private List<eSalones> salones;
-        //private List<Pasajero> pasajeros;
         private int cantidadCasinos;
         private float capacidadBodega;
         private int cantidadCamarotesTurista;
@@ -40,17 +39,7 @@ namespace CruceroLOG
         public int CamarotesTurista{ get { return this.cantidadCamarotesTurista; } }
         public float CapacidadBodegaLibre { get { return this.capacidadBodega-this.capacidadBodegaUsada; } }
         public string CantidadPasajerosPorCamarote { get { return Crucero.cantidadPasajerosPorCamarote.ToString(); } }
-       // public int CantidadPasajeros { get { return this.pasajeros.Count; } }
-       /*
-        public Pasajero this[int index] { 
-            get {
-                Pasajero retorno = null;
-                if(index >= 0 && index < this.pasajeros.Count)
-                    retorno = this.pasajeros[index];
 
-                return retorno;
-            } 
-        }*/
         public Crucero(Crucero cruceroCopia)
         {
             this.matricula = cruceroCopia.matricula;
@@ -76,7 +65,6 @@ namespace CruceroLOG
             this.salones = salones;
             this.cantidadCasinos = 0;
             this.estaDisponible = true;
-            //this.pasajeros = new List<Pasajero>();
             this.camarotesPremiumUsados = 0;
             this.camarotesTuristaUsados = 0;
             this.capacidadBodegaUsada = 0;
@@ -163,22 +151,6 @@ namespace CruceroLOG
 
             return retorno;
         }
-        /*
-        public void AgregarPasajeros(List<Pasajero> clientes)
-        {
-            int cantCamPremium = 0;
-            int cantCamTurista = 0;
-            float pesoUsado = 0;
-            Crucero.CalcularCamarotes(clientes, out cantCamTurista, out cantCamPremium);
-            pesoUsado = Equipaje.calcularPesoTotal(clientes);
-            this.camarotesTuristaUsados += cantCamTurista;
-            this.camarotesPremiumUsados += cantCamPremium;
-            this.capacidadBodegaUsada += pesoUsado;
-            foreach (Pasajero item in clientes)
-            {
-                this.pasajeros.Add(item);
-            }
-        }*/
 
         public void ActualizarDisponibilidad(int cantCamTurista,int cantCamPremium,float pesoUsado)
         {
@@ -209,6 +181,18 @@ namespace CruceroLOG
         public static bool operator !=(Crucero c1, Crucero c2)
         {
             return !(c1 == c2);
+        }
+
+        public static Viaje CrearViajePrueba (Crucero crucero, eCiudades destino)
+        {
+            string nombreDestino = destino.ToString();
+            string nombrePartida = eCiudades.BuenosAires_Argentina.ToString();
+            int duracion = Viaje.CalcularDuracion(nombreDestino);
+            float costoPremium = Viaje.CalcularPrecioPremium(nombreDestino, duracion);
+            float costoTurista = Viaje.CalcularPrecioTurista(nombreDestino, duracion);
+            return new Viaje(nombrePartida, nombreDestino, DateTime.Now, crucero,
+            crucero.cantidadCamarotesPremium, crucero.cantidadCamarotesTurista, costoTurista, costoPremium, duracion);
+      
         }
 
         public override string ToString()

@@ -46,6 +46,9 @@ namespace CruceroLOG
             Historico.destinosConFacturacion[eCiudades.PuertoMadryn_Argentina.ToString()] += 1500;
             Historico.destinosConFacturacion[eCiudades.Santiago_Chile.ToString()] += 500;
             Historico.destinosConFacturacion[eCiudades.Taipei_Taiwan.ToString()] += 5000;*/
+
+            
+
         }
 
         public static void AgregarFechasOcupadas(Crucero crucero,DateTime fechaInicio,int duracion)

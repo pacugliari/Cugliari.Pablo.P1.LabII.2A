@@ -29,6 +29,7 @@ namespace CruceroGUI
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InformesForm));
             this.dgvListaViajes = new System.Windows.Forms.DataGridView();
             this.ciudadPartida = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ciudadDestino = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,6 +45,7 @@ namespace CruceroGUI
             this.txtCapacidadBodegaLibre = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.lblAyuda = new System.Windows.Forms.Label();
             this.txtCantTuristaDisponibles = new System.Windows.Forms.TextBox();
             this.txtCantPremiumDisponbiles = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -201,6 +203,7 @@ namespace CruceroGUI
             this.groupBox1.Controls.Add(this.txtCapacidadBodegaLibre);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.lblAyuda);
             this.groupBox1.Controls.Add(this.txtCantTuristaDisponibles);
             this.groupBox1.Controls.Add(this.txtCantPremiumDisponbiles);
             this.groupBox1.Controls.Add(this.label12);
@@ -256,6 +259,19 @@ namespace CruceroGUI
             this.label13.Size = new System.Drawing.Size(110, 20);
             this.label13.TabIndex = 23;
             this.label13.Text = "-> Disponibles:";
+            // 
+            // lblAyuda
+            // 
+            this.lblAyuda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAyuda.AutoSize = true;
+            this.lblAyuda.BackColor = System.Drawing.Color.Transparent;
+            this.lblAyuda.Font = new System.Drawing.Font("Segoe UI Black", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAyuda.Image = ((System.Drawing.Image)(resources.GetObject("lblAyuda.Image")));
+            this.lblAyuda.Location = new System.Drawing.Point(347, 23);
+            this.lblAyuda.Name = "lblAyuda";
+            this.lblAyuda.Size = new System.Drawing.Size(29, 45);
+            this.lblAyuda.TabIndex = 13;
+            this.lblAyuda.Text = " ";
             // 
             // txtCantTuristaDisponibles
             // 
@@ -645,6 +661,7 @@ namespace CruceroGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1152, 586);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox4);
@@ -652,6 +669,7 @@ namespace CruceroGUI
             this.Controls.Add(this.groupBox5);
             this.MinimumSize = new System.Drawing.Size(1170, 633);
             this.Name = "InformesForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Informes";
             this.Load += new System.EventHandler(this.InformesForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaViajes)).EndInit();
@@ -723,5 +741,6 @@ namespace CruceroGUI
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtCapacidadBodegaLibre;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblAyuda;
     }
 }

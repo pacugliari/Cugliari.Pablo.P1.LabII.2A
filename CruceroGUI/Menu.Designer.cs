@@ -29,6 +29,7 @@ namespace CruceroGUI
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.txtInformacionVendedor = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -36,6 +37,7 @@ namespace CruceroGUI
             this.btnInformes = new System.Windows.Forms.Button();
             this.btnVentaViajes = new System.Windows.Forms.Button();
             this.btnViajes = new System.Windows.Forms.Button();
+            this.lblAyuda = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +54,8 @@ namespace CruceroGUI
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.PowderBlue;
+            this.groupBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.groupBox1.Controls.Add(this.lblAyuda);
             this.groupBox1.Controls.Add(this.txtInformacionVendedor);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
@@ -115,16 +118,30 @@ namespace CruceroGUI
             this.btnViajes.UseVisualStyleBackColor = true;
             this.btnViajes.Click += new System.EventHandler(this.btnViajes_Click);
             // 
+            // lblAyuda
+            // 
+            this.lblAyuda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAyuda.AutoSize = true;
+            this.lblAyuda.BackColor = System.Drawing.Color.Transparent;
+            this.lblAyuda.Font = new System.Drawing.Font("Segoe UI Black", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAyuda.Image = ((System.Drawing.Image)(resources.GetObject("lblAyuda.Image")));
+            this.lblAyuda.Location = new System.Drawing.Point(215, 15);
+            this.lblAyuda.Name = "lblAyuda";
+            this.lblAyuda.Size = new System.Drawing.Size(29, 45);
+            this.lblAyuda.TabIndex = 11;
+            this.lblAyuda.Text = " ";
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PowderBlue;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(286, 434);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.MinimumSize = new System.Drawing.Size(304, 481);
             this.Name = "Menu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Menu_FormClosing);
             this.groupBox1.ResumeLayout(false);
@@ -143,5 +160,6 @@ namespace CruceroGUI
         private System.Windows.Forms.Button btnVentaViajes;
         private System.Windows.Forms.Button btnInformesHistoricos;
         private System.Windows.Forms.Button btnInformes;
+        private System.Windows.Forms.Label lblAyuda;
     }
 }

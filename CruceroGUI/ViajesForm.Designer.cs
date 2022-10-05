@@ -29,7 +29,9 @@ namespace CruceroGUI
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViajesForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblAyuda2 = new System.Windows.Forms.Label();
             this.btnBorrarViaje = new System.Windows.Forms.Button();
             this.textBoxCostoViajePremium = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -51,6 +53,7 @@ namespace CruceroGUI
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblAyuda = new System.Windows.Forms.Label();
             this.dgvListaViajes = new System.Windows.Forms.DataGridView();
             this.ciudadDePartida = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ciudadDestino = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,6 +71,7 @@ namespace CruceroGUI
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblAyuda2);
             this.groupBox1.Controls.Add(this.btnBorrarViaje);
             this.groupBox1.Controls.Add(this.textBoxCostoViajePremium);
             this.groupBox1.Controls.Add(this.label13);
@@ -88,17 +92,29 @@ namespace CruceroGUI
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(25, 22);
+            this.groupBox1.Location = new System.Drawing.Point(12, 32);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(937, 203);
+            this.groupBox1.Size = new System.Drawing.Size(956, 203);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Crear viaje:";
             // 
+            // lblAyuda2
+            // 
+            this.lblAyuda2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAyuda2.AutoSize = true;
+            this.lblAyuda2.Font = new System.Drawing.Font("Segoe UI Black", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAyuda2.Image = ((System.Drawing.Image)(resources.GetObject("lblAyuda2.Image")));
+            this.lblAyuda2.Location = new System.Drawing.Point(912, 23);
+            this.lblAyuda2.Name = "lblAyuda2";
+            this.lblAyuda2.Size = new System.Drawing.Size(29, 45);
+            this.lblAyuda2.TabIndex = 11;
+            this.lblAyuda2.Text = " ";
+            // 
             // btnBorrarViaje
             // 
             this.btnBorrarViaje.Enabled = false;
-            this.btnBorrarViaje.Location = new System.Drawing.Point(773, 119);
+            this.btnBorrarViaje.Location = new System.Drawing.Point(765, 119);
             this.btnBorrarViaje.Name = "btnBorrarViaje";
             this.btnBorrarViaje.Size = new System.Drawing.Size(84, 53);
             this.btnBorrarViaje.TabIndex = 23;
@@ -196,7 +212,7 @@ namespace CruceroGUI
             // 
             // btnCrearViaje
             // 
-            this.btnCrearViaje.Location = new System.Drawing.Point(773, 46);
+            this.btnCrearViaje.Location = new System.Drawing.Point(765, 46);
             this.btnCrearViaje.Name = "btnCrearViaje";
             this.btnCrearViaje.Size = new System.Drawing.Size(84, 53);
             this.btnCrearViaje.TabIndex = 8;
@@ -278,13 +294,26 @@ namespace CruceroGUI
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblAyuda);
             this.groupBox2.Controls.Add(this.dgvListaViajes);
-            this.groupBox2.Location = new System.Drawing.Point(25, 231);
+            this.groupBox2.Location = new System.Drawing.Point(12, 241);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(937, 207);
+            this.groupBox2.Size = new System.Drawing.Size(956, 207);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Lista viajes:";
+            // 
+            // lblAyuda
+            // 
+            this.lblAyuda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAyuda.AutoSize = true;
+            this.lblAyuda.Font = new System.Drawing.Font("Segoe UI Black", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAyuda.Image = ((System.Drawing.Image)(resources.GetObject("lblAyuda.Image")));
+            this.lblAyuda.Location = new System.Drawing.Point(543, -220);
+            this.lblAyuda.Name = "lblAyuda";
+            this.lblAyuda.Size = new System.Drawing.Size(29, 45);
+            this.lblAyuda.TabIndex = 11;
+            this.lblAyuda.Text = " ";
             // 
             // dgvListaViajes
             // 
@@ -303,7 +332,7 @@ namespace CruceroGUI
             this.dgvListaViajes.Name = "dgvListaViajes";
             this.dgvListaViajes.RowHeadersWidth = 51;
             this.dgvListaViajes.RowTemplate.Height = 29;
-            this.dgvListaViajes.Size = new System.Drawing.Size(911, 174);
+            this.dgvListaViajes.Size = new System.Drawing.Size(935, 174);
             this.dgvListaViajes.TabIndex = 0;
             this.dgvListaViajes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListaViajes_CellClick);
             this.dgvListaViajes.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgvListaViajes_RowStateChanged);
@@ -384,9 +413,10 @@ namespace CruceroGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(993, 458);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
             this.MinimumSize = new System.Drawing.Size(1011, 505);
             this.Name = "ViajesForm";
             this.Text = "Viajes";
@@ -394,6 +424,7 @@ namespace CruceroGUI
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaViajes)).EndInit();
             this.ResumeLayout(false);
 
@@ -421,8 +452,7 @@ namespace CruceroGUI
         private System.Windows.Forms.Label lblCCT;
         private System.Windows.Forms.Label lblCCP;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblAyuda2;
         private System.Windows.Forms.ComboBox comboBoxCrucero;
         private System.Windows.Forms.ComboBox comboBoxCiudadPartida;
         private System.Windows.Forms.ComboBox comboBoxCiudadDestino;
@@ -441,5 +471,6 @@ namespace CruceroGUI
         private System.Windows.Forms.DataGridViewTextBoxColumn costoTurista;
         private System.Windows.Forms.DataGridViewTextBoxColumn duracionViaje;
         private System.Windows.Forms.Button btnBorrarViaje;
+        private System.Windows.Forms.Label lblAyuda;
     }
 }

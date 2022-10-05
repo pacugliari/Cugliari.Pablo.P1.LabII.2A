@@ -16,6 +16,7 @@ namespace CruceroGUI
         private List<Pasajero> grupoFamiliar;
         private float recaudacion;
 
+
         public VentaViajesForm()
         {
             this.InitializeComponent();
@@ -30,8 +31,6 @@ namespace CruceroGUI
             this.dtpFechaNacimiento.MaxDate = this.dtpFechaNacimiento.Value = DateTime.Now;
             this.dtpFechaEmision.MaxDate = this.dtpFechaEmision.Value = DateTime.Now;
             this.dtpFechaVencimiento.MinDate = this.dtpFechaEmision.Value;
-
-            this.cbSeleccionarCliente.Items.Add("Vacio");
           
 
             foreach (ePaises item in Enum.GetValues(typeof(ePaises)))
@@ -53,6 +52,29 @@ namespace CruceroGUI
             this.dgvListaViajes.AllowUserToDeleteRows = false;
             this.btnVenderViaje.Enabled = false;
             this.btnBorrarPasajero.Enabled = false;
+
+            StringBuilder textoAyuda = new StringBuilder();
+            textoAyuda.AppendLine("Ventana para ventas de viajes");
+            textoAyuda.AppendLine("Para poder dar de alta un pasajero se debe :");
+            textoAyuda.AppendLine("1) Cargar los datos de pasajero,pasaporte y equipaje o seleccionar un cliente precargado");
+            textoAyuda.AppendLine("2) Click boton agregar pasajero");
+            textoAyuda.AppendLine("3) Seleccionamos el pasajero agregado en la tabla de grupo familiar o podemos agregar mas");
+            textoAyuda.AppendLine("4) Click buscar viajes, el sistema nos trae los viajes que cumplen con las caracteristicas del");
+            textoAyuda.AppendLine("     de las necesidades de viaje y los pasajeros cargados");
+            textoAyuda.AppendLine("5) Seleccionamos de la lista de viajes el deseado");
+            textoAyuda.AppendLine("6) Nos muestra el total a pagar y luego click en vender viaje");
+
+            Login.MostrarAyuda(this.lblAyuda, textoAyuda.ToString());
+        }
+
+        private void HardcodearClientes()
+        {
+            this.cbSeleccionarCliente.Items.Clear();
+            this.cbSeleccionarCliente.Items.Add("Vacio");
+            foreach (Pasajero item in Menu.Clientes)
+            {
+                this.cbSeleccionarCliente.Items.Add(item.NumeroDocumento + "," + item.Nombre + "," + item.Apellido);
+            }
         }
 
         private void btnAgregarPasajero_Click(object sender, EventArgs e)
@@ -92,21 +114,14 @@ namespace CruceroGUI
             Pasajero pasajeroNuevo = Pasajero.BuscarPasajero(Menu.Clientes,numeroDocumento.ToString());
 
             sexo = this.cbSexo.Text == "Femenino" ? 'F' : 'M';
-
             
-            if (pasajeroNuevo is null)//NO ESTA COMO CLIENTE
+
+            if (pasajeroNuevo is null && !estanTodosLosCamposCompletos())//NO ESTA COMO CLIENTE VERIFICO QUE CARGUE TODOS LOS DATOS
             {
-                if (estanTodosLosCamposCompletos())//VERIFICO QUE CARGUE TODOS LOS DATOS
-                {
-                    pasajeroNuevo = new Pasajero(nombre, apellido, sexo, nacionalidad, fechaNacimiento, numeroDocumento, domicilio, ciudad,
-                                       numeroDocumentoViaje, fechaEmision, fechaVencimiento, tipoPasaporte, codigoPaisExterior, autoridadExpendidora, equipaje, esPremium);
-                }
-                else
-                {
-                    MessageBox.Show("Deben estar todos los campos completos de para dar de alta un pasajero:\n-Datos de pasajero\n-Datos de pasaporte", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    darAlta = false;
-                }
-                   
+
+                MessageBox.Show("Deben estar todos los campos completos de para dar de alta un pasajero:\n-Datos de pasajero\n-Datos de pasaporte", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                darAlta = false;
+    
             }
             else if (pasajeroNuevo is not null && this.cbSeleccionarCliente.Text == "Vacio")//CARGO LOS DATOS PERO ESTA COMO CLIENTE
             {
@@ -118,6 +133,8 @@ namespace CruceroGUI
 
             if (!this.grupoFamiliar.Contains(pasajeroNuevo) && darAlta )//CARGO EN EL GRUPO FAMILIAR SI NO ESTA YA DADO DE ALTA 
             {
+                pasajeroNuevo = new Pasajero(nombre, apellido, sexo, nacionalidad, fechaNacimiento, numeroDocumento, domicilio, ciudad,
+                                     numeroDocumentoViaje, fechaEmision, fechaVencimiento, tipoPasaporte, codigoPaisExterior, autoridadExpendidora, equipaje, esPremium);
                 this.ActivarIngresoDatosPasajero(true);
                 this.VentaViajesForm_Load(sender, e);
                 this.grupoFamiliar.Add(pasajeroNuevo);
@@ -312,14 +329,15 @@ namespace CruceroGUI
                         else
                             Historico.PasajerosConCantidadViajes.Add(item.NumeroDocumento, 1);
 
-                        if (!Menu.Clientes.Contains(item))
+                       if (!Menu.Clientes.Contains(item))
                         {
                             this.cbSeleccionarCliente.Items.Add(item.NumeroDocumento + "," + item.Nombre + "," + item.Apellido);
+                            Menu.Clientes.Add(item);
                         }
                     }
 
+                            //Menu.Clientes.AddRange(this.grupoFamiliar);
                         viaje.AgregarPasajeros(this.grupoFamiliar);
-                        Menu.Clientes.AddRange(this.grupoFamiliar);
 
                         Historico.DestinosConCantidadViajes[viaje.CiudadDestino]++;
                         Historico.CrucerosConHoras[crucero.Nombre] = viaje.DuracionViaje;
@@ -366,7 +384,7 @@ namespace CruceroGUI
 
         private void VentaViajesForm_Load(object sender, EventArgs e)
         {
-
+            this.HardcodearClientes();
             this.recaudacion = 0;
 
             if(this.cbSeleccionarCliente.Items.Count > 0)
@@ -433,6 +451,7 @@ namespace CruceroGUI
                 Pasajero pasajero = Pasajero.BuscarPasajero(Menu.Clientes,numeroDocumento);
                 this.cargarDatosPasajero(pasajero);
                 this.ActivarIngresoDatosPasajero(false);
+                
             }
             else
             {

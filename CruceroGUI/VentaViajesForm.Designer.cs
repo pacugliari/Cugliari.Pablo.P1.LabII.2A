@@ -29,6 +29,7 @@ namespace CruceroGUI
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentaViajesForm));
             this.gbDatosPasajero = new System.Windows.Forms.GroupBox();
             this.txtCiudad = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -99,6 +100,7 @@ namespace CruceroGUI
             this.label15 = new System.Windows.Forms.Label();
             this.cbSeleccionarCliente = new System.Windows.Forms.ComboBox();
             this.lblSeleccionarCliente = new System.Windows.Forms.Label();
+            this.lblAyuda = new System.Windows.Forms.Label();
             this.gbDatosPasajero.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNumeroDocumento)).BeginInit();
             this.gbDatosPasaporte.SuspendLayout();
@@ -113,6 +115,7 @@ namespace CruceroGUI
             // 
             // gbDatosPasajero
             // 
+            this.gbDatosPasajero.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.gbDatosPasajero.Controls.Add(this.txtCiudad);
             this.gbDatosPasajero.Controls.Add(this.label8);
             this.gbDatosPasajero.Controls.Add(this.txtDomicilio);
@@ -825,11 +828,25 @@ namespace CruceroGUI
             this.lblSeleccionarCliente.TabIndex = 21;
             this.lblSeleccionarCliente.Text = "Seleccionar cliente:";
             // 
+            // lblAyuda
+            // 
+            this.lblAyuda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAyuda.AutoSize = true;
+            this.lblAyuda.Font = new System.Drawing.Font("Segoe UI Black", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAyuda.Image = ((System.Drawing.Image)(resources.GetObject("lblAyuda.Image")));
+            this.lblAyuda.Location = new System.Drawing.Point(1093, 9);
+            this.lblAyuda.Name = "lblAyuda";
+            this.lblAyuda.Size = new System.Drawing.Size(29, 45);
+            this.lblAyuda.TabIndex = 23;
+            this.lblAyuda.Text = " ";
+            // 
             // VentaViajesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1140, 579);
+            this.Controls.Add(this.lblAyuda);
             this.Controls.Add(this.lblSeleccionarCliente);
             this.Controls.Add(this.cbSeleccionarCliente);
             this.Controls.Add(this.gbCostos);
@@ -845,6 +862,7 @@ namespace CruceroGUI
             this.Controls.Add(this.gbDatosPasajero);
             this.MinimumSize = new System.Drawing.Size(1158, 626);
             this.Name = "VentaViajesForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Venta de viajes";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VentaViajesForm_FormClosing);
             this.Load += new System.EventHandler(this.VentaViajesForm_Load);
@@ -939,5 +957,6 @@ namespace CruceroGUI
         protected System.Windows.Forms.CheckBox cbBolsoMano;
         protected System.Windows.Forms.Label lblSeleccionarCliente;
         protected System.Windows.Forms.ComboBox cbSeleccionarCliente;
+        protected System.Windows.Forms.Label lblAyuda;
     }
 }
