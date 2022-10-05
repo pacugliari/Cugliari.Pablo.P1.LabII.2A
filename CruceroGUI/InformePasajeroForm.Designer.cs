@@ -35,13 +35,30 @@ namespace CruceroGUI
             this.gbDatosPasaporte.SuspendLayout();
             this.SuspendLayout();
             // 
+            // dtpFechaNacimiento
+            // 
+            this.dtpFechaNacimiento.Checked = false;
+            this.dtpFechaNacimiento.Value = new System.DateTime(2022, 10, 4, 21, 46, 19, 478);
+            // 
+            // dtpFechaEmision
+            // 
+            this.dtpFechaEmision.Checked = false;
+            this.dtpFechaEmision.Value = new System.DateTime(2022, 10, 4, 21, 46, 19, 483);
+            // 
+            // dtpFechaVencimiento
+            // 
+            this.dtpFechaVencimiento.Checked = false;
+            this.dtpFechaVencimiento.MinDate = new System.DateTime(2022, 10, 4, 21, 46, 19, 483);
+            this.dtpFechaVencimiento.Value = new System.DateTime(2022, 10, 4, 21, 46, 19, 483);
+            // 
             // InformePasajeroForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(766, 388);
+            this.MinimumSize = new System.Drawing.Size(784, 435);
             this.Name = "InformePasajeroForm";
-            this.Text = "InformePasajeroForm";
+            this.Text = "Datos del pasajero";
             this.Load += new System.EventHandler(this.InformePasajeroForm_Load);
             this.gbEquipaje.ResumeLayout(false);
             this.gbEquipaje.PerformLayout();

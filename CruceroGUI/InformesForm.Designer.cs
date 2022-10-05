@@ -48,17 +48,6 @@ namespace CruceroGUI
             this.txtCantPremiumDisponbiles = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.cbCasino = new System.Windows.Forms.CheckBox();
-            this.cbComedor = new System.Windows.Forms.CheckBox();
-            this.cbDiscoteca = new System.Windows.Forms.CheckBox();
-            this.cbGaleria = new System.Windows.Forms.CheckBox();
-            this.cbCine = new System.Windows.Forms.CheckBox();
-            this.cbTeatro = new System.Windows.Forms.CheckBox();
-            this.cbBar = new System.Windows.Forms.CheckBox();
-            this.cbSpa = new System.Windows.Forms.CheckBox();
-            this.cbPiscina = new System.Windows.Forms.CheckBox();
-            this.cbGimnasio = new System.Windows.Forms.CheckBox();
             this.txtEstado = new System.Windows.Forms.TextBox();
             this.txtCantCasinos = new System.Windows.Forms.TextBox();
             this.txtCantSalones = new System.Windows.Forms.TextBox();
@@ -78,6 +67,17 @@ namespace CruceroGUI
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbCasino = new System.Windows.Forms.CheckBox();
+            this.cbComedor = new System.Windows.Forms.CheckBox();
+            this.cbDiscoteca = new System.Windows.Forms.CheckBox();
+            this.cbGaleria = new System.Windows.Forms.CheckBox();
+            this.cbCine = new System.Windows.Forms.CheckBox();
+            this.cbTeatro = new System.Windows.Forms.CheckBox();
+            this.cbBar = new System.Windows.Forms.CheckBox();
+            this.cbSpa = new System.Windows.Forms.CheckBox();
+            this.cbPiscina = new System.Windows.Forms.CheckBox();
+            this.cbGimnasio = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvListaPasajeros = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -290,135 +290,6 @@ namespace CruceroGUI
             this.label11.TabIndex = 19;
             this.label11.Text = "-> Disponibles:";
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.cbCasino);
-            this.groupBox4.Controls.Add(this.cbComedor);
-            this.groupBox4.Controls.Add(this.cbDiscoteca);
-            this.groupBox4.Controls.Add(this.cbGaleria);
-            this.groupBox4.Controls.Add(this.cbCine);
-            this.groupBox4.Controls.Add(this.cbTeatro);
-            this.groupBox4.Controls.Add(this.cbBar);
-            this.groupBox4.Controls.Add(this.cbSpa);
-            this.groupBox4.Controls.Add(this.cbPiscina);
-            this.groupBox4.Controls.Add(this.cbGimnasio);
-            this.groupBox4.Location = new System.Drawing.Point(419, 194);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(148, 380);
-            this.groupBox4.TabIndex = 7;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Salones:";
-            // 
-            // cbCasino
-            // 
-            this.cbCasino.AutoSize = true;
-            this.cbCasino.Enabled = false;
-            this.cbCasino.Location = new System.Drawing.Point(21, 283);
-            this.cbCasino.Name = "cbCasino";
-            this.cbCasino.Size = new System.Drawing.Size(75, 24);
-            this.cbCasino.TabIndex = 19;
-            this.cbCasino.Text = "Casino";
-            this.cbCasino.UseVisualStyleBackColor = true;
-            // 
-            // cbComedor
-            // 
-            this.cbComedor.AutoSize = true;
-            this.cbComedor.Enabled = false;
-            this.cbComedor.Location = new System.Drawing.Point(21, 255);
-            this.cbComedor.Name = "cbComedor";
-            this.cbComedor.Size = new System.Drawing.Size(93, 24);
-            this.cbComedor.TabIndex = 6;
-            this.cbComedor.Text = "Comedor";
-            this.cbComedor.UseVisualStyleBackColor = true;
-            // 
-            // cbDiscoteca
-            // 
-            this.cbDiscoteca.AutoSize = true;
-            this.cbDiscoteca.Enabled = false;
-            this.cbDiscoteca.Location = new System.Drawing.Point(21, 225);
-            this.cbDiscoteca.Name = "cbDiscoteca";
-            this.cbDiscoteca.Size = new System.Drawing.Size(96, 24);
-            this.cbDiscoteca.TabIndex = 4;
-            this.cbDiscoteca.Text = "Discoteca";
-            this.cbDiscoteca.UseVisualStyleBackColor = true;
-            // 
-            // cbGaleria
-            // 
-            this.cbGaleria.AutoSize = true;
-            this.cbGaleria.Enabled = false;
-            this.cbGaleria.Location = new System.Drawing.Point(21, 195);
-            this.cbGaleria.Name = "cbGaleria";
-            this.cbGaleria.Size = new System.Drawing.Size(78, 24);
-            this.cbGaleria.TabIndex = 4;
-            this.cbGaleria.Text = "Galeria";
-            this.cbGaleria.UseVisualStyleBackColor = true;
-            // 
-            // cbCine
-            // 
-            this.cbCine.AutoSize = true;
-            this.cbCine.Enabled = false;
-            this.cbCine.Location = new System.Drawing.Point(21, 165);
-            this.cbCine.Name = "cbCine";
-            this.cbCine.Size = new System.Drawing.Size(60, 24);
-            this.cbCine.TabIndex = 5;
-            this.cbCine.Text = "Cine";
-            this.cbCine.UseVisualStyleBackColor = true;
-            // 
-            // cbTeatro
-            // 
-            this.cbTeatro.AutoSize = true;
-            this.cbTeatro.Enabled = false;
-            this.cbTeatro.Location = new System.Drawing.Point(21, 135);
-            this.cbTeatro.Name = "cbTeatro";
-            this.cbTeatro.Size = new System.Drawing.Size(73, 24);
-            this.cbTeatro.TabIndex = 4;
-            this.cbTeatro.Text = "Teatro";
-            this.cbTeatro.UseVisualStyleBackColor = true;
-            // 
-            // cbBar
-            // 
-            this.cbBar.AutoSize = true;
-            this.cbBar.Enabled = false;
-            this.cbBar.Location = new System.Drawing.Point(21, 105);
-            this.cbBar.Name = "cbBar";
-            this.cbBar.Size = new System.Drawing.Size(53, 24);
-            this.cbBar.TabIndex = 3;
-            this.cbBar.Text = "Bar";
-            this.cbBar.UseVisualStyleBackColor = true;
-            // 
-            // cbSpa
-            // 
-            this.cbSpa.AutoSize = true;
-            this.cbSpa.Enabled = false;
-            this.cbSpa.Location = new System.Drawing.Point(21, 75);
-            this.cbSpa.Name = "cbSpa";
-            this.cbSpa.Size = new System.Drawing.Size(56, 24);
-            this.cbSpa.TabIndex = 2;
-            this.cbSpa.Text = "Spa";
-            this.cbSpa.UseVisualStyleBackColor = true;
-            // 
-            // cbPiscina
-            // 
-            this.cbPiscina.AutoSize = true;
-            this.cbPiscina.Enabled = false;
-            this.cbPiscina.Location = new System.Drawing.Point(21, 48);
-            this.cbPiscina.Name = "cbPiscina";
-            this.cbPiscina.Size = new System.Drawing.Size(76, 24);
-            this.cbPiscina.TabIndex = 1;
-            this.cbPiscina.Text = "Piscina";
-            this.cbPiscina.UseVisualStyleBackColor = true;
-            // 
-            // cbGimnasio
-            // 
-            this.cbGimnasio.AutoSize = true;
-            this.cbGimnasio.Enabled = false;
-            this.cbGimnasio.Location = new System.Drawing.Point(21, 21);
-            this.cbGimnasio.Name = "cbGimnasio";
-            this.cbGimnasio.Size = new System.Drawing.Size(93, 24);
-            this.cbGimnasio.TabIndex = 0;
-            this.cbGimnasio.Text = "Gimnasio";
-            this.cbGimnasio.UseVisualStyleBackColor = true;
-            // 
             // txtEstado
             // 
             this.txtEstado.BackColor = System.Drawing.Color.White;
@@ -582,6 +453,135 @@ namespace CruceroGUI
             this.label1.TabIndex = 0;
             this.label1.Text = "Matricula:";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.cbCasino);
+            this.groupBox4.Controls.Add(this.cbComedor);
+            this.groupBox4.Controls.Add(this.cbDiscoteca);
+            this.groupBox4.Controls.Add(this.cbGaleria);
+            this.groupBox4.Controls.Add(this.cbCine);
+            this.groupBox4.Controls.Add(this.cbTeatro);
+            this.groupBox4.Controls.Add(this.cbBar);
+            this.groupBox4.Controls.Add(this.cbSpa);
+            this.groupBox4.Controls.Add(this.cbPiscina);
+            this.groupBox4.Controls.Add(this.cbGimnasio);
+            this.groupBox4.Location = new System.Drawing.Point(419, 194);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(148, 380);
+            this.groupBox4.TabIndex = 7;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Salones:";
+            // 
+            // cbCasino
+            // 
+            this.cbCasino.AutoSize = true;
+            this.cbCasino.Enabled = false;
+            this.cbCasino.Location = new System.Drawing.Point(21, 283);
+            this.cbCasino.Name = "cbCasino";
+            this.cbCasino.Size = new System.Drawing.Size(75, 24);
+            this.cbCasino.TabIndex = 19;
+            this.cbCasino.Text = "Casino";
+            this.cbCasino.UseVisualStyleBackColor = true;
+            // 
+            // cbComedor
+            // 
+            this.cbComedor.AutoSize = true;
+            this.cbComedor.Enabled = false;
+            this.cbComedor.Location = new System.Drawing.Point(21, 255);
+            this.cbComedor.Name = "cbComedor";
+            this.cbComedor.Size = new System.Drawing.Size(93, 24);
+            this.cbComedor.TabIndex = 6;
+            this.cbComedor.Text = "Comedor";
+            this.cbComedor.UseVisualStyleBackColor = true;
+            // 
+            // cbDiscoteca
+            // 
+            this.cbDiscoteca.AutoSize = true;
+            this.cbDiscoteca.Enabled = false;
+            this.cbDiscoteca.Location = new System.Drawing.Point(21, 225);
+            this.cbDiscoteca.Name = "cbDiscoteca";
+            this.cbDiscoteca.Size = new System.Drawing.Size(96, 24);
+            this.cbDiscoteca.TabIndex = 4;
+            this.cbDiscoteca.Text = "Discoteca";
+            this.cbDiscoteca.UseVisualStyleBackColor = true;
+            // 
+            // cbGaleria
+            // 
+            this.cbGaleria.AutoSize = true;
+            this.cbGaleria.Enabled = false;
+            this.cbGaleria.Location = new System.Drawing.Point(21, 195);
+            this.cbGaleria.Name = "cbGaleria";
+            this.cbGaleria.Size = new System.Drawing.Size(78, 24);
+            this.cbGaleria.TabIndex = 4;
+            this.cbGaleria.Text = "Galeria";
+            this.cbGaleria.UseVisualStyleBackColor = true;
+            // 
+            // cbCine
+            // 
+            this.cbCine.AutoSize = true;
+            this.cbCine.Enabled = false;
+            this.cbCine.Location = new System.Drawing.Point(21, 165);
+            this.cbCine.Name = "cbCine";
+            this.cbCine.Size = new System.Drawing.Size(60, 24);
+            this.cbCine.TabIndex = 5;
+            this.cbCine.Text = "Cine";
+            this.cbCine.UseVisualStyleBackColor = true;
+            // 
+            // cbTeatro
+            // 
+            this.cbTeatro.AutoSize = true;
+            this.cbTeatro.Enabled = false;
+            this.cbTeatro.Location = new System.Drawing.Point(21, 135);
+            this.cbTeatro.Name = "cbTeatro";
+            this.cbTeatro.Size = new System.Drawing.Size(73, 24);
+            this.cbTeatro.TabIndex = 4;
+            this.cbTeatro.Text = "Teatro";
+            this.cbTeatro.UseVisualStyleBackColor = true;
+            // 
+            // cbBar
+            // 
+            this.cbBar.AutoSize = true;
+            this.cbBar.Enabled = false;
+            this.cbBar.Location = new System.Drawing.Point(21, 105);
+            this.cbBar.Name = "cbBar";
+            this.cbBar.Size = new System.Drawing.Size(53, 24);
+            this.cbBar.TabIndex = 3;
+            this.cbBar.Text = "Bar";
+            this.cbBar.UseVisualStyleBackColor = true;
+            // 
+            // cbSpa
+            // 
+            this.cbSpa.AutoSize = true;
+            this.cbSpa.Enabled = false;
+            this.cbSpa.Location = new System.Drawing.Point(21, 75);
+            this.cbSpa.Name = "cbSpa";
+            this.cbSpa.Size = new System.Drawing.Size(56, 24);
+            this.cbSpa.TabIndex = 2;
+            this.cbSpa.Text = "Spa";
+            this.cbSpa.UseVisualStyleBackColor = true;
+            // 
+            // cbPiscina
+            // 
+            this.cbPiscina.AutoSize = true;
+            this.cbPiscina.Enabled = false;
+            this.cbPiscina.Location = new System.Drawing.Point(21, 48);
+            this.cbPiscina.Name = "cbPiscina";
+            this.cbPiscina.Size = new System.Drawing.Size(76, 24);
+            this.cbPiscina.TabIndex = 1;
+            this.cbPiscina.Text = "Piscina";
+            this.cbPiscina.UseVisualStyleBackColor = true;
+            // 
+            // cbGimnasio
+            // 
+            this.cbGimnasio.AutoSize = true;
+            this.cbGimnasio.Enabled = false;
+            this.cbGimnasio.Location = new System.Drawing.Point(21, 21);
+            this.cbGimnasio.Name = "cbGimnasio";
+            this.cbGimnasio.Size = new System.Drawing.Size(93, 24);
+            this.cbGimnasio.TabIndex = 0;
+            this.cbGimnasio.Text = "Gimnasio";
+            this.cbGimnasio.UseVisualStyleBackColor = true;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dgvListaPasajeros);
@@ -650,6 +650,7 @@ namespace CruceroGUI
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox5);
+            this.MinimumSize = new System.Drawing.Size(1170, 633);
             this.Name = "InformesForm";
             this.Text = "Informes";
             this.Load += new System.EventHandler(this.InformesForm_Load);

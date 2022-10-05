@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Crucero;
+using CruceroLOG;
 
 namespace CruceroGUI
 {
@@ -21,7 +21,6 @@ namespace CruceroGUI
             this.pasajero = pasajero;
             this.gbGrupoFamiliar.Visible = false;
             this.gbCostos.Visible = false;
-            //this.gbEquipaje.Visible = false;
             this.gbNecesidadesViaje.Visible = false;
             this.gbViajesDisponibles.Visible = false;
             this.btnAgregarPasajero.Visible = false;
@@ -29,15 +28,6 @@ namespace CruceroGUI
             this.btnBuscarViajes.Visible = false;
             this.btnVenderViaje.Visible = false;
 
-            foreach (Control item in this.gbDatosPasajero.Controls)
-            {
-                item.Enabled = false;
-            }
-
-            foreach (Control item in this.gbDatosPasaporte.Controls)
-            {
-                item.Enabled = false;
-            }
 
             foreach (Control item in this.gbEquipaje.Controls)
             {
@@ -50,6 +40,7 @@ namespace CruceroGUI
         {
 
             base.cargarDatosPasajero(this.pasajero);
+            this.ActivarIngresoDatosPasajero(false);
             this.lblSeleccionarCliente.Visible = false;
             this.cbSeleccionarCliente.Visible = false;
 

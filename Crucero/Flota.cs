@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crucero
+namespace CruceroLOG
 {
-    public class Flota
+    public static class Flota
     {
-        private List<Crucero> listaCruceros;
-        public  Flota()
+        private static List<Crucero> listaCruceros;
+        static  Flota()
         {
             Crucero crucero1 = new Crucero("NOR111BR", "Norwegian Breakaway", 4, new List<eSalones> {eSalones.Comedor,eSalones.Casino,
                eSalones.Spa,eSalones.Bar,eSalones.Teatro,eSalones.Cine,eSalones.Galeria,eSalones.Discoteca}, 100);
@@ -26,25 +26,29 @@ namespace Crucero
                 eSalones.Piscina,eSalones.Spa,eSalones.Bar,eSalones.Teatro,eSalones.Cine}, 900);
             Crucero crucero7 = new Crucero("QUA777SE", "Quantum of The Seas", 10, new List<eSalones> { eSalones.Comedor,eSalones.Gimnasio,
                 eSalones.Piscina,eSalones.Spa,eSalones.Bar,eSalones.Teatro,eSalones.Cine,eSalones.Galeria,eSalones.Discoteca,eSalones.Casino,}, 1000);
-            this.listaCruceros = new List<Crucero> { crucero1, crucero2, crucero3, crucero4, crucero5, crucero6, crucero7 };
+            Flota.listaCruceros = new List<Crucero> { crucero1, crucero2, crucero3, crucero4, crucero5, crucero6, crucero7 };
         }
 
-        public List<Crucero> obtenerListaEmbarcacion()
+        public static List<Crucero> ObtenerListaEmbarcacion()
         {
-            return this.listaCruceros;
+            return Flota.listaCruceros;
         }
 
-        public static List<Crucero> filtrarFlota(Flota flota,List<eSalones> necesidadesPasajero,List<Pasajero> listaViajeros)
+        public static List<Crucero> FiltrarFlota(List<eSalones> necesidadesPasajero,List<Pasajero> listaViajeros)
         {
             List<Crucero> filtrada = new List<Crucero>();
             List<Crucero> filtrada2 = new List<Crucero>();
+            int cantidadCamarotesTurista = 0;
+            int cantidadCamarotesPremium = 0;
             bool tieneTodos = true;
-            foreach (Crucero cruceroIndice in flota.listaCruceros)
+            float pesoGrupoFamiliar;
+
+            foreach (Crucero cruceroIndice in Flota.listaCruceros)
             {
                 tieneTodos = true;
                 foreach (eSalones salon in necesidadesPasajero)
                 {
-                    if (!cruceroIndice.tieneElSalon(salon))
+                    if (!cruceroIndice.TieneElSalon(salon))
                     {
                         tieneTodos = false;
                     }   
@@ -52,15 +56,12 @@ namespace Crucero
                 if (tieneTodos)
                     filtrada.Add(cruceroIndice);
             }
+            pesoGrupoFamiliar = Equipaje.calcularPesoTotal(listaViajeros);
 
-            int cantidadCamarotesTurista=0;
-            int cantidadCamarotesPremium=0;
-            float pesoGrupoFamiliar = Equipaje.calcularPesoTotal(listaViajeros);
-
-            Crucero.calcularCamarotes(listaViajeros,out cantidadCamarotesTurista,out cantidadCamarotesPremium);
+            Crucero.CalcularCamarotes(listaViajeros,out cantidadCamarotesTurista,out cantidadCamarotesPremium);
             foreach (Crucero cruceroIndice in filtrada)
             {
-                if (cruceroIndice.tieneEspacioPara(cantidadCamarotesTurista, cantidadCamarotesPremium, pesoGrupoFamiliar))
+                if (cruceroIndice.TieneEspacioPara(cantidadCamarotesTurista, cantidadCamarotesPremium, pesoGrupoFamiliar))
                 {
                     filtrada2.Add(cruceroIndice);
                 }    
@@ -69,10 +70,10 @@ namespace Crucero
             return filtrada2;
         }
 
-        public Crucero obtenerEmbarcacionDeNombre (string nombreCrucero)
+        public static Crucero ObtenerEmbarcacionDeNombre (string nombreCrucero)
         {
             Crucero retorno = null;
-            foreach (Crucero cruceroIndice in this.listaCruceros)
+            foreach (Crucero cruceroIndice in Flota.listaCruceros)
             {
                 if((string)cruceroIndice == nombreCrucero)
                 {
@@ -82,5 +83,6 @@ namespace Crucero
             }
             return retorno;
         }
+
     }
 }

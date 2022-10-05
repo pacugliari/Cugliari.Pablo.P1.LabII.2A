@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Crucero;
+using CruceroLOG;
 
 namespace CruceroGUI
 {
@@ -19,40 +19,41 @@ namespace CruceroGUI
         private InformesForm informesForm;
         private InformesHistoricosForm informesHistoricosForm;
         private static List<Viaje> listaViajes;
-        private static Flota flota;
         private static List<Pasajero> clientes;
+
+        public static List<Pasajero> Clientes { get { return Menu.clientes; } }
+        public static List<Viaje> ListaViajes { get { return Menu.listaViajes; } }
 
         static Menu()
         {
             Menu.listaViajes = new List<Viaje>();
-            Menu.flota = new Flota();
             Menu.clientes = new List<Pasajero>();
         }
         public Menu(Vendedor usuario)
         {
             InitializeComponent();
             this.txtInformacionVendedor.Text = (string)usuario; 
-            this.viajesForm = new ViajesForm(Menu.listaViajes, Menu.flota);
-            this.ventaViajesForm = new VentaViajesForm(Menu.listaViajes, Menu.flota,Menu.clientes);
-            this.informesForm = new InformesForm(Menu.listaViajes);
-            this.informesHistoricosForm = new InformesHistoricosForm(Menu.clientes,Menu.flota);
+            this.viajesForm = new ViajesForm();
+            this.ventaViajesForm = new VentaViajesForm();
+            this.informesForm = new InformesForm();
+            this.informesHistoricosForm = new InformesHistoricosForm();
         }
 
         private void btnViajes_Click(object sender, EventArgs e)
         {
-            Menu.vaciarFormulario(this.viajesForm);
+            Menu.VaciarFormulario(this.viajesForm);
             this.viajesForm.ShowDialog();
         }
 
         private void btnVentaViajes_Click(object sender, EventArgs e)
         {
-            Menu.vaciarFormulario(this.ventaViajesForm);
+            Menu.VaciarFormulario(this.ventaViajesForm);
             this.ventaViajesForm.ShowDialog();
         }
 
         private void btnInformes_Click(object sender, EventArgs e)
         {
-            Menu.vaciarFormulario(this.informesForm);
+            Menu.VaciarFormulario(this.informesForm);
             this.informesForm.ShowDialog();
         }
 
@@ -62,7 +63,7 @@ namespace CruceroGUI
             this.informesHistoricosForm.ShowDialog();
         }
 
-        public static void aplicarNumerosFilas(DataGridView lista)
+        public static void AplicarNumerosFilas(DataGridView lista)
         {
             for (int i = 0; i < lista.Rows.Count; i++)
             {
@@ -72,26 +73,11 @@ namespace CruceroGUI
             lista.Refresh();
         }
 
-        public static Pasajero buscarCliente(string dni)
-        {
-            Pasajero retorno = null;
 
-            foreach (Pasajero item in Menu.clientes)
-            {
-                if(item.NumeroDocumento == dni)
-                {
-                    retorno = item;
-                    break;
-                }
-            }
-            return retorno;
-        }
-
-        public static void obtenerDatosDeDataGridView(DataGridView lista, out Crucero.Crucero embarcacion, out Viaje viaje)
+        public static void obtenerDatosDeDataGridView(DataGridView lista, out CruceroLOG.Crucero embarcacion, out Viaje viaje)
         {
             embarcacion = null;
             viaje = null;
-
             if(lista is not null)
             {
                 string ciudadDestino = lista.CurrentRow.Cells[1].Value.ToString();
@@ -99,26 +85,14 @@ namespace CruceroGUI
                 string duracionViaje = lista.CurrentRow.Cells[8].Value.ToString();
                 string nombreCrucero = lista.CurrentRow.Cells[2].Value.ToString();
 
-                foreach (Viaje item in Menu.listaViajes)
-                {
-
-                    if (item.CiudadDestino == ciudadDestino &&
-                        item.DuracionViaje.ToString() == duracionViaje &&
-                        item.Crucero == nombreCrucero &&
-                        item.FechaInicioViaje.ToString() == fechaInicioViaje
-                        )
-                    {//ES EL MISMO VIAJE
-                        viaje = item;
-                        embarcacion = Menu.flota.obtenerEmbarcacionDeNombre(nombreCrucero);
-                        break;
-                    }
-                }
+                viaje = Viaje.BuscarViajePor(Menu.listaViajes,ciudadDestino, fechaInicioViaje, duracionViaje, nombreCrucero);
+                embarcacion = Flota.ObtenerEmbarcacionDeNombre(nombreCrucero);
             }
 
 
         }
 
-        public static void vaciarFormulario(Form formulario)
+        public static void VaciarFormulario(Form formulario)
         {
             foreach (Control item in formulario.Controls)
             {
@@ -147,6 +121,18 @@ namespace CruceroGUI
             }
         }
 
+        private void Menu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Login.PreguntarPorSalida(e);
+        }
 
+        public static void CargarListaViajesEn(DataGridView dataGrid)
+        {
+            dataGrid.Rows.Clear();
+            foreach (Viaje item in Menu.ListaViajes)
+            {
+                dataGrid.Rows.Add(item.ToString().Split("-"));
+            }
+        }
     }
 }

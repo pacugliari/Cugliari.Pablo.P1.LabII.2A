@@ -28,8 +28,8 @@
           "net5.0-windows7.0": {
             "targetAlias": "net5.0-windows",
             "projectReferences": {
-              "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\Crucero.csproj": {
-                "projectPath": "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\Crucero.csproj"
+              "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\CruceroLOG.csproj": {
+                "projectPath": "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\CruceroLOG.csproj"
               }
             }
           }
@@ -65,12 +65,12 @@
         }
       }
     },
-    "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\Crucero.csproj": {
+    "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\CruceroLOG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\Crucero.csproj",
-        "projectName": "Crucero",
-        "projectPath": "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\Crucero.csproj",
+        "projectUniqueName": "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\CruceroLOG.csproj",
+        "projectName": "CruceroLOG",
+        "projectPath": "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\CruceroLOG.csproj",
         "packagesPath": "C:\\Users\\PACug\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\obj\\",
         "projectStyle": "PackageReference",

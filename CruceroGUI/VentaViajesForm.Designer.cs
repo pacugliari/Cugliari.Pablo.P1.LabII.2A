@@ -142,6 +142,7 @@ namespace CruceroGUI
             this.txtCiudad.Name = "txtCiudad";
             this.txtCiudad.Size = new System.Drawing.Size(125, 27);
             this.txtCiudad.TabIndex = 3;
+            this.txtCiudad.Click += new System.EventHandler(this.txtCiudad_Click);
             // 
             // label8
             // 
@@ -158,6 +159,7 @@ namespace CruceroGUI
             this.txtDomicilio.Name = "txtDomicilio";
             this.txtDomicilio.Size = new System.Drawing.Size(125, 27);
             this.txtDomicilio.TabIndex = 2;
+            this.txtDomicilio.Click += new System.EventHandler(this.txtDomicilio_Click);
             // 
             // label7
             // 
@@ -190,6 +192,7 @@ namespace CruceroGUI
             0,
             0,
             0});
+            this.nudNumeroDocumento.Click += new System.EventHandler(this.nudNumeroDocumento_Click);
             // 
             // label6
             // 
@@ -210,6 +213,7 @@ namespace CruceroGUI
             this.dtpFechaNacimiento.Size = new System.Drawing.Size(125, 27);
             this.dtpFechaNacimiento.TabIndex = 9;
             this.dtpFechaNacimiento.Value = new System.DateTime(2002, 12, 31, 0, 0, 0, 0);
+            this.dtpFechaNacimiento.ValueChanged += new System.EventHandler(this.dtpFechaNacimiento_ValueChanged);
             // 
             // label5
             // 
@@ -222,11 +226,13 @@ namespace CruceroGUI
             // 
             // cbNacionalidad
             // 
+            this.cbNacionalidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbNacionalidad.FormattingEnabled = true;
             this.cbNacionalidad.Location = new System.Drawing.Point(214, 131);
             this.cbNacionalidad.Name = "cbNacionalidad";
             this.cbNacionalidad.Size = new System.Drawing.Size(125, 28);
             this.cbNacionalidad.TabIndex = 7;
+            this.cbNacionalidad.Click += new System.EventHandler(this.cbNacionalidad_Click);
             // 
             // label4
             // 
@@ -239,11 +245,13 @@ namespace CruceroGUI
             // 
             // cbSexo
             // 
+            this.cbSexo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSexo.FormattingEnabled = true;
             this.cbSexo.Location = new System.Drawing.Point(214, 92);
             this.cbSexo.Name = "cbSexo";
             this.cbSexo.Size = new System.Drawing.Size(125, 28);
             this.cbSexo.TabIndex = 5;
+            this.cbSexo.Click += new System.EventHandler(this.cbSexo_Click);
             // 
             // label3
             // 
@@ -260,6 +268,7 @@ namespace CruceroGUI
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(125, 27);
             this.txtApellido.TabIndex = 3;
+            this.txtApellido.Click += new System.EventHandler(this.txtApellido_Click);
             // 
             // label2
             // 
@@ -276,6 +285,7 @@ namespace CruceroGUI
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(125, 27);
             this.txtNombre.TabIndex = 1;
+            this.txtNombre.Click += new System.EventHandler(this.txtNombre_Click);
             // 
             // label1
             // 
@@ -315,6 +325,7 @@ namespace CruceroGUI
             this.dtpFechaVencimiento.Name = "dtpFechaVencimiento";
             this.dtpFechaVencimiento.Size = new System.Drawing.Size(125, 27);
             this.dtpFechaVencimiento.TabIndex = 14;
+            this.dtpFechaVencimiento.ValueChanged += new System.EventHandler(this.dtpFechaVencimiento_ValueChanged);
             // 
             // txtCodigoExterior
             // 
@@ -322,6 +333,7 @@ namespace CruceroGUI
             this.txtCodigoExterior.Name = "txtCodigoExterior";
             this.txtCodigoExterior.Size = new System.Drawing.Size(125, 27);
             this.txtCodigoExterior.TabIndex = 3;
+            this.txtCodigoExterior.Click += new System.EventHandler(this.txtCodigoExterior_Click);
             // 
             // label14
             // 
@@ -334,11 +346,13 @@ namespace CruceroGUI
             // 
             // cbTipoPasaporte
             // 
+            this.cbTipoPasaporte.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoPasaporte.FormattingEnabled = true;
             this.cbTipoPasaporte.Location = new System.Drawing.Point(214, 129);
             this.cbTipoPasaporte.Name = "cbTipoPasaporte";
             this.cbTipoPasaporte.Size = new System.Drawing.Size(125, 28);
             this.cbTipoPasaporte.TabIndex = 5;
+            this.cbTipoPasaporte.Click += new System.EventHandler(this.cbTipoPasaporte_Click);
             // 
             // label9
             // 
@@ -355,6 +369,7 @@ namespace CruceroGUI
             this.txtExpendidora.Name = "txtExpendidora";
             this.txtExpendidora.Size = new System.Drawing.Size(125, 27);
             this.txtExpendidora.TabIndex = 2;
+            this.txtExpendidora.Click += new System.EventHandler(this.txtExpendidora_Click);
             // 
             // label10
             // 
@@ -400,6 +415,7 @@ namespace CruceroGUI
             this.txtPasaporte.Name = "txtPasaporte";
             this.txtPasaporte.Size = new System.Drawing.Size(125, 27);
             this.txtPasaporte.TabIndex = 1;
+            this.txtPasaporte.Click += new System.EventHandler(this.txtPasaporte_Click);
             // 
             // label16
             // 
@@ -697,6 +713,7 @@ namespace CruceroGUI
             // 
             // cbCantidadValijas
             // 
+            this.cbCantidadValijas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCantidadValijas.FormattingEnabled = true;
             this.cbCantidadValijas.Location = new System.Drawing.Point(232, 26);
             this.cbCantidadValijas.Name = "cbCantidadValijas";
@@ -791,6 +808,7 @@ namespace CruceroGUI
             // 
             // cbSeleccionarCliente
             // 
+            this.cbSeleccionarCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSeleccionarCliente.FormattingEnabled = true;
             this.cbSeleccionarCliente.Location = new System.Drawing.Point(165, 12);
             this.cbSeleccionarCliente.Name = "cbSeleccionarCliente";
@@ -825,6 +843,7 @@ namespace CruceroGUI
             this.Controls.Add(this.gbGrupoFamiliar);
             this.Controls.Add(this.gbDatosPasaporte);
             this.Controls.Add(this.gbDatosPasajero);
+            this.MinimumSize = new System.Drawing.Size(1158, 626);
             this.Name = "VentaViajesForm";
             this.Text = "Venta de viajes";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VentaViajesForm_FormClosing);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crucero
+namespace CruceroLOG
 {
     public class Equipaje
     {
@@ -41,6 +41,26 @@ namespace Crucero
                     retorno += Equipaje.pesoBolso;
                 }
                 retorno += equipaje.valijas * Equipaje.pesoValija;
+            }
+            return retorno;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.bolsoMano}-{this.valijas}";
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool retorno = false;
+            if (obj is Equipaje)
+            {
+                retorno = this == ((Equipaje)obj);
             }
             return retorno;
         }

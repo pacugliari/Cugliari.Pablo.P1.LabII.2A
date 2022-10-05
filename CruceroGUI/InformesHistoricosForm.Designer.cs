@@ -35,6 +35,9 @@ namespace CruceroGUI
             this.rbDestinosOrdenados = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvListaHorasCrucero = new System.Windows.Forms.DataGridView();
+            this.Crucero = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Horas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CantidadPasajeros = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvDestinosOrdenados = new System.Windows.Forms.DataGridView();
             this.Destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Facturacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,9 +47,6 @@ namespace CruceroGUI
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Crucero = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Horas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CantidadPasajeros = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaHorasCrucero)).BeginInit();
@@ -130,6 +130,30 @@ namespace CruceroGUI
             this.dgvListaHorasCrucero.RowTemplate.Height = 29;
             this.dgvListaHorasCrucero.Size = new System.Drawing.Size(492, 275);
             this.dgvListaHorasCrucero.TabIndex = 3;
+            // 
+            // Crucero
+            // 
+            this.Crucero.HeaderText = "Crucero";
+            this.Crucero.MinimumWidth = 6;
+            this.Crucero.Name = "Crucero";
+            this.Crucero.ReadOnly = true;
+            this.Crucero.Width = 125;
+            // 
+            // Horas
+            // 
+            this.Horas.HeaderText = "Horas";
+            this.Horas.MinimumWidth = 6;
+            this.Horas.Name = "Horas";
+            this.Horas.ReadOnly = true;
+            this.Horas.Width = 125;
+            // 
+            // CantidadPasajeros
+            // 
+            this.CantidadPasajeros.HeaderText = "Cantidad de pasajeros";
+            this.CantidadPasajeros.MinimumWidth = 6;
+            this.CantidadPasajeros.Name = "CantidadPasajeros";
+            this.CantidadPasajeros.ReadOnly = true;
+            this.CantidadPasajeros.Width = 125;
             // 
             // dgvDestinosOrdenados
             // 
@@ -220,30 +244,6 @@ namespace CruceroGUI
             this.Edad.ReadOnly = true;
             this.Edad.Width = 125;
             // 
-            // Crucero
-            // 
-            this.Crucero.HeaderText = "Crucero";
-            this.Crucero.MinimumWidth = 6;
-            this.Crucero.Name = "Crucero";
-            this.Crucero.ReadOnly = true;
-            this.Crucero.Width = 125;
-            // 
-            // Horas
-            // 
-            this.Horas.HeaderText = "Horas";
-            this.Horas.MinimumWidth = 6;
-            this.Horas.Name = "Horas";
-            this.Horas.ReadOnly = true;
-            this.Horas.Width = 125;
-            // 
-            // CantidadPasajeros
-            // 
-            this.CantidadPasajeros.HeaderText = "Cantidad de pasajeros";
-            this.CantidadPasajeros.MinimumWidth = 6;
-            this.CantidadPasajeros.Name = "CantidadPasajeros";
-            this.CantidadPasajeros.ReadOnly = true;
-            this.CantidadPasajeros.Width = 125;
-            // 
             // InformesHistoricosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -251,6 +251,7 @@ namespace CruceroGUI
             this.ClientSize = new System.Drawing.Size(543, 450);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.MinimumSize = new System.Drawing.Size(561, 497);
             this.Name = "InformesHistoricosForm";
             this.Text = "Historial";
             this.Load += new System.EventHandler(this.InformesHistoricosForm_Load);

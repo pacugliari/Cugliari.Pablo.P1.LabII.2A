@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crucero
+namespace CruceroLOG
 {
-    public class Historico
+    public static class Historico
     {
-        private List<Viaje> listaViajes;
         private static Dictionary<string, float> destinosConFacturacion;
         private static Dictionary<string, int> destinosConCantidadViajes;
         private static Dictionary<string, int> pasajerosConCantidadViajes;
         private static Dictionary<string, int> crucerosConHoras;
+        private static Dictionary<DateTime, string> fechasOcupadasViajes;
 
         public static Dictionary<string, float> DestinosConFacturacion { get { return Historico.destinosConFacturacion; } }
         public static Dictionary<string, int> PasajerosConCantidadViajes { get { return Historico.pasajerosConCantidadViajes; } }
@@ -25,20 +25,21 @@ namespace Crucero
             Historico.destinosConCantidadViajes = new Dictionary<string, int>();
             Historico.pasajerosConCantidadViajes = new Dictionary<string, int>();
             Historico.crucerosConHoras = new Dictionary<string, int>();
+            Historico.fechasOcupadasViajes = new Dictionary<DateTime, string>();
 
             foreach (int ciudad in Enum.GetValues(typeof(eCiudades)))
             {
-                if(eCiudades.BuenosAires_Argentina != (eCiudades)ciudad)
+                if (eCiudades.BuenosAires_Argentina != (eCiudades)ciudad)
                 {
                     Historico.destinosConFacturacion.Add(Enum.GetName(typeof(eCiudades), ciudad).ToString(), 0);
                     Historico.destinosConCantidadViajes.Add(Enum.GetName(typeof(eCiudades), ciudad).ToString(), 0);
                 }
-                    
+
             }
 
-            foreach (Crucero cruceros in new Flota().obtenerListaEmbarcacion())
+            foreach (Crucero cruceros in Flota.ObtenerListaEmbarcacion())
             {
-                 Historico.crucerosConHoras.Add(cruceros.Nombre, 0);
+                Historico.crucerosConHoras.Add(cruceros.Nombre, 0);
             }
 
             /*
@@ -47,6 +48,11 @@ namespace Crucero
             Historico.destinosConFacturacion[eCiudades.Taipei_Taiwan.ToString()] += 5000;*/
         }
 
+        public static void AgregarFechasOcupadas(Crucero crucero,DateTime fechaInicio,int duracion)
+        {
+            DateTime fechaTermina = fechaInicio.AddHours(duracion);
+
+        }
 
         public static Dictionary<string, float>obtenerDestinosConFacturacion()
         {

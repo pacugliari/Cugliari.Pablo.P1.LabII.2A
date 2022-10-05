@@ -1,0 +1,12 @@
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\bin\Debug\net5.0\CruceroLOG.deps.json
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\bin\Debug\net5.0\CruceroLOG.dll
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\bin\Debug\net5.0\ref\CruceroLOG.dll
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\bin\Debug\net5.0\CruceroLOG.pdb
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\CruceroLOG.csproj.AssemblyReference.cache
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\CruceroLOG.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\CruceroLOG.AssemblyInfoInputs.cache
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\CruceroLOG.AssemblyInfo.cs
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\CruceroLOG.csproj.CoreCompileInputs.cache
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\CruceroLOG.dll
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\ref\CruceroLOG.dll
+C:\Users\PACug\OneDrive\Escritorio\TP1-PARCIAL1\Crucero\obj\Debug\net5.0\CruceroLOG.pdb

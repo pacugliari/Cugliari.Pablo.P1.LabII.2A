@@ -52,6 +52,7 @@ namespace CruceroGUI
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.PowderBlue;
             this.groupBox1.Controls.Add(this.txtInformacionVendedor);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
@@ -66,6 +67,7 @@ namespace CruceroGUI
             this.groupBox2.Controls.Add(this.btnInformes);
             this.groupBox2.Controls.Add(this.btnVentaViajes);
             this.groupBox2.Controls.Add(this.btnViajes);
+            this.groupBox2.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.groupBox2.Location = new System.Drawing.Point(12, 143);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(250, 261);
@@ -117,11 +119,14 @@ namespace CruceroGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(286, 434);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.MinimumSize = new System.Drawing.Size(304, 481);
             this.Name = "Menu";
             this.Text = "Menu";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Menu_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

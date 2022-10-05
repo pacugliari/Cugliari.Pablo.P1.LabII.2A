@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Crucero
+namespace CruceroLOG
 {
-    public class Persona
+    abstract public class Persona
     {
         protected string nombre;
         protected string apellido;
@@ -13,15 +13,10 @@ namespace Crucero
         protected string domicilio;
         protected string lugarNacimiento;
 
-
-        public string Sexo { get { return this.sexo == 'M' ? "Masculino" : "Femenino"; } }
-        public string Nacionalidad { get { return this.nacionalidad.ToString(); } }
-        public string FechaNacimiento { get { return this.fechaNacimiento.ToString(); } }
         public string NumeroDocumento { get { return this.numeroDocumento.ToString(); } }
-        public string Domicilio { get { return this.domicilio; } }
-        public string LugarNacimiento { get { return this.lugarNacimiento; } }
 
-        public Persona()
+
+        private Persona()
         {
             this.nombre = this.apellido = this.numeroDocumento = this.domicilio = this.lugarNacimiento = "";
             this.sexo = ' ';
@@ -29,14 +24,14 @@ namespace Crucero
             this.fechaNacimiento = new DateTime();
         }
 
-        public Persona(string nombre, string apellido):this()
+        protected Persona(string nombre, string apellido):this()
         {
             this.nombre = nombre;
             this.apellido = apellido;
         }
 
 
-        public Persona(string nombre,string apellido,char sexo,string nacionalidad,DateTime fechaNacimiento,string numeroDocumento,
+        protected Persona(string nombre,string apellido,char sexo,string nacionalidad,DateTime fechaNacimiento,string numeroDocumento,
             string domicilio,string lugarNacimiento):this(nombre,apellido)
         {
             this.sexo = sexo;
@@ -45,6 +40,27 @@ namespace Crucero
             this.numeroDocumento = numeroDocumento;
             this.domicilio = domicilio;
             this.lugarNacimiento = lugarNacimiento;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode(); 
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool retorno = false;
+            if (obj is Persona)
+            {
+                retorno = this == ((Persona)obj);
+            }
+            return retorno;
+        }
+        public override string ToString()
+        {
+            string sexoLargo = this.sexo == 'M' ? "Masculino" : "Femenino";
+            return $"{this.nombre}-{this.apellido}-{sexoLargo}-{this.nacionalidad}-{this.fechaNacimiento}-{this.numeroDocumento}" +
+                $"-{this.domicilio}-{this.lugarNacimiento}";
         }
     }
 }

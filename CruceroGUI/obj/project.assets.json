@@ -2,28 +2,28 @@
   "version": 3,
   "targets": {
     "net5.0-windows7.0": {
-      "Crucero/1.0.0": {
+      "CruceroLOG/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "compile": {
-          "bin/placeholder/Crucero.dll": {}
+          "bin/placeholder/CruceroLOG.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Crucero.dll": {}
+          "bin/placeholder/CruceroLOG.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "Crucero/1.0.0": {
+    "CruceroLOG/1.0.0": {
       "type": "project",
-      "path": "../Crucero/Crucero.csproj",
-      "msbuildProject": "../Crucero/Crucero.csproj"
+      "path": "../Crucero/CruceroLOG.csproj",
+      "msbuildProject": "../Crucero/CruceroLOG.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0-windows7.0": [
-      "Crucero >= 1.0.0"
+      "CruceroLOG >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -53,8 +53,8 @@
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
           "projectReferences": {
-            "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\Crucero.csproj": {
-              "projectPath": "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\Crucero.csproj"
+            "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\CruceroLOG.csproj": {
+              "projectPath": "C:\\Users\\PACug\\OneDrive\\Escritorio\\TP1-PARCIAL1\\Crucero\\CruceroLOG.csproj"
             }
           }
         }

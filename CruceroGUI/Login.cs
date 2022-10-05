@@ -7,18 +7,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Crucero;
+using CruceroLOG;
 
 namespace CruceroGUI
 {
     public partial class Login : Form
     {
-        private Menu menu;
+        private static string nombreEmpresa;
+        private bool ejecutoMenu;
+
+
+        static Login()
+        {
+            Login.nombreEmpresa = "Aida Cruceros";
+        }
         public Login()
         {
             InitializeComponent();
             this.txtContrasenia.PasswordChar = '•';
             this.ckbVer.Text = "Ver";
+            this.ejecutoMenu = false;
+
+            StringBuilder textoAyuda = new StringBuilder();
+            textoAyuda.AppendLine("Ventana de logueo al sistema Aida Cruceros");
+            textoAyuda.AppendLine("Ingrese el usuario y contraseña en los campos correspondientes ");
+            textoAyuda.AppendLine("y luego presione el boton de Login. Puede utilizar el boton Ver, para ver la contraseña ingresada");
+            Login.MostrarAyuda(this.lblAyuda, textoAyuda.ToString());
+            
         }
 
         private bool esUsuarioValido(string usuario,string contrasenia,out Vendedor vendedor)
@@ -52,8 +67,9 @@ namespace CruceroGUI
                 if (esUsuarioValido(txtUsuario.Text,txtContrasenia.Text,out usuario))
                 {
                     this.Hide();
-                    menu = new Menu(usuario);
+                    Menu menu = new Menu(usuario);
                     menu.ShowDialog();
+                    this.ejecutoMenu = true;
                     this.Close();
                     
                 }
@@ -78,6 +94,31 @@ namespace CruceroGUI
             {
                 this.txtContrasenia.PasswordChar = '•';
             }
+        }
+
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(!this.ejecutoMenu)
+                Login.PreguntarPorSalida(e);
+        }
+
+        public static void PreguntarPorSalida (FormClosingEventArgs e)
+        {
+            DialogResult respuesta = MessageBox.Show("¿Esta seguro que desea salir?", Login.nombreEmpresa, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+      
+            if (DialogResult.No == respuesta )
+            {
+                e.Cancel = true;
+            }
+        }
+
+        public static void  MostrarAyuda(Label etiqueta,string mensaje)
+        {
+            ToolTip yourToolTip = new ToolTip();
+            yourToolTip.ToolTipIcon = ToolTipIcon.Info;
+            yourToolTip.IsBalloon = true;
+            yourToolTip.ShowAlways = true;
+            yourToolTip.SetToolTip(etiqueta, mensaje);
         }
     }
 }

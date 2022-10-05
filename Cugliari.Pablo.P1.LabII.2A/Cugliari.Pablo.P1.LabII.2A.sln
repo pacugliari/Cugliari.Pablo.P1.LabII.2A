@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.32802.440
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CruceroTest", "CruceroTest.csproj", "{C5FC1B4B-1124-4F7D-9FDA-B8B71BBF8F12}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crucero", "..\Crucero\Crucero.csproj", "{E42FD5FA-FFAB-49D6-B56B-35AEB7F47619}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CruceroLOG", "..\Crucero\CruceroLOG.csproj", "{E42FD5FA-FFAB-49D6-B56B-35AEB7F47619}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GUI", "GUI", "{75120A52-7EEF-4BCB-BED1-7E2353A72A4D}"
 EndProject
@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entidades", "Entidades", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9D0A6DA4-BED9-40A9-9523-43A8A612D1DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CruceroGUI", "..\CruceroGUI\CruceroGUI.csproj", "{10D9D369-89DA-4CD5-8567-6C01909170A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CruceroGUI", "..\CruceroGUI\CruceroGUI.csproj", "{10D9D369-89DA-4CD5-8567-6C01909170A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

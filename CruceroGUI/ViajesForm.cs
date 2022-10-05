@@ -7,17 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Crucero;
+using CruceroLOG;
 
 namespace CruceroGUI
 {
     public partial class ViajesForm : Form
     {
-
-        private Flota flota;
-        private List<Viaje> listaViajes;
         private bool fechaElegida;
-        private Crucero.Crucero cruceroElegido;
+        private Crucero cruceroElegido;
         private string ciudadPartida;
         private string ciudadDeDestino;
         private DateTime fechaInicioViaje;
@@ -29,21 +26,11 @@ namespace CruceroGUI
         private int duracionDeViaje;
 
 
-        public ViajesForm(List<Viaje> listaViajes,Flota flota)
+        public ViajesForm()
         {
             InitializeComponent();
 
-            this.flota = flota;
             this.fechaElegida = false;
-            this.listaViajes = listaViajes;
-
-            //MUESTRA INFORMACION AYUDA PASANDO EL MOUSE SOBRE ARRIBA DEL CONTROL
-            ToolTip yourToolTip = new ToolTip();
-            yourToolTip.ToolTipIcon = ToolTipIcon.Info;
-            yourToolTip.IsBalloon = true;
-            yourToolTip.ShowAlways = true;
-
-            //-----------------
 
             //CARGO LAS CIUDADES DE PARTIDA Y DESTINO
 
@@ -55,7 +42,7 @@ namespace CruceroGUI
 
             //CARGO LAS 7 EMBARCACIONES
 
-            foreach (Crucero.Crucero item in this.flota.obtenerListaEmbarcacion())
+            foreach (CruceroLOG.Crucero item in Flota.ObtenerListaEmbarcacion())
             {
                 this.comboBoxCrucero.Items.Add((string)item);
             }
@@ -63,7 +50,6 @@ namespace CruceroGUI
             //INICIALIZO Y PONGO MIN/MAX A FECHA
             this.dateTimePickerFechaViaje.Value = DateTime.Now;
             this.dateTimePickerFechaViaje.MinDate = this.dateTimePickerFechaViaje.Value;
-
 
             //PARAMETROS LISTA VIAJES
             this.dgvListaViajes.AllowUserToAddRows = false;
@@ -74,11 +60,11 @@ namespace CruceroGUI
         private void comboBoxCrucero_SelectedIndexChanged(object sender, EventArgs e)
         {
             string nombreCruceroElegido = this.comboBoxCrucero.Text.ToString();
-            this.cruceroElegido = this.flota.obtenerEmbarcacionDeNombre(nombreCruceroElegido);
+            this.cruceroElegido = Flota.ObtenerEmbarcacionDeNombre(nombreCruceroElegido);
             if(this.cruceroElegido is not null)
             {
-                int camarotesPremium = this.cantCamarotesPremium = cruceroElegido.CamarotesPremium();
-                int camarotesTurista = this.cantCamarotesTurista = cruceroElegido.CamarotesTurista();
+                int camarotesPremium = this.cantCamarotesPremium = this.cruceroElegido.CamarotesPremium;
+                int camarotesTurista = this.cantCamarotesTurista = this.cruceroElegido.CamarotesTurista;
                 this.nombreDeCrucero = nombreCruceroElegido;
                 this.textBoxCCP.Text = camarotesPremium.ToString();
                 this.textBoxCCT.Text = camarotesTurista.ToString();
@@ -89,9 +75,9 @@ namespace CruceroGUI
         {
             string nombreDestinoElegido = this.comboBoxCiudadDestino.Text.ToString();
 
-            int duracion = Viaje.calcularDuracion(nombreDestinoElegido);
-            float costoTurista = Viaje.calcularPrecioTurista(nombreDestinoElegido, duracion);
-            float costoPremium = Viaje.calcularPrecioPremium(nombreDestinoElegido, duracion);
+            int duracion = Viaje.CalcularDuracion(nombreDestinoElegido);
+            float costoTurista = Viaje.CalcularPrecioTurista(nombreDestinoElegido, duracion);
+            float costoPremium = Viaje.CalcularPrecioPremium(nombreDestinoElegido, duracion);
             this.textBoxDuracionViaje.Text = duracion.ToString();
             this.textBoxCostoViajeTurista.Text = "$"+ costoTurista.ToString();
             this.textBoxCostoViajePremium.Text = "$" + costoPremium.ToString();
@@ -105,23 +91,28 @@ namespace CruceroGUI
         private void actualizar()
         {
             this.dgvListaViajes.Rows.Clear();
-            foreach (Viaje item in this.listaViajes)
+            foreach (Viaje item in Menu.ListaViajes)
             {
-                this.dgvListaViajes.Rows.Add(item.CiudadPartida, item.CiudadDestino, item.Crucero, item.FechaInicioViaje,
-                                    item.CantidadCamarotesPremium, item.CantidadCamarotesTurista,
-                                    item.CostoPremium, item.CostoTurista, item.DuracionViaje);
+                this.dgvListaViajes.Rows.Add(item.ToString().Split("-"));
             }
         }
 
         private void btnCrearViaje_Click(object sender, EventArgs e)
         {
+            DateTime fechaDisponible;
             if (this.comboBoxCrucero.Text != "" && this.comboBoxCiudadDestino.Text != "" && this.fechaElegida)
             {
-                this.comboBoxCrucero.Items.RemoveAt(this.comboBoxCrucero.SelectedIndex);
-                Viaje  viajeNuevo = new Viaje(this.ciudadPartida, this.ciudadDeDestino, this.fechaInicioViaje, this.cruceroElegido, this.cantCamarotesPremium, this.cantCamarotesTurista,
-                     this.costoDeTurista, this.costoDePremium, this.duracionDeViaje);
-                this.listaViajes.Add(viajeNuevo);
-                this.actualizar();
+
+                //this.comboBoxCrucero.Items.RemoveAt(this.comboBoxCrucero.SelectedIndex);
+                Viaje viajeNuevo = new Viaje(this.ciudadPartida, this.ciudadDeDestino, this.fechaInicioViaje, new Crucero(this.cruceroElegido), this.cantCamarotesPremium, this.cantCamarotesTurista,
+                    this.costoDeTurista, this.costoDePremium, this.duracionDeViaje);
+                if (!Viaje.SeSolapanViajes(Menu.ListaViajes, viajeNuevo,out fechaDisponible))
+                {
+                    Menu.ListaViajes.Add(viajeNuevo);
+                    this.actualizar();
+                }else
+                    MessageBox.Show($"Ya se encuentra un viaje programado para este crucero,tiene disponibilidad apartir de: {fechaDisponible}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             else
                 MessageBox.Show("Debe completar los campos:\n-Crucero\n-Ciudad de Destino\n-Fecha de viaje","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -152,7 +143,7 @@ namespace CruceroGUI
         {
             if(this.dgvListaViajes.Rows.Count > 0)
             {
-                this.listaViajes.RemoveAt(this.dgvListaViajes.CurrentRow.Index);
+                Menu.ListaViajes.RemoveAt(this.dgvListaViajes.CurrentRow.Index);
                 this.actualizar();
             }
             
@@ -161,7 +152,7 @@ namespace CruceroGUI
 
         private void dgvListaViajes_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-            Menu.aplicarNumerosFilas(this.dgvListaViajes);
+            Menu.AplicarNumerosFilas(this.dgvListaViajes);
         }
 
         private void ViajesForm_Load(object sender, EventArgs e)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crucero
+namespace CruceroLOG
 {
     public class Vendedor : Persona
     {
@@ -31,11 +31,30 @@ namespace Crucero
 
         public static explicit operator string(Vendedor usuario)
         {
+            return usuario.ToString();
+        }
+
+        public override string ToString()
+        {
             StringBuilder texto = new StringBuilder();
-            texto.AppendLine($"Nombre: {usuario.nombre}");
-            texto.AppendLine($"Apellido: {usuario.apellido}");
-            texto.AppendLine($"Fecha actual: {usuario.fechaActual.ToShortDateString()}");
+            texto.AppendLine($"Nombre: {this.nombre}");
+            texto.AppendLine($"Apellido: {this.apellido}");
+            texto.AppendLine($"Fecha actual: {this.fechaActual.ToShortDateString()}");
             return texto.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool retorno = false;
+            if(obj is Vendedor)
+            {
+                retorno = this == ((Vendedor)obj);
+            }
+            return retorno;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

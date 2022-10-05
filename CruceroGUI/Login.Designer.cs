@@ -37,6 +37,8 @@ namespace CruceroGUI
             this.btnIniciarSesion = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.ckbVer = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblAyuda = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblUsuario
@@ -52,6 +54,8 @@ namespace CruceroGUI
             // txtUsuario
             // 
             this.txtUsuario.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtUsuario.BackColor = System.Drawing.Color.White;
+            this.txtUsuario.ForeColor = System.Drawing.Color.Black;
             this.txtUsuario.Location = new System.Drawing.Point(181, 130);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(125, 27);
@@ -70,6 +74,8 @@ namespace CruceroGUI
             // txtContrasenia
             // 
             this.txtContrasenia.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtContrasenia.BackColor = System.Drawing.Color.White;
+            this.txtContrasenia.ForeColor = System.Drawing.Color.Black;
             this.txtContrasenia.Location = new System.Drawing.Point(181, 175);
             this.txtContrasenia.Name = "txtContrasenia";
             this.txtContrasenia.Size = new System.Drawing.Size(125, 27);
@@ -101,23 +107,47 @@ namespace CruceroGUI
             // 
             this.ckbVer.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ckbVer.AutoSize = true;
+            this.ckbVer.BackColor = System.Drawing.Color.Transparent;
+            this.ckbVer.ForeColor = System.Drawing.Color.Black;
             this.ckbVer.Location = new System.Drawing.Point(321, 178);
             this.ckbVer.Name = "ckbVer";
             this.ckbVer.Size = new System.Drawing.Size(51, 24);
             this.ckbVer.TabIndex = 7;
             this.ckbVer.Text = "ver";
-            this.ckbVer.UseVisualStyleBackColor = true;
+            this.ckbVer.UseVisualStyleBackColor = false;
             this.ckbVer.CheckedChanged += new System.EventHandler(this.ckbVer_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Image = global::CruceroGUI.Properties.Resources.pngwing_com;
+            this.label1.Location = new System.Drawing.Point(292, 264);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(113, 60);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "                          \r\n\r\n\r\n";
+            // 
+            // lblAyuda
+            // 
+            this.lblAyuda.AutoSize = true;
+            this.lblAyuda.Font = new System.Drawing.Font("Segoe UI Black", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAyuda.Image = ((System.Drawing.Image)(resources.GetObject("lblAyuda.Image")));
+            this.lblAyuda.Location = new System.Drawing.Point(376, 9);
+            this.lblAyuda.Name = "lblAyuda";
+            this.lblAyuda.Size = new System.Drawing.Size(29, 46);
+            this.lblAyuda.TabIndex = 9;
+            this.lblAyuda.Text = " ";
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(417, 333);
+            this.Controls.Add(this.lblAyuda);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.ckbVer);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnIniciarSesion);
@@ -128,8 +158,9 @@ namespace CruceroGUI
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(418, 380);
             this.Name = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Aida Cruceros";
-            this.TransparencyKey = System.Drawing.Color.Transparent;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,6 +175,8 @@ namespace CruceroGUI
         private System.Windows.Forms.Button btnIniciarSesion;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.CheckBox ckbVer;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblAyuda;
     }
 }
 

@@ -7,21 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Crucero;
+using CruceroLOG;
 
 namespace CruceroGUI
 {
     public partial class InformesHistoricosForm : Form
     {
 
-        private List<Pasajero> clientes;
-        private Flota flota;
-        public InformesHistoricosForm(List<Pasajero> clientes,Flota flota)
+        public InformesHistoricosForm()
         {
             InitializeComponent();
-
-            this.clientes = clientes;
-            this.flota = flota;
 
             //INICIALIZO CON LAS PROPIEDADES A LOS DATAGRIDVIEW
             foreach (Control item in this.Controls)
@@ -63,7 +58,7 @@ namespace CruceroGUI
             foreach (KeyValuePair<string,float> item in lista)
             {
                 this.dgvDestinosOrdenados.Rows.Add(item.Key, "$"+item.Value);
-                if (Viaje.esRegional(item.Key))
+                if (Viaje.EsRegional(item.Key))
                 {
                     gananciaRegionales += item.Value;
                 }else
@@ -81,7 +76,7 @@ namespace CruceroGUI
             this.dgvDestinosOrdenados.Rows.Add("Ganancia total a destinos regionales:", "$" + gananciaRegionales);
             this.dgvDestinosOrdenados.Rows.Add("Ganancia total a destinos extraregionales:", "$" + gananciaExtraRegionales);
             this.dgvDestinosOrdenados.Rows.Add("Ganancia total :","$" + (gananciaRegionales+ gananciaExtraRegionales));
-            Menu.aplicarNumerosFilas(this.dgvDestinosOrdenados);
+            Menu.AplicarNumerosFilas(this.dgvDestinosOrdenados);
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -93,7 +88,7 @@ namespace CruceroGUI
             Dictionary<string, int> lista = Historico.obtenerPasajerosConCantidadViajes();
             foreach (KeyValuePair<string, int> item in lista)
             {
-                Pasajero cliente = this.buscarPorDni(item.Key);
+                Pasajero cliente = Pasajero.BuscarPasajero(Menu.Clientes,item.Key);
                 if(cliente is not null)
                 {
                     this.dgvListaPasajeros.Rows.Add(item.Value,cliente.Pasaporte.NumeroDocumentoViaje,cliente.Nombre,
@@ -101,24 +96,9 @@ namespace CruceroGUI
                 }
                 
             }
-            Menu.aplicarNumerosFilas(this.dgvListaPasajeros);
+            Menu.AplicarNumerosFilas(this.dgvListaPasajeros);
         }
 
-        private Pasajero buscarPorDni(string dni)
-        {
-            Pasajero clienteBuscado = null;
-
-            foreach (Pasajero item in this.clientes)
-            {
-                if(item.NumeroDocumento == dni)
-                {
-                    clienteBuscado = item;
-                    break;
-                }
-            }
-
-            return clienteBuscado;
-        }
 
         private void rbHorasCrucero_CheckedChanged(object sender, EventArgs e)
         {
@@ -127,11 +107,21 @@ namespace CruceroGUI
             this.dgvListaHorasCrucero.Visible = true;
             this.dgvListaHorasCrucero.Rows.Clear();
             Dictionary<string, int> lista = Historico.obtenerCrucerosConHoras();
+            int cantidadPersonas = 0;
             foreach (KeyValuePair<string, int> item in lista)
             {
-                this.dgvListaHorasCrucero.Rows.Add(item.Key,item.Value, this.flota.obtenerEmbarcacionDeNombre(item.Key).Pasajeros.Count);
+                Crucero crucero = Flota.ObtenerEmbarcacionDeNombre(item.Key);
+                foreach (Viaje item2 in Menu.ListaViajes)
+                {
+                    cantidadPersonas = 0;
+                    if (crucero == item2)
+                    {
+                        cantidadPersonas += item2.CantidadPasajeros;
+                    }
             }
-            Menu.aplicarNumerosFilas(this.dgvListaPasajeros);
+                this.dgvListaHorasCrucero.Rows.Add(item.Key,item.Value, cantidadPersonas);
+            }
+            Menu.AplicarNumerosFilas(this.dgvListaPasajeros);
         }
 
         private void InformesHistoricosForm_Load(object sender, EventArgs e)

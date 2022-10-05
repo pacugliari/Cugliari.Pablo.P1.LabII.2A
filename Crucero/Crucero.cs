@@ -4,83 +4,79 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crucero
+namespace CruceroLOG
 {
     public class Crucero
     {
         private string matricula;
         private string nombre;
-        private int cantidadCamarotes;
+        private int totalDeCamarotes;
         private List<eSalones> salones;
-        private List<Pasajero> pasajeros;
+        //private List<Pasajero> pasajeros;
         private int cantidadCasinos;
         private float capacidadBodega;
+        private int cantidadCamarotesTurista;
         private int cantidadCamarotesPremium;
         private bool estaDisponible;
-        private int cantidadPasajerosPorCamarote;
+        private static int cantidadPasajerosPorCamarote;
         private int camarotesPremiumUsados;
         private int camarotesTuristaUsados;
         private float capacidadBodegaUsada;
 
+        static Crucero()
+        {
+            Crucero.cantidadPasajerosPorCamarote = 4;
+        }
 
-        public bool EstaDisponible { 
+        public bool EstaDisponible {
             set { this.estaDisponible = value; }
-            get { return this.estaDisponible; } 
+            get { return this.estaDisponible; }
         }
 
-        public string Matricula { get { return this.matricula; } }
         public string Nombre { get { return this.nombre; } }
-        public string CantidadSalones { get { return this.salones.Count.ToString(); } }
-        public string CantidadCasinos { get { return this.cantidadCasinos.ToString(); } }
+        public int CamarotesPremiumLibres { get { return this.cantidadCamarotesPremium - this.camarotesPremiumUsados; } }
+        public int CamarotesTuristaLibres { get { return this.cantidadCamarotesTurista - this.camarotesTuristaUsados; } }
+        public int CamarotesPremium{ get { return this.cantidadCamarotesPremium ; } }
+        public int CamarotesTurista{ get { return this.cantidadCamarotesTurista; } }
+        public float CapacidadBodegaLibre { get { return this.capacidadBodega-this.capacidadBodegaUsada; } }
+        public string CantidadPasajerosPorCamarote { get { return Crucero.cantidadPasajerosPorCamarote.ToString(); } }
+       // public int CantidadPasajeros { get { return this.pasajeros.Count; } }
+       /*
+        public Pasajero this[int index] { 
+            get {
+                Pasajero retorno = null;
+                if(index >= 0 && index < this.pasajeros.Count)
+                    retorno = this.pasajeros[index];
 
-        public int CamarotesPremiumUsados { get { return this.camarotesPremiumUsados; } }
-        public int CamarotesTuristaUsados { get { return this.camarotesTuristaUsados; } }
-
-        public float CapacidadBodega { get { return this.capacidadBodega; } }
-        public float CapacidadBodegaUsada { get { return this.capacidadBodegaUsada; } }
-        public string CantidadPasajerosPorCamarote { get { return this.cantidadPasajerosPorCamarote.ToString(); } }
-
-        public List<Pasajero> Pasajeros { get { return this.pasajeros; } }
-
-        public Pasajero obtenerPasajero(string numeroDocumentoViaje)
+                return retorno;
+            } 
+        }*/
+        public Crucero(Crucero cruceroCopia)
         {
-            Pasajero retorno = null;
-
-            foreach (Pasajero item in this.pasajeros)
-            {
-                if(item.Pasaporte.NumeroDocumentoViaje == numeroDocumentoViaje)
-                {
-                    retorno = item;
-                    break;
-                }
-            }
-
-            return retorno;
+            this.matricula = cruceroCopia.matricula;
+            this.nombre = cruceroCopia.nombre;
+            this.totalDeCamarotes = cruceroCopia.totalDeCamarotes;
+            this.salones = cruceroCopia.salones;
+            this.cantidadCasinos = cruceroCopia.cantidadCasinos;
+            this.capacidadBodega = cruceroCopia.capacidadBodega;
+            this.cantidadCamarotesTurista = cruceroCopia.cantidadCamarotesTurista;
+            this.cantidadCamarotesPremium = cruceroCopia.cantidadCamarotesPremium;
+            this.estaDisponible = cruceroCopia.estaDisponible;
+            this.camarotesPremiumUsados = cruceroCopia.camarotesPremiumUsados;
+            this.camarotesTuristaUsados = cruceroCopia.camarotesTuristaUsados;
+            this.capacidadBodegaUsada = cruceroCopia.capacidadBodegaUsada;
         }
 
-        public bool estaCompleto()
-        {
-            bool retorno = false;
 
-            if((this.camarotesPremiumUsados == this.CamarotesPremium() && this.camarotesTuristaUsados == this.CamarotesTurista()) 
-                && (this.capacidadBodegaUsada == this.capacidadBodega))
-            {
-                retorno = true;
-            }
-
-            return retorno;
-        }
-
-        public Crucero(string matricula,string nombre,int cantidadCamarotes,List<eSalones> salones,float capacidadBodega)
+        public Crucero(string matricula, string nombre, int cantidadCamarotes, List<eSalones> salones, float capacidadBodega)
         {
             this.matricula = matricula;
             this.nombre = nombre;
-            this.cantidadCamarotes = cantidadCamarotes;
+            this.totalDeCamarotes = cantidadCamarotes;
             this.salones = salones;
             this.cantidadCasinos = 0;
             this.estaDisponible = true;
-            this.cantidadPasajerosPorCamarote = 4;
-            this.pasajeros = new List<Pasajero>();
+            //this.pasajeros = new List<Pasajero>();
             this.camarotesPremiumUsados = 0;
             this.camarotesTuristaUsados = 0;
             this.capacidadBodegaUsada = 0;
@@ -93,51 +89,12 @@ namespace Crucero
 
             this.capacidadBodega = capacidadBodega;
 
-            this.cantidadCamarotesPremium = (int)(this.cantidadCamarotes * 0.35);
-       
+            this.cantidadCamarotesPremium = (int)(this.totalDeCamarotes * 0.35);
+            this.cantidadCamarotesTurista = this.totalDeCamarotes - this.cantidadCamarotesPremium;
+
         }
 
-        public void agregarPasajeros(List<Pasajero> viajeros)
-        {
-            int cantCamPremium = 0;
-            int cantCamTurista = 0;
-            float pesoUsado = 0;
-            Crucero.calcularCamarotes(viajeros, out cantCamTurista, out cantCamPremium);
-            pesoUsado = Equipaje.calcularPesoTotal(viajeros);
-            this.camarotesTuristaUsados += cantCamTurista;
-            this.camarotesPremiumUsados += cantCamPremium;
-            this.capacidadBodegaUsada += pesoUsado;
-            foreach (Pasajero item in viajeros)
-            {
-                this.pasajeros.Add(item);
-            }
-        }
-
-        public bool tieneElSalon(eSalones salon)
-        {
-            bool retorno = false;
-            if (this.salones.Contains(salon))
-                retorno = true;
-
-            return retorno;
-        }
-        public int CamarotesPremium()
-        {
-            return this.cantidadCamarotesPremium;
-        }
-
-        public int CamarotesTurista()
-        {
-            return this.cantidadCamarotes- this.cantidadCamarotesPremium;
-        }
-
-        public static explicit operator string(Crucero embarcacion)
-        {
-            return embarcacion.nombre;
-        }
-
-
-        private static int calcularCantidadCamarotes(int cantidadPasajeros)
+        private static int CalcularCantidadCamarotes(int cantidadPasajeros)
         {
             int retorno = 0;
 
@@ -153,7 +110,7 @@ namespace Crucero
             return retorno;
         }
 
-        public static void contarTiposPasajeros(List<Pasajero> listaViajeros, out int cantidadTuristas, out int cantidadPremium)
+        public static void ContarTiposPasajeros(List<Pasajero> listaViajeros, out int cantidadTuristas, out int cantidadPremium)
         {
             cantidadTuristas = 0;
             cantidadPremium = 0;
@@ -169,28 +126,110 @@ namespace Crucero
             }
         }
 
-        public static void calcularCamarotes(List<Pasajero> listaViajeros,out int cantidadCamarotesTurista,out int cantidadCamarotesPremium)
+        public static void CalcularCamarotes(List<Pasajero> listaViajeros, out int cantidadCamarotesTurista, out int cantidadCamarotesPremium)
         {
             int cantidadTuristas = 0;
             int cantidadPremium = 0;
 
-            Crucero.contarTiposPasajeros(listaViajeros,out cantidadTuristas,out cantidadPremium);
+            Crucero.ContarTiposPasajeros(listaViajeros, out cantidadTuristas, out cantidadPremium);
 
-            cantidadCamarotesTurista = Crucero.calcularCantidadCamarotes(cantidadTuristas);
-            cantidadCamarotesPremium = Crucero.calcularCantidadCamarotes(cantidadPremium);
+            cantidadCamarotesTurista = Crucero.CalcularCantidadCamarotes(cantidadTuristas);
+            cantidadCamarotesPremium = Crucero.CalcularCantidadCamarotes(cantidadPremium);
 
         }
 
-        public bool tieneEspacioPara(int cantidadCamarotesTurista,int cantidadCamarotesPremium,float pesoGrupoFamiliar)
+        public bool TieneEspacioPara(int cantidadCamarotesTurista, int cantidadCamarotesPremium, float pesoGrupoFamiliar)
         {
             bool retorno = false;
-            if((this.capacidadBodega-this.capacidadBodegaUsada) >= pesoGrupoFamiliar && 
-                (this.CamarotesPremium()-this.camarotesPremiumUsados) >= cantidadCamarotesPremium 
-                && (this.CamarotesTurista()-this.camarotesTuristaUsados) >= cantidadCamarotesTurista)
+            if ((this.capacidadBodega - this.capacidadBodegaUsada) >= pesoGrupoFamiliar &&
+                (this.cantidadCamarotesPremium- this.camarotesPremiumUsados) >= cantidadCamarotesPremium
+                && (this.cantidadCamarotesTurista - this.camarotesTuristaUsados) >= cantidadCamarotesTurista)
             {
                 retorno = true;
             }
 
+            return retorno;
+        }
+
+        public bool EstaCompleto()
+        {
+            bool retorno = false;
+
+            if((this.camarotesPremiumUsados == this.cantidadCamarotesPremium && this.camarotesTuristaUsados == this.cantidadCamarotesTurista) 
+                && (this.capacidadBodegaUsada == this.capacidadBodega))
+            {
+                retorno = true;
+            }
+
+            return retorno;
+        }
+        /*
+        public void AgregarPasajeros(List<Pasajero> clientes)
+        {
+            int cantCamPremium = 0;
+            int cantCamTurista = 0;
+            float pesoUsado = 0;
+            Crucero.CalcularCamarotes(clientes, out cantCamTurista, out cantCamPremium);
+            pesoUsado = Equipaje.calcularPesoTotal(clientes);
+            this.camarotesTuristaUsados += cantCamTurista;
+            this.camarotesPremiumUsados += cantCamPremium;
+            this.capacidadBodegaUsada += pesoUsado;
+            foreach (Pasajero item in clientes)
+            {
+                this.pasajeros.Add(item);
+            }
+        }*/
+
+        public void ActualizarDisponibilidad(int cantCamTurista,int cantCamPremium,float pesoUsado)
+        {
+            this.camarotesTuristaUsados += cantCamTurista;
+            this.camarotesPremiumUsados += cantCamPremium;
+            this.capacidadBodegaUsada += pesoUsado;
+        }
+
+        public bool TieneElSalon(eSalones salon)
+        {
+            bool retorno = false;
+            if (this.salones.Contains(salon))
+                retorno = true;
+
+            return retorno;
+        }
+
+        public static explicit operator string(Crucero embarcacion)
+        {
+            return embarcacion.nombre;
+        }
+
+        public static bool operator ==(Crucero c1,Crucero c2)
+        {
+            return (c1.nombre == c2.nombre);
+        }
+
+        public static bool operator !=(Crucero c1, Crucero c2)
+        {
+            return !(c1 == c2);
+        }
+
+        public override string ToString()
+        {
+            return $"{this.matricula}-{this.nombre}-{this.totalDeCamarotes}-{this.salones.Count}--" +
+                $"{this.cantidadCasinos}-{this.capacidadBodega}-{this.cantidadCamarotesTurista}-{this.cantidadCamarotesPremium}-" +
+                $"{this.CantidadPasajerosPorCamarote}-{this.camarotesPremiumUsados}-{this.camarotesTuristaUsados}-{this.capacidadBodegaUsada}";
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();  
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool retorno = false;
+            if (obj is Crucero)
+            {
+                retorno = this == ((Crucero)obj);
+            }
             return retorno;
         }
 

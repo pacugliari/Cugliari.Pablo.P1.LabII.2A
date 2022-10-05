@@ -7,18 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Crucero;
+using CruceroLOG;
 
 namespace CruceroGUI
 {
     public partial class InformesForm : Form
     {
-        private List<Viaje> listaViajes;
-        private Crucero.Crucero cruceroSeleccionado;
-        public InformesForm(List<Viaje> listaViajes)
+        private Viaje viajeSeleccionado;
+        private Crucero cruceroSeleccionado;
+
+        public InformesForm()
         {
             InitializeComponent();
-            this.listaViajes = listaViajes;
             this.dgvListaViajes.AllowUserToAddRows = false;
             this.dgvListaViajes.AllowUserToDeleteRows = false;
             this.dgvListaPasajeros.AllowUserToAddRows = false;
@@ -28,30 +28,32 @@ namespace CruceroGUI
 
         private void dgvListaViajes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Viaje viaje;
             this.dgvListaPasajeros.Rows.Clear();
             if (this.dgvListaViajes.Rows.Count > 0)
             {
                 this.dgvListaViajes.CurrentRow.Selected = true;
-                Menu.obtenerDatosDeDataGridView(this.dgvListaViajes, out this.cruceroSeleccionado, out viaje);
-                this.txtMatricula.Text = this.cruceroSeleccionado.Matricula;
-                this.txtNombre.Text = this.cruceroSeleccionado.Nombre;
-                this.txtCantPremium.Text = this.cruceroSeleccionado.CamarotesPremium().ToString();
-                this.txtCantPremiumDisponbiles.Text = (this.cruceroSeleccionado.CamarotesPremium() - this.cruceroSeleccionado.CamarotesPremiumUsados).ToString();
-                this.txtCantTurista.Text = this.cruceroSeleccionado.CamarotesTurista().ToString();
-                this.txtCantTuristaDisponibles.Text = (this.cruceroSeleccionado.CamarotesTurista() - this.cruceroSeleccionado.CamarotesTuristaUsados).ToString();
-                this.txtCapacidadBodegaLibre.Text = (this.cruceroSeleccionado.CapacidadBodega - this.cruceroSeleccionado.CapacidadBodegaUsada).ToString();
-                this.txtCantSalones.Text = this.cruceroSeleccionado.CantidadSalones;
-                this.txtCantCasinos.Text = this.cruceroSeleccionado.CantidadCasinos;
-                this.txtCantBodega.Text = this.cruceroSeleccionado.CapacidadBodega.ToString("#.##");
-                this.txtCantCamarote.Text = this.cruceroSeleccionado.CantidadPasajerosPorCamarote;
+                Menu.obtenerDatosDeDataGridView(this.dgvListaViajes, out cruceroSeleccionado, out this.viajeSeleccionado);
+                string[] estadoCrucero = this.viajeSeleccionado.Crucero.ToString().Split("-");
 
-                if (this.cruceroSeleccionado.estaCompleto())
+                this.txtMatricula.Text = estadoCrucero[0];
+                this.txtNombre.Text = estadoCrucero[1];
+                this.txtCantPremium.Text = this.viajeSeleccionado.Crucero.CamarotesPremium.ToString();
+                this.txtCantPremiumDisponbiles.Text = this.viajeSeleccionado.Crucero.CamarotesPremiumLibres.ToString();
+                this.txtCantTurista.Text = this.viajeSeleccionado.Crucero.CamarotesTurista.ToString();
+                this.txtCantTuristaDisponibles.Text = this.viajeSeleccionado.Crucero.CamarotesTuristaLibres.ToString();
+                this.txtCapacidadBodegaLibre.Text = this.viajeSeleccionado.Crucero.CapacidadBodegaLibre.ToString();
+                this.txtCantSalones.Text = estadoCrucero[3];
+                this.txtCantCasinos.Text = estadoCrucero[5];
+                this.txtCantBodega.Text = estadoCrucero[6];
+                this.txtCantCamarote.Text = estadoCrucero[9];
+
+
+                if (this.viajeSeleccionado.Crucero.EstaCompleto())
                 {
                     this.txtEstado.Text = "Completo";
                     this.txtEstado.BackColor = Color.Yellow;
                 }
-                else if (!this.cruceroSeleccionado.EstaDisponible)
+                else if (!this.viajeSeleccionado.Crucero.EstaDisponible)
                 {
                     this.txtEstado.Text = "En viaje";
                     this.txtEstado.BackColor = Color.Red;
@@ -62,44 +64,46 @@ namespace CruceroGUI
                     this.txtEstado.BackColor = Color.Lime;
                 }
 
-                this.cbGimnasio.Checked = this.cruceroSeleccionado.tieneElSalon(eSalones.Gimnasio);
-                this.cbPiscina.Checked = this.cruceroSeleccionado.tieneElSalon(eSalones.Piscina);
-                this.cbSpa.Checked = this.cruceroSeleccionado.tieneElSalon(eSalones.Spa);
-                this.cbBar.Checked = this.cruceroSeleccionado.tieneElSalon(eSalones.Bar);
-                this.cbTeatro.Checked = this.cruceroSeleccionado.tieneElSalon(eSalones.Teatro);
-                this.cbCine.Checked = this.cruceroSeleccionado.tieneElSalon(eSalones.Cine);
-                this.cbGaleria.Checked = this.cruceroSeleccionado.tieneElSalon(eSalones.Galeria);
-                this.cbDiscoteca.Checked = this.cruceroSeleccionado.tieneElSalon(eSalones.Discoteca);
-                this.cbCasino.Checked  = this.cruceroSeleccionado.tieneElSalon(eSalones.Casino);
-                this.cbComedor.Checked = this.cruceroSeleccionado.tieneElSalon(eSalones.Comedor);
-
-                foreach (Pasajero item in this.cruceroSeleccionado.Pasajeros)
+                this.cbGimnasio.Checked = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Gimnasio);
+                this.cbPiscina.Checked = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Piscina);
+                this.cbSpa.Checked = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Spa);
+                this.cbBar.Checked = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Bar);
+                this.cbTeatro.Checked = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Teatro);
+                this.cbCine.Checked = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Cine);
+                this.cbGaleria.Checked = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Galeria);
+                this.cbDiscoteca.Checked = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Discoteca);
+                this.cbCasino.Checked  = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Casino);
+                this.cbComedor.Checked = this.viajeSeleccionado.Crucero.TieneElSalon(eSalones.Comedor);
+                /*
+                for (int i = 0; i < this.cruceroSeleccionado.CantidadPasajeros; i++)
                 {
-                    this.dgvListaPasajeros.Rows.Add(item.Pasaporte.NumeroDocumentoViaje,item.Nombre,item.Apellido,item.Edad);
+                    this.dgvListaPasajeros.Rows.Add(this.cruceroSeleccionado[i].Pasaporte.NumeroDocumentoViaje,
+                        this.cruceroSeleccionado[i].Nombre, this.cruceroSeleccionado[i].Apellido, this.cruceroSeleccionado[i].Edad);
+                }*/
+
+                for (int i = 0; i < this.viajeSeleccionado.CantidadPasajeros; i++)
+                {
+                    this.dgvListaPasajeros.Rows.Add(this.viajeSeleccionado[i].Pasaporte.NumeroDocumentoViaje,
+                        this.viajeSeleccionado[i].Nombre, this.viajeSeleccionado[i].Apellido, this.viajeSeleccionado[i].Edad);
                 }
             }
         }
 
         private void InformesForm_Load(object sender, EventArgs e)
         {
-            Menu.vaciarFormulario(this);
-            this.dgvListaViajes.Rows.Clear();
-            foreach (Viaje item in this.listaViajes)
-            {
-                this.dgvListaViajes.Rows.Add(item.CiudadPartida, item.CiudadDestino, item.Crucero, item.FechaInicioViaje,
-                                    item.CantidadCamarotesPremium, item.CantidadCamarotesTurista,
-                                    item.CostoPremium, item.CostoTurista, item.DuracionViaje);
-            }
+            Menu.VaciarFormulario(this);
+            Menu.CargarListaViajesEn(dgvListaViajes);
+            
         }
 
         private void dgvListaViajes_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-            Menu.aplicarNumerosFilas(this.dgvListaViajes);
+            Menu.AplicarNumerosFilas(this.dgvListaViajes);
         }
 
         private void dgvListaPasajeros_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-            Menu.aplicarNumerosFilas(this.dgvListaPasajeros);
+            Menu.AplicarNumerosFilas(this.dgvListaPasajeros);
         }
 
         private void dgvListaPasajeros_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -107,7 +111,8 @@ namespace CruceroGUI
             
             if(this.dgvListaPasajeros.RowCount > 0)
             {
-                Pasajero pasajero = this.cruceroSeleccionado.obtenerPasajero(this.dgvListaPasajeros.CurrentRow.Cells[0].Value.ToString());
+                //Pasajero pasajero = this.cruceroSeleccionado.obtenerPasajero();
+                Pasajero pasajero = Pasajero.BuscarPasajero(this.viajeSeleccionado, this.dgvListaPasajeros.CurrentRow.Cells[0].Value.ToString());
                 if(pasajero is not null)
                 {
                     this.dgvListaPasajeros.CurrentRow.Selected = true;

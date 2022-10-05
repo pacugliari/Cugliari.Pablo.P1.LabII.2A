@@ -7,29 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Crucero;
+using CruceroLOG;
 
 namespace CruceroGUI
 {
     public partial class VentaViajesForm : Form 
     {
-        private List<Viaje> listaViajes;
-        private Flota flota;
-        private List<Pasajero> listaViajeros;
-        private List<Pasajero> clientes;
+        private List<Pasajero> grupoFamiliar;
         private float recaudacion;
 
         public VentaViajesForm()
         {
             this.InitializeComponent();
-            this.listaViajeros = new List<Pasajero>();
-        }
-        public VentaViajesForm(List<Viaje> listaViajes,Flota flota,List<Pasajero> clientes): this()
-        {
-            
-            this.listaViajes = listaViajes;
-            this.flota = flota; 
-            this.clientes = clientes;
+            this.grupoFamiliar = new List<Pasajero>();
             this.recaudacion = 0;
 
             this.nudNumeroDocumento.Controls[0].Visible = false;
@@ -73,7 +63,7 @@ namespace CruceroGUI
             this.dgvListaViajes.Rows.Clear();
             this.dgvGrupoFamiliar.Rows.Clear();
 
-            foreach (Pasajero item in this.listaViajeros)
+            foreach (Pasajero item in this.grupoFamiliar)
             {
                 this.dgvGrupoFamiliar.Rows.Add(item.Nombre, item.Apellido);
             }
@@ -99,14 +89,14 @@ namespace CruceroGUI
             Equipaje equipaje = new Equipaje(tieneBolso, cantidadValijas);
             bool esPremium = this.cbPremium.Checked;
             bool darAlta = true;
-            Pasajero pasajeroNuevo = Menu.buscarCliente(numeroDocumento.ToString());
+            Pasajero pasajeroNuevo = Pasajero.BuscarPasajero(Menu.Clientes,numeroDocumento.ToString());
 
             sexo = this.cbSexo.Text == "Femenino" ? 'F' : 'M';
 
             
-            if (pasajeroNuevo is null)
+            if (pasajeroNuevo is null)//NO ESTA COMO CLIENTE
             {
-                if (estanTodosLosCamposCompletos())
+                if (estanTodosLosCamposCompletos())//VERIFICO QUE CARGUE TODOS LOS DATOS
                 {
                     pasajeroNuevo = new Pasajero(nombre, apellido, sexo, nacionalidad, fechaNacimiento, numeroDocumento, domicilio, ciudad,
                                        numeroDocumentoViaje, fechaEmision, fechaVencimiento, tipoPasaporte, codigoPaisExterior, autoridadExpendidora, equipaje, esPremium);
@@ -118,7 +108,7 @@ namespace CruceroGUI
                 }
                    
             }
-            else if (pasajeroNuevo is not null && this.cbSeleccionarCliente.Text == "Vacio")
+            else if (pasajeroNuevo is not null && this.cbSeleccionarCliente.Text == "Vacio")//CARGO LOS DATOS PERO ESTA COMO CLIENTE
             {
                 MessageBox.Show("El numero de documento ya se encuentra dado de alta como cliente", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.cbSeleccionarCliente.Focus();
@@ -126,11 +116,11 @@ namespace CruceroGUI
             }
 
 
-            if (!this.listaViajeros.Contains(pasajeroNuevo) && darAlta )
+            if (!this.grupoFamiliar.Contains(pasajeroNuevo) && darAlta )//CARGO EN EL GRUPO FAMILIAR SI NO ESTA YA DADO DE ALTA 
             {
-                this.habiliarEstadoDatosPasajero(true);
+                this.ActivarIngresoDatosPasajero(true);
                 this.VentaViajesForm_Load(sender, e);
-                this.listaViajeros.Add(pasajeroNuevo);
+                this.grupoFamiliar.Add(pasajeroNuevo);
                 this.dgvGrupoFamiliar.Rows.Add(pasajeroNuevo.Nombre, pasajeroNuevo.Apellido);
             }
 
@@ -157,6 +147,22 @@ namespace CruceroGUI
             {
                 retorno = true;
             }
+            foreach (Control item in this.gbDatosPasajero.Controls)
+            {
+                if(item.Text == "")
+                {
+
+                    item.BackColor = Color.Red;
+                }
+            }
+            foreach (Control item in this.gbDatosPasaporte.Controls)
+            {
+                if (item.Text == "")
+                {
+                    item.BackColor = Color.Red;
+                }
+            }
+
             return retorno;
         }
 
@@ -187,7 +193,7 @@ namespace CruceroGUI
 
             if (this.dgvGrupoFamiliar.Rows.Count > 0)
             {
-                this.listaViajeros.RemoveAt(this.dgvGrupoFamiliar.CurrentRow.Index);
+                this.grupoFamiliar.RemoveAt(this.dgvGrupoFamiliar.CurrentRow.Index);
                 this.dgvGrupoFamiliar.Rows.Remove(this.dgvGrupoFamiliar.CurrentRow);
             }
 
@@ -229,24 +235,22 @@ namespace CruceroGUI
             this.dgvListaViajes.Rows.Clear();
             if (this.dgvGrupoFamiliar.Rows.Count > 0)
             {
-                List<Crucero.Crucero> listaFiltradaDeCruceros = Flota.filtrarFlota(this.flota, this.obtenerNecesidades(), this.listaViajeros);
-                List<Viaje> listaFiltradaDeViajes = Viaje.filtrarViajes(this.listaViajes, listaFiltradaDeCruceros);
+                List<Crucero> listaFiltradaDeCruceros = Flota.FiltrarFlota(this.obtenerNecesidades(), this.grupoFamiliar);
+                List<Viaje> listaFiltradaDeViajes = Viaje.FiltrarViajes(Menu.ListaViajes, listaFiltradaDeCruceros);
                 foreach (Viaje item in listaFiltradaDeViajes)
                 {
-                    this.dgvListaViajes.Rows.Add(item.CiudadPartida, item.CiudadDestino, item.Crucero, item.FechaInicioViaje,
-                        item.CantidadCamarotesPremium, item.CantidadCamarotesTurista,
-                        item.CostoPremium, item.CostoTurista, item.DuracionViaje);
 
+                    this.dgvListaViajes.Rows.Add(item.ToString().Split("-"));
                 }
             }
         }
 
         private void dgvListaViajes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Crucero.Crucero crucero;
+            Crucero crucero;
             Viaje viaje;
-            StringBuilder textoRepetido = new StringBuilder();
-            textoRepetido.AppendLine("Los siguientes pasajeros ya se encuentran en el viaje: ");
+            StringBuilder mensajeViajerosRepetidos = new StringBuilder();
+            mensajeViajerosRepetidos.AppendLine("Los siguientes pasajeros ya se encuentran en el viaje: ");
             bool hayRepetidos = false;
 
             if (this.dgvListaViajes.Rows.Count > 0)
@@ -254,25 +258,37 @@ namespace CruceroGUI
                 this.dgvListaViajes.CurrentRow.Selected = true;
                 this.btnVenderViaje.Enabled = true;
                 Menu.obtenerDatosDeDataGridView(this.dgvListaViajes, out crucero, out viaje);
-                foreach (Pasajero item in crucero.Pasajeros)
+                /*for (int i = 0; i < crucero.CantidadPasajeros; i++)
                 {
-                    if (this.listaViajeros.Contains(item))
+                    if (this.grupoFamiliar.Contains(crucero[i]))//VERIFICO QUE LOS VIAJEROS NO SE ENCUENTREN EN EL VIAJE
                     {
                         hayRepetidos = true;
-                        this.dgvGrupoFamiliar.Rows.RemoveAt(this.listaViajeros.IndexOf(item));
-                        this.listaViajeros.Remove(item);
-                        textoRepetido.AppendLine($"DNI:{item.NumeroDocumento}-Nombre:{item.Nombre}-Apellido:{item.Apellido}");
-                    }  
+                        this.dgvGrupoFamiliar.Rows.RemoveAt(this.grupoFamiliar.IndexOf(crucero[i]));
+                        this.grupoFamiliar.Remove(crucero[i]);
+                        mensajeViajerosRepetidos.AppendLine($"DNI:{crucero[i].NumeroDocumento}-Nombre:{crucero[i].Nombre}" +
+                            $"-Apellido:{crucero[i].Apellido}");
+                    }
+                }*/
+                for (int i = 0; i < viaje.CantidadPasajeros; i++)
+                {
+                    if (this.grupoFamiliar.Contains(viaje[i]))//VERIFICO QUE LOS VIAJEROS NO SE ENCUENTREN EN EL VIAJE
+                    {
+                        hayRepetidos = true;
+                        this.dgvGrupoFamiliar.Rows.RemoveAt(this.grupoFamiliar.IndexOf(viaje[i]));
+                        this.grupoFamiliar.Remove(viaje[i]);
+                        mensajeViajerosRepetidos.AppendLine($"DNI:{viaje[i].NumeroDocumento}-Nombre:{viaje[i].Nombre}" +
+                            $"-Apellido:{viaje[i].Apellido}");
+                    }
                 }
                 if (hayRepetidos)
                 {
-                    MessageBox.Show(textoRepetido.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(mensajeViajerosRepetidos.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                if (this.listaViajeros.Count == 0)
+                if (this.grupoFamiliar.Count == 0)//REINICIO EL FORMULARIO SI ME QUEDO SIN PASAJEROS
                 {
-                    Menu.vaciarFormulario(this);
+                    Menu.VaciarFormulario(this);
 
-                }else
+                }else // ACTUALIZO EL PRECIO
                     this.actualizar();
             }
             else
@@ -281,38 +297,29 @@ namespace CruceroGUI
 
         private void btnVenderViaje_Click(object sender, EventArgs e)
         {
-            Crucero.Crucero crucero;
+            Crucero crucero;
             Viaje viaje;
-            List<Pasajero> filtrada = new List<Pasajero>();
 
             if (this.dgvListaViajes.Rows.Count > 0)
             {
                 Menu.obtenerDatosDeDataGridView(this.dgvListaViajes,out crucero,out viaje);
                 if (crucero is not null)
                 {
-                    
-                    foreach (Pasajero item in this.listaViajeros)
-                    {
-                        if (!crucero.Pasajeros.Contains(item))
-                        {
-                            filtrada.Add(item);
-                        }
-                    }
-                    foreach (Pasajero item in filtrada)
+                    foreach (Pasajero item in this.grupoFamiliar)
                     {
                         if (Historico.PasajerosConCantidadViajes.ContainsKey(item.NumeroDocumento))
                             Historico.PasajerosConCantidadViajes[item.NumeroDocumento]++;
                         else
                             Historico.PasajerosConCantidadViajes.Add(item.NumeroDocumento, 1);
 
-                        if (!this.clientes.Contains(item))
+                        if (!Menu.Clientes.Contains(item))
                         {
                             this.cbSeleccionarCliente.Items.Add(item.NumeroDocumento + "," + item.Nombre + "," + item.Apellido);
                         }
                     }
 
-                        crucero.agregarPasajeros(filtrada);
-                        this.clientes.AddRange(filtrada);
+                        viaje.AgregarPasajeros(this.grupoFamiliar);
+                        Menu.Clientes.AddRange(this.grupoFamiliar);
 
                         Historico.DestinosConCantidadViajes[viaje.CiudadDestino]++;
                         Historico.CrucerosConHoras[crucero.Nombre] = viaje.DuracionViaje;
@@ -325,7 +332,7 @@ namespace CruceroGUI
                 }
                     
             }
-            this.listaViajeros.Clear();
+            this.grupoFamiliar.Clear();
             this.btnVenderViaje.Enabled = false;
         }
 
@@ -334,13 +341,13 @@ namespace CruceroGUI
         private void actualizar()
         {
             Viaje viaje;
-            Crucero.Crucero crucero;
+            Crucero crucero;
             float costo=0;
 
             Menu.obtenerDatosDeDataGridView(this.dgvListaViajes, out crucero, out viaje);
             if (viaje is not null)
             {
-                costo = viaje.calcularCostos(this.listaViajeros);
+                costo = viaje.CalcularCostos(this.grupoFamiliar);
                 this.txtCostoFinalBruto.Text = "$"+ costo.ToString(".##");
                 this.txtNeto.Text = "$" + (costo*1.21).ToString(".##");
                 this.recaudacion = (float)(costo * 1.21);
@@ -349,12 +356,12 @@ namespace CruceroGUI
 
         private void dgvGrupoFamiliar_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-            Menu.aplicarNumerosFilas(this.dgvGrupoFamiliar);
+            Menu.AplicarNumerosFilas(this.dgvGrupoFamiliar);
         }
 
         private void dgvListaViajes_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-            Menu.aplicarNumerosFilas(this.dgvListaViajes);
+            Menu.AplicarNumerosFilas(this.dgvListaViajes);
         }
 
         private void VentaViajesForm_Load(object sender, EventArgs e)
@@ -383,26 +390,28 @@ namespace CruceroGUI
             //DATOS PERSONA
             if(pasajero is not null)
             {
-                this.txtNombre.Text = pasajero.Nombre;
-                this.txtApellido.Text = pasajero.Apellido;
-                this.cbSexo.Text = pasajero.Sexo;
-                this.cbNacionalidad.Text = pasajero.Nacionalidad;
-                this.dtpFechaNacimiento.Text = pasajero.FechaNacimiento;
-                this.nudNumeroDocumento.Text = pasajero.NumeroDocumento;
-                this.txtDomicilio.Text = pasajero.Domicilio;
-                this.txtCiudad.Text = pasajero.LugarNacimiento;
+                string[] estadoPasajero = pasajero.ToString().Split("-");
+                string[] estadoPasaporte = pasajero.Pasaporte.ToString().Split("-");
+                this.txtNombre.Text = estadoPasajero[0];
+                this.txtApellido.Text = estadoPasajero[1];
+                this.cbSexo.Text = estadoPasajero[2];
+                this.cbNacionalidad.Text = estadoPasajero[3];
+                this.dtpFechaNacimiento.Text = estadoPasajero[4];
+                this.nudNumeroDocumento.Text = estadoPasajero[5];
+                this.txtDomicilio.Text = estadoPasajero[6];
+                this.txtCiudad.Text = estadoPasajero[7];
                 //DATOS PASAPORTE
-                this.txtPasaporte.Text = pasajero.Pasaporte.NumeroDocumentoViaje;
-                this.dtpFechaEmision.Value = pasajero.Pasaporte.FechaEmision;
-                this.dtpFechaVencimiento.Value = pasajero.Pasaporte.FechaVencimiento;
-                this.cbTipoPasaporte.Text = pasajero.Pasaporte.TipoPasaporte;
-                this.txtCodigoExterior.Text = pasajero.Pasaporte.CodigoPaisExterior;
-                this.txtExpendidora.Text = pasajero.Pasaporte.AutoridadExpedidora;
+                this.txtPasaporte.Text = estadoPasaporte[0];
+                this.dtpFechaEmision.Value = DateTime.Parse(estadoPasaporte[1]);
+                this.dtpFechaVencimiento.Value = DateTime.Parse(estadoPasaporte[2]);
+                this.cbTipoPasaporte.Text = estadoPasaporte[3];
+                this.txtCodigoExterior.Text = estadoPasaporte[4];
+                this.txtExpendidora.Text = estadoPasaporte[5];
             }
 
         }
 
-        private void habiliarEstadoDatosPasajero(bool estado)
+        protected void ActivarIngresoDatosPasajero(bool estado)
         {
             foreach (Control item in this.gbDatosPasajero.Controls)
             {
@@ -417,13 +426,13 @@ namespace CruceroGUI
 
         private void cbSeleccionarCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string texto = this.cbSeleccionarCliente.SelectedItem.ToString();
-            if (texto != "Vacio")
+            string numeroDocumento = this.cbSeleccionarCliente.SelectedItem.ToString();
+            if (numeroDocumento != "Vacio")
             {
-                texto = texto.Split(',')[0].ToString();
-                Pasajero pasajero = Menu.buscarCliente(texto);
+                numeroDocumento = numeroDocumento.Split(',')[0].ToString();
+                Pasajero pasajero = Pasajero.BuscarPasajero(Menu.Clientes,numeroDocumento);
                 this.cargarDatosPasajero(pasajero);
-                this.habiliarEstadoDatosPasajero(false);
+                this.ActivarIngresoDatosPasajero(false);
             }
             else
             {
@@ -449,7 +458,7 @@ namespace CruceroGUI
                         ((ComboBox)item).SelectedIndex = 0;
                     }
                 }
-                this.habiliarEstadoDatosPasajero(true);
+                this.ActivarIngresoDatosPasajero(true);
             }
 
 
@@ -458,7 +467,72 @@ namespace CruceroGUI
 
         private void VentaViajesForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.listaViajeros.Clear();
+            this.grupoFamiliar.Clear();
+        }
+
+        private void txtNombre_Click(object sender, EventArgs e)
+        {
+            this.txtNombre.BackColor = Color.White;
+        }
+
+        private void txtApellido_Click(object sender, EventArgs e)
+        {
+            this.txtApellido.BackColor = Color.White;
+        }
+
+        private void nudNumeroDocumento_Click(object sender, EventArgs e)
+        {
+            this.nudNumeroDocumento.BackColor = Color.White;
+        }
+
+        private void txtCiudad_Click(object sender, EventArgs e)
+        {
+            this.txtCiudad.BackColor = Color.White;
+        }
+
+        private void txtDomicilio_Click(object sender, EventArgs e)
+        {
+            this.txtDomicilio.BackColor = Color.White;
+        }
+
+        private void cbSexo_Click(object sender, EventArgs e)
+        {
+            this.cbSexo.BackColor = Color.White;
+        }
+
+        private void cbNacionalidad_Click(object sender, EventArgs e)
+        {
+            this.cbNacionalidad.BackColor = Color.White;
+        }
+
+        private void dtpFechaNacimiento_ValueChanged(object sender, EventArgs e)
+        {
+            this.dtpFechaNacimiento.BackColor = Color.White;
+        }
+
+        private void txtPasaporte_Click(object sender, EventArgs e)
+        {
+            this.txtPasaporte.BackColor = Color.White;
+        }
+
+        private void dtpFechaVencimiento_ValueChanged(object sender, EventArgs e)
+        {
+            this.dtpFechaVencimiento.BackColor = Color.White;
+        }
+
+        private void cbTipoPasaporte_Click(object sender, EventArgs e)
+        {
+            this.cbTipoPasaporte.BackColor = Color.White;
+        }
+
+        private void txtCodigoExterior_Click(object sender, EventArgs e)
+        {
+            this.txtCodigoExterior.BackColor = Color.White;
+        }
+
+        private void txtExpendidora_Click(object sender, EventArgs e)
+        {
+            this.txtExpendidora.BackColor = Color.White;
         }
     }
 }

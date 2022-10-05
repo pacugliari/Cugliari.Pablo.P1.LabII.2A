@@ -136,6 +136,7 @@ namespace CruceroGUI
             // 
             // comboBoxCrucero
             // 
+            this.comboBoxCrucero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCrucero.FormattingEnabled = true;
             this.comboBoxCrucero.Location = new System.Drawing.Point(173, 94);
             this.comboBoxCrucero.Name = "comboBoxCrucero";
@@ -153,6 +154,7 @@ namespace CruceroGUI
             // 
             // comboBoxCiudadDestino
             // 
+            this.comboBoxCiudadDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCiudadDestino.FormattingEnabled = true;
             this.comboBoxCiudadDestino.Location = new System.Drawing.Point(173, 59);
             this.comboBoxCiudadDestino.Name = "comboBoxCiudadDestino";
@@ -385,6 +387,7 @@ namespace CruceroGUI
             this.ClientSize = new System.Drawing.Size(993, 458);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.MinimumSize = new System.Drawing.Size(1011, 505);
             this.Name = "ViajesForm";
             this.Text = "Viajes";
             this.Load += new System.EventHandler(this.ViajesForm_Load);
